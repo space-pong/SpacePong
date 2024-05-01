@@ -11,8 +11,8 @@ body {
 
 h1 {
   position: absolute;
-  color: white;
-  left: 30px;
+  color: rgb(255, 255, 255);
+  left: 50px;
   top: 10px;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
@@ -20,5 +20,8 @@ h1 {
   font-size: 48px;
   line-height: 59px;
   letter-spacing: 0.14em;
+}
+
+.overlay {
   mix-blend-mode: overlay;
 }
