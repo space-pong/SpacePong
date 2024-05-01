@@ -4,19 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    .background-image {
-      background-image: url('./earth-bg.png'); /* 이미지 URL을 'your-image-url.jpg' 부분에 입력하세요 */
-      background-size: cover; /* 이미지가 div를 전체적으로 커버하도록 설정 */
-      background-position: center; /* 이미지가 중앙에 위치하도록 설정 */
-      height: 100vh;
-      display: flex;
-      align-items: center; /* 세로 중앙 정렬 */
-      justify-content: center; /* 가로 중앙 정렬 */
-    }
     
+    
+
+    .glass {
+      flex-direction: row;
+      display: flex;
+      width: calc(100% - 100px);
+      height: calc(100% - 100px);
+      margin: 50px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      backdrop-filter: blur(25px);
+      border-radius: 20px;
+      border:2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
     .inner-box {
       box-sizing: border-box;
 
@@ -29,18 +40,20 @@
       box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(25px);
       /* Note: backdrop-filter has minimal browser support */
-      border: 3px solid;
-      border-radius: 30px;
-      
+      border-radius: 20px;
+      border: 3px solid transparent; /* 테두리 두께 설정 */
+      background-image: linear-gradient(#ffffff00, #fff), linear-gradient(to right, #231557 0%, #44107A 29%, #FF1361 67%, #FFF800 100%);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
     }
 
   </style>
 </head>
 <body>
-  <div class="container-fluid bg-primary text-white background-image">
-    <div class="inner-box">
+  <div class="glass">
+    <h1>SPACE PONG</h1>
 
-    </div>
+
   </div>
 
 </body>
