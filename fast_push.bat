@@ -8,5 +8,5 @@ git status
 set /p VAL="Commit and push the changes? [yes(y) / no]: "
 if "%VAL%"=="y" (
 	git commit -m "Update: %date%"
-	git push
+	git push --set-upstream origin jeekpark/practice/all
 )
