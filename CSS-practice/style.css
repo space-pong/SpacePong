@@ -22,6 +22,15 @@ h1 {
   letter-spacing: 0.14em;
 }
 
-.overlay {
-  mix-blend-mode: overlay;
+.glass {
+  flex-direction: row;
+  display: flex;
+  width: calc(100% - 100px);
+  height: calc(100% - 100px);
+  margin: 50px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border:2px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
