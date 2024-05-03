@@ -1,0 +1,36 @@
+body {
+  background-image: url('./earth-bg.png'); /* 이미지 URL을 'your-image-url.jpg' 부분에 입력하세요 */
+  background-size: cover; /* 이미지가 div를 전체적으로 커버하도록 설정 */
+  background-position: center; /* 이미지가 중앙에 위치하도록 설정 */
+  height: 100vh;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+}
+
+
+h1 {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  left: 50px;
+  top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 59px;
+  letter-spacing: 0.14em;
+}
+
+.glass {
+  flex-direction: row;
+  display: flex;
+  width: calc(100% - 100px);
+  height: calc(100% - 100px);
+  margin: 50px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border:2px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}

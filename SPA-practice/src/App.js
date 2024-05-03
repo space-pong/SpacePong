@@ -1,5 +1,5 @@
 import Component from './core/Component.js';
-import CounterPage from './pages/CounterPage.js';
+import SpacePongPage from './pages/SpacePongPage.js';
 
 export default class App extends Component {
   template() {
@@ -12,7 +12,7 @@ export default class App extends Component {
     const $counterApp = this.$target.querySelector(
       '[data-component="counter-app"]'
     );
-    new CounterPage($counterApp);
+    new SpacePongPage($counterApp);
   }
 }
 

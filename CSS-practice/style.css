@@ -1,8 +1,8 @@
 body {
-  background-image: url('./earth-bg.png'); /* 이미지 URL을 'your-image-url.jpg' 부분에 입력하세요 */
+  background-image: url('assets/earth-bg.png'); /* 이미지 URL을 'your-image-url.jpg' 부분에 입력하세요 */
   background-size: cover; /* 이미지가 div를 전체적으로 커버하도록 설정 */
   background-position: center; /* 이미지가 중앙에 위치하도록 설정 */
-  height: 100vh;
+  height: 98.6vh;
   display: flex;
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
@@ -20,6 +20,7 @@ h1 {
   font-size: 48px;
   line-height: 59px;
   letter-spacing: 0.14em;
+  mix-blend-mode: overlay;
 }
 
 .glass {
@@ -33,4 +34,9 @@ h1 {
   border-radius: 20px;
   border:2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.moon {
+  margin-top: 250px;
+  margin-left: 150px;
 }
