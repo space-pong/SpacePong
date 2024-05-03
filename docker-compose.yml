@@ -1,0 +1,41 @@
+name: space-pong
+version: '3.8'
+
+services:
+  frontend:
+    build: # 도커 이미지 빌드를 위한 Dockerfile의 경로
+      context: ./containers/frontend
+    ports: # 사용할 포트 번호 ([Host port]:[Container port])
+      - "443:443"
+    restart: always
+    # depends_on: # 먼저 실행되고 있어야 하는 의존 서비스(컨테이너)
+    #   - backend
+    networks: # 연결될 도커 네트워크
+      - space-pong-net
+
+  # backend:
+  #   build:
+  #     context: ./containers/backend
+  #   ports:
+  #     - "9000:9000"
+  #   restart: always
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - space-pong-net
+
+  db:
+    build:
+      context: ./containers/db
+    ports:
+      - "5432:5432"
+    restart: always
+    env_file: 
+      - ./.env
+    networks:
+      - space-pong-net
+
+networks:
+  space-pong-net:
