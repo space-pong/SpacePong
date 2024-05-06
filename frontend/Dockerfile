@@ -7,8 +7,5 @@ RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 -keyout /etc/ssl/private
 # 호스트 OS의 Nginx 설정 파일을 컨테이너로 복사
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# html, css, javascript 파일을 컨테이너로 복사
-COPY srcs/ /var/www/html/
-
 # Nginx 실행
 CMD ["nginx", "-g", "daemon off;"]

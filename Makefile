@@ -1,7 +1,10 @@
 all: docker-compose.yml
 	docker compose -f docker-compose.yml up --build
 
-fclean:
+clean:
+	docker compose -f docker-compose.yml down -v --rmi all --remove-orphans
+
+fclean: clean
 	docker image prune --force
 	docker system prune --volumes --all --force
 	docker network prune --force

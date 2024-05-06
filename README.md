@@ -26,6 +26,9 @@ $> cd [this repo]
 $> make
 ```
 
+4. 웹 브라우저에서 웹 페이지 접속
+- URL : https://localhost
+
 ---
 
 ## 라이센스
