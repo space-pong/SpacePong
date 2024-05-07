@@ -2,22 +2,54 @@
 @import url('reset.css');
 
 * {
-  font-family: 'Montserrat', sans-serif !important;
-}
-
-body {
-  height: 100vh;
-  background-image: url("../assets/images/earth-bg.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  color: white;
-  font-variation-settings: 'wght' 400, 'wdth' 50;
+    font-family: 'Montserrat', sans-serif !important;
+    font-variation-settings: 'wght' 400, 'wdth' 50 !important;
+    color: white;
+  }
+  
+  body {
+    height: 100vh;
+    
+    background-image: url("../assets/images/earth-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mainbox {
-  width: 100%;
-  height: 100%;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 15px;
 }
+
+@media (max-aspect-ratio: 16/9) {
+  .mainbox {
+    width: 90%;
+    aspect-ratio: 16/9;
+  }
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .mainbox {
+    height: 90%;
+    aspect-ratio: 16/9;
+  }
+}
+
+/*@media (orientation: landscape)
+{
+  .mainbox {
+    height: 90%;
+    aspect-ratio: 16/9;
+  }
+}
+
+@media (orientation: portrait) {
+  .mainbox {
+    width: 90%;
+    aspect-ratio: 16/9;
+  }
+}*/
