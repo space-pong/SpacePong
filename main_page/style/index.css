@@ -1,6 +1,15 @@
 @import url('font/montserrat.css');
+@import url('reset.css');
 
 * {
   font-family: 'Montserrat', sans-serif;
   font-variation-settings: 'wght' 325, 'wdth' 50, 'slnt' 10;
+}
+
+body {
+  height: 100vh;
+  background-image: url("../assets/images/earth-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
