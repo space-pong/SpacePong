@@ -2,8 +2,7 @@
 @import url('reset.css');
 
 * {
-  font-family: 'Montserrat', sans-serif;
-  font-variation-settings: 'wght' 325, 'wdth' 50, 'slnt' 10;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 body {
@@ -12,4 +11,13 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  color: white;
+  font-variation-settings: 'wght' 400, 'wdth' 50;
+}
+
+.mainbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid white;
+  border-radius: 15px;
 }
