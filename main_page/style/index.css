@@ -10,14 +10,14 @@
   body {
     height: 100vh;
     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background-image: url("../assets/images/earth-bg.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .mainbox {
@@ -38,18 +38,3 @@
     aspect-ratio: 16/9;
   }
 }
-
-/*@media (orientation: landscape)
-{
-  .mainbox {
-    height: 90%;
-    aspect-ratio: 16/9;
-  }
-}
-
-@media (orientation: portrait) {
-  .mainbox {
-    width: 90%;
-    aspect-ratio: 16/9;
-  }
-}*/
