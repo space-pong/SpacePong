@@ -18,17 +18,22 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 camera.position.z = 5;
 
 // 렌더러
-const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true,
+  alpha: true,
+  precision: 'mediump'
+});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 2.0; 
+renderer.toneMappingExposure = 2.0;
 document.body.appendChild( renderer.domElement );
 
 
 
-rgbeLoader.load('Nebula4.hdr', (texture) => {
+rgbeLoader.load('Nebula1.hdr', (texture) => {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.minFilter = THREE.NearestFilter; // 최소화 필터
     texture.magFilter = THREE.NearestFilter; // 최대화 필터
@@ -56,7 +61,8 @@ loader.load(
 );
 
 
-
+let moveLeft = false;
+let moveRight = false;
 
 // 애니메이션 루프
 function animate() {
@@ -64,6 +70,12 @@ function animate() {
 
   camera.rotation.z += 0.01;
   satellite.rotation.z += 0.01;
+  if (moveLeft) {
+    satellite.position.x -= 1;
+  }
+  if (moveRight) {
+    satellite.position.x += 1;
+  }
 
   renderer.render(scene, camera);
 }
@@ -76,4 +88,21 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') {
+    moveLeft = true;
+  } else if (event.key === "ArrowRight") {
+    moveRight = true;
+  }
+});
+
+window.addEventListener('keyup', (event) => {
+  if (event.key === 'ArrowLeft') {
+    moveLeft = false;
+  } else if (event.key === "ArrowRight") {
+    moveRight = false;
+  }
 });
