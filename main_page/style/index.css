@@ -29,8 +29,14 @@ body {
   border-radius: 15px;
 }
 
+.mainbox__header {
+  background-color: blue;
+}
 
 .content__menu {
+  width: 100%;
+  height:100%;
+  background-color: aqua;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -51,17 +57,20 @@ body {
     width: 90%;
     aspect-ratio: 16/9;
   }
-  
   .mainbox__header {
     font-size: 4.5vw;
-    margin-top: 3vw;
-    margin-left: 3vw;
+    margin: 3vw 3vw;
   }
-  
   .mainbox__footer {
     font-size: 2vw;
-    margin-bottom: 3vw;
-    margin-left: 3vw;
+    margin: 3vw 3vw;
+  }
+  
+  .menu__user {
+    margin: 3vw 3vw;
+  }
+  .menu__game {
+    margin: 3vw 3vw;
   }
 }
 /* 화면의 비율이 16:9보다 작을 때 (세로가 더길때)*/
@@ -72,16 +81,25 @@ body {
     aspect-ratio: 16/9;
   }
   .mainbox__header {
+    margin: 3vh 3vh;
+
     font-size: 8vh;
-    margin-top: 3vh;
-    margin-left: 3vh;
     
   }
-  
   .mainbox__footer {
+    margin: 3vh 3vh;
+
     font-size: 4vh;
-    margin-bottom: 3vh;
-    margin-left: 3vh;
+  }
+
+  .menu__user {
+    margin: 3vh 3vh;
+  }
+  .menu__game {
+    height: 60%;
+    aspect-ratio: 16/9;
+
+    margin: 3vh 3vh;
   }
 }
 /* 화면의 비율이 16:9보다 더 클 때  (가로가 더 길때)*/
