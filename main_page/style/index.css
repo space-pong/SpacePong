@@ -54,10 +54,14 @@ body {
   
   .mainbox__header {
     font-size: 4.5vw;
+    margin-top: 3vw;
+    margin-left: 3vw;
   }
-
+  
   .mainbox__footer {
     font-size: 2vw;
+    margin-bottom: 3vw;
+    margin-left: 3vw;
   }
 }
 /* 화면의 비율이 16:9보다 작을 때 (세로가 더길때)*/
@@ -69,11 +73,15 @@ body {
   }
   .mainbox__header {
     font-size: 8vh;
+    margin-top: 3vh;
+    margin-left: 3vh;
     
   }
-
+  
   .mainbox__footer {
     font-size: 4vh;
+    margin-bottom: 3vh;
+    margin-left: 3vh;
   }
 }
 /* 화면의 비율이 16:9보다 더 클 때  (가로가 더 길때)*/
