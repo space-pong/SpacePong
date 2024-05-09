@@ -72,7 +72,7 @@ audioLoader.load('../a/bgm.mp3', function(buffer) {
   bgmSound.play(); // 사운드 재생
   function fadeInAudio(audio, duration) {
     const initialVolume = 0;
-    const targetVolume = 1; // 최종 볼륨
+    const targetVolume = 0.5; // 최종 볼륨
     const step = (targetVolume - initialVolume) / (duration / 100); // 볼륨 증가 단위
     let currentVolume = initialVolume;
     function increaseVolume() {
@@ -92,6 +92,13 @@ audioLoader.load('../a/effect.mp3', function(buffer) {
   attackSound.setBuffer(buffer);
   attackSound.setLoop(false); // 반복 재생 안함
   attackSound.setVolume(0.05); // 볼륨 설정
+});
+const robertSound = new THREE.Audio(listener);
+audioLoader.load('../a/robert.mp3', function(buffer) {
+  robertSound.setBuffer(buffer);
+  robertSound.setLoop(true); // 반복 재생 안함
+  robertSound.setVolume(0.1); // 볼륨 설정
+  robertSound.play();
 });
 
 // 인공위성
@@ -207,6 +214,7 @@ function gameProcess() {
   // 공과 벽 충돌
   if (ball.position.x <= -fieldWidth / 2 + 0.5 || ball.position.x >= fieldWidth / 2 - 0.5) {
     ballSpeed.x *= -1;
+    shakeCamera(100, 2);
   }
 
 
@@ -215,7 +223,7 @@ function gameProcess() {
       ball.position.x >= satellite.position.x - paddleWidth / 2 && ball.position.x <= satellite.position.x + paddleWidth / 2) {
     ballSpeed.z *= -1;
     shakeCamera(500, 4);
-    attackSound.play();
+    //attackSound.play();
   }
   if (ball.position.z <= satellite2.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite2.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= satellite2.position.x - paddleWidth / 2 && ball.position.x <= satellite2.position.x + paddleWidth / 2) {
