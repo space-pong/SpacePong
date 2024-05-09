@@ -195,8 +195,11 @@ function gameProcess() {
 
   // AI
 
-  if (satellite2.position.x < ball.position.x) satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), -moveSpeed );
-  else if (satellite2.position.x > ball.position.x) satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), moveSpeed );
+  if (satellite2.position.x < ball.position.x) {
+    satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), -moveSpeed * 1.5 );
+  } else if (satellite2.position.x > ball.position.x) {
+    satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), moveSpeed * 1.5 );
+  };
   
 
   // 인공위성 움직임 범위 제한
@@ -237,7 +240,7 @@ function gameProcess() {
   if (ball.position.z < -fieldDepth / 2) {
     player2Score++;
     ball.position.set(0, 0, 0);
-  } else if (ball.position.z >= fieldDepth / 2) {
+  } else if (ball.position.z > fieldDepth / 2) {
     player1Score++;
     ball.position.set(0, 0, 0);
   }
@@ -264,7 +267,6 @@ const rotationSpeed = -0.05;
 //const controls = new OrbitControls( camera, renderer.domElement );
 function animate() {
   requestAnimationFrame(animate);
-
   scene.environmentRotation.z += rotationSpeed;
   scene.backgroundRotation.z += rotationSpeed;
   if (satellite) gameProcess();
