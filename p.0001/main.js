@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
-
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // 캔버스 얻기
 const canvas = document.getElementById('art');
@@ -14,7 +14,7 @@ const rgbeLoader = new RGBELoader();
 const scene = new THREE.Scene();
 
 // 카메라
-const camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 10000 );
 camera.position.set(0, 40, 95);
 camera.lookAt(new THREE.Vector3(0, 0, 35));
 const rotationCenter = new THREE.Object3D();
@@ -33,6 +33,8 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 2.0;
+renderer.shadowMap.enabled = true; // 그림자 활성화
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 그림자 매핑 방식 설정 (선택 사항)
 document.body.appendChild( renderer.domElement );
 
 // 포스트 프로세싱
@@ -40,6 +42,7 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
 // 배경: 우주
+
 rgbeLoader.load('../a/Nebula4.hdr', (texture) => {
   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.background = envMap;
@@ -55,6 +58,41 @@ rgbeLoader.load('../a/Nebula4.hdr', (texture) => {
 const light = new THREE.AmbientLight( 0xffffff, 1 ); // soft white light
 scene.add( light );
 var satellite = null;
+
+// 사운드
+const listener = new THREE.AudioListener();
+camera.add(listener);
+const bgmSound = new THREE.Audio(listener);
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('../a/bgm.mp3', function(buffer) {
+  bgmSound.setBuffer(buffer);
+  bgmSound.setLoop(true); // 반복 재생
+  bgmSound.setVolume(0); // 볼륨 조절
+  bgmSound.offset = 120;
+  bgmSound.play(); // 사운드 재생
+  function fadeInAudio(audio, duration) {
+    const initialVolume = 0;
+    const targetVolume = 1; // 최종 볼륨
+    const step = (targetVolume - initialVolume) / (duration / 100); // 볼륨 증가 단위
+    let currentVolume = initialVolume;
+    function increaseVolume() {
+        currentVolume = Math.min(currentVolume + step, targetVolume);
+        audio.setVolume(currentVolume);
+
+        if (currentVolume < targetVolume) {
+            setTimeout(increaseVolume, 100); // 0.1초마다 볼륨 증가
+        }
+    }
+    increaseVolume();
+  }
+  fadeInAudio(bgmSound, 2000);
+});
+const attackSound = new THREE.Audio(listener);
+audioLoader.load('../a/effect.mp3', function(buffer) {
+  attackSound.setBuffer(buffer);
+  attackSound.setLoop(false); // 반복 재생 안함
+  attackSound.setVolume(0.05); // 볼륨 설정
+});
 
 // 인공위성
 gltfLoader.load("../a/satellite.glb",  function (gltf) {
@@ -81,28 +119,57 @@ const ballMaterial = new THREE.MeshStandardMaterial({
   metalness: 1,
 }); 
 const ball = new THREE.Mesh( ballGeometry, ballMaterial );
+ball.castShadow = true;
+ball.receiveShadow = true
 scene.add( ball );
 
-//
-const geometry = new THREE.BoxGeometry(0.5, 1, 160); // 폭 10, 높이 1, 깊이 1
+// 양 옆 가이드라인
+const geometry = new THREE.BoxGeometry(0.5, 5, 200000); // 폭 10, 높이 1, 깊이 1
 const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
 const elongatedBox = new THREE.Mesh(geometry, ballMaterial);
 const elongatedBox2 = new THREE.Mesh(geometry, ballMaterial);
 elongatedBox.position.set(60.5, 0, 0);
+elongatedBox.castShadow = true;
+elongatedBox.receiveShadow = true;
 scene.add(elongatedBox);
 elongatedBox2.position.set(-60.5, 0, 0);
+elongatedBox2.castShadow = true;
+elongatedBox2.receiveShadow = true;
 scene.add(elongatedBox2);
 
 
-// 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드
-// 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드
-// 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드
-// 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드 게임 코드
+// 카메라 흔들림
+function shakeCamera(duration = 100, intensity = 0.05) {
+  const startTime = Date.now();
+  const originalPosition = camera.position.clone();
+  function shake() {
+      const elapsedTime = Date.now() - startTime;
+      if (elapsedTime < duration) {
+          const progress = elapsedTime / duration;
+          const xShake = (Math.random() - 0.5) * intensity * (1 - progress);
+          const yShake = (Math.random() - 0.5) * intensity * (1 - progress);
+          camera.position.x = originalPosition.x + xShake;
+          camera.position.y = originalPosition.y + yShake;
+
+          requestAnimationFrame(shake);
+      } else {
+          camera.position.copy(originalPosition); // 흔들림 종료 후 원래 위치로 복귀
+      }
+  }
+  shake();
+}
+
+
+// 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
+// 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
+// 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
+// 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
+// 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
 
 
 
 let ballSpeed = { x: 2, z: 2 };
-let paddleWidth = 18, paddleHeight = 4, paddleDepth = 4;
+let paddleWidth = 18, paddleDepth = 4;
 let fieldWidth = 120, fieldDepth = 160;
 let player1Score = 0, player2Score = 0;
 
@@ -119,6 +186,10 @@ function gameProcess() {
     if (satellite) satellite.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), moveSpeed );
   }
 
+  // AI
+
+  if (satellite2.position.x < ball.position.x) satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), -moveSpeed );
+  else if (satellite2.position.x > ball.position.x) satellite2.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), moveSpeed );
   
 
   // 인공위성 움직임 범위 제한
@@ -137,31 +208,30 @@ function gameProcess() {
   if (ball.position.x <= -fieldWidth / 2 + 0.5 || ball.position.x >= fieldWidth / 2 - 0.5) {
     ballSpeed.x *= -1;
   }
-  if (ball.position.z <= -fieldDepth / 2 + 0.5 || ball.position.z >= fieldDepth / 2 - 0.5) { 
-    ballSpeed.z *= -1;
-  }
+
 
   // 공과 인공위성 충돌
   if (ball.position.z <= satellite.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= satellite.position.x - paddleWidth / 2 && ball.position.x <= satellite.position.x + paddleWidth / 2) {
     ballSpeed.z *= -1;
+    shakeCamera(500, 4);
+    attackSound.play();
   }
-  if (ball.position.z >= satellite2.position.z - paddleDepth / 2 - 0.5 && ball.position.z <= satellite2.position.z + paddleDepth / 2 + 0.5 &&
+  if (ball.position.z <= satellite2.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite2.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= satellite2.position.x - paddleWidth / 2 && ball.position.x <= satellite2.position.x + paddleWidth / 2) {
     ballSpeed.z *= -1;
+    shakeCamera(500, 4);
+    //attackSound.play();
   }
 
-  // AI
-  if (ball.position.z > 0) {
-    satellite2.position.x += (ball.position.x - satellite2.position.x) * 0.1;
-  }
+
   // 공 초기화
   if (ball.position.z < -fieldDepth / 2) {
     player2Score++;
-    ball.position.set(0, 0.5, 0);
+    ball.position.set(0, 0, 0);
   } else if (ball.position.z >= fieldDepth / 2) {
     player1Score++;
-    ball.position.set(0, 0.5, 0);
+    ball.position.set(0, 0, 0);
   }
 }
 
@@ -180,33 +250,29 @@ let moveRight = false;
 let moveUp = false;
 let moveDown = false;
 
-const rotationSpeed = -0.005;
+const rotationSpeed = -0.05;
+
+// 개발용 
+//const controls = new OrbitControls( camera, renderer.domElement );
 function animate() {
   requestAnimationFrame(animate);
 
   scene.environmentRotation.z += rotationSpeed;
   scene.backgroundRotation.z += rotationSpeed;
-  gameProcess();
-  
-  /* if (flag == "up") {
-    ball.position.z -= 2;
-    if (ball.position.z == -80) {
-      flag = "down";
-    }
-  } else if (flag == "down") {
-    ball.position.z += 2;
-    if (ball.position.z == 80) {
-      flag = "up";
-    }
-  } */
+  if (satellite) gameProcess();
+  //controls.update();
 
   renderer.render(scene, camera);
 }
 
-
-  
-
 window.onload = animate;
+
+
+
+
+
+
+
 
 
 // 리스너
@@ -233,6 +299,7 @@ window.addEventListener('keydown', (event) => {
       break;
     case 'ArrowDown':
       moveDown = true;
+      bgmSound.setVolume(0);
       break;
   }
 });
