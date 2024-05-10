@@ -29,7 +29,7 @@ body {
 }
 
 .mainbox__inner {
-  background-color: aqua;
+  /*background-color: aqua;*/
 
   /* size */
   width: 100%;
@@ -39,6 +39,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.control-bar {
+  border: 2px solid white;
+  border-radius: 15px;
 }
 
 /* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
@@ -56,6 +61,11 @@ body {
   .mainbox__footer {
     font-size: 2vw;
   }
+
+  .control-bar {
+    width: 20vw;
+    aspect-ratio:  16/17;
+  }
 }
 
 /* 화면의 비율이 16:9보다 클 때 (가로가 더길때) */
@@ -72,5 +82,10 @@ body {
 
   .mainbox__footer {
     font-size: 4vh;
+  }
+
+  .control-bar {
+    height: 42vh;
+    aspect-ratio: 16/17;
   }
 }
