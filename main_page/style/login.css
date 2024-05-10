@@ -1,0 +1,76 @@
+@import url('font/montserrat.css');
+@import url('reset.css');
+
+body {
+  /* background image */
+  background-image: url("../assets/images/earth-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  /* font */
+  font-family: 'Montserrat', sans-serif;
+  font-variation-settings: 'wght' 400;
+  color: white;
+
+  /* arrange */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* size */
+  height: 100vh;
+  
+}
+
+.mainbox {
+  border: 2px solid white;
+  border-radius: 15px;
+}
+
+.mainbox__inner {
+  background-color: aqua;
+
+  /* size */
+  width: 100%;
+  height: 100%;
+
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 16/9) {
+  .mainbox {
+    aspect-ratio: 16/9;
+    width: 90%;
+    padding: 2vw;
+  }
+
+  .mainbox__header {
+    font-size: 4.5vw;
+  }
+
+  .mainbox__footer {
+    font-size: 2vw;
+  }
+}
+
+/* 화면의 비율이 16:9보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 16/9) {
+  .mainbox {
+    aspect-ratio: 16/9;
+    height: 90%;
+    padding: 2vh;
+  }
+
+  .mainbox__header {
+    font-size: 8vh;
+  }
+
+  .mainbox__footer {
+    font-size: 4vh;
+  }
+}
