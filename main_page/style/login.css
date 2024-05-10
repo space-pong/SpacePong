@@ -28,6 +28,8 @@ body {
   border-radius: 15px;
 
   background-color: rgb(255,255,255,0.3);
+
+  position: relative;
 }
 
 .mainbox__inner {
@@ -75,14 +77,14 @@ body {
   /* shadow */
   box-shadow: 4px 4px 5px 3px rgb(79, 79, 79);
 
-  position: relative;
 }
 
 .mainbox__img {
   position: absolute;
-  /* background-color: aquamarine; */
-
+  top: 20%;
+  left: 42%;
 }
+
 /* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
 @media (max-aspect-ratio: 16/9) {
   .mainbox {
@@ -116,16 +118,8 @@ body {
     border-radius: 1.8vw;
   }
 
-  /* .mainbox__img {
-    top: 20vw;
-    left: 50vw;
-    width: 20vw;
-    aspect-ratio: 1/1;
-    background-color: aqua;
-  } */
-
   .mainbox__img--moon {
-    width: 30vw;
+    width: 40vw;
     aspect-ratio: 1/1;
   }
 }
@@ -161,7 +155,7 @@ body {
   }
 
   .mainbox__img--moon {
-    height: 30vh;
     aspect-ratio: 1/1;
+    height: 70vh;
   }
 }
