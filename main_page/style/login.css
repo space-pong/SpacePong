@@ -41,9 +41,14 @@ body {
   justify-content: space-between;
 }
 
-.control-bar {
+.mainbox__header {
+  background-color: aqua;
+}
+
+.control-bar__login {
   border: 2px solid white;
   border-radius: 15px;
+
 }
 
 /* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
@@ -62,9 +67,11 @@ body {
     font-size: 2vw;
   }
 
-  .control-bar {
+  .control-bar__login {
     width: 20vw;
-    aspect-ratio:  16/17;
+    aspect-ratio:  16/9;
+
+    margin-top: -12vw;
   }
 }
 
@@ -84,8 +91,10 @@ body {
     font-size: 4vh;
   }
 
-  .control-bar {
-    height: 42vh;
-    aspect-ratio: 16/17;
+  .control-bar__login {
+    height: 20vh;
+    aspect-ratio: 16/9;
+
+    margin-top: -20vh;
   }
 }
