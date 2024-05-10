@@ -1,5 +1,5 @@
 # SpacePong
-Space Pong 프로젝트의 리포지토리 입니다.
+Space Pong 프로젝트 리포지토리.
 
 ---
 
@@ -15,16 +15,21 @@ Space Pong 프로젝트의 리포지토리 입니다.
 $> git clone [this repo]
 ```
 
-2. 프로젝트 폴더로 이동
+### 웹 서버 빌드 및 실행
+1. 프로젝트 폴더로 이동
 ```bash
 $> cd [this repo]
 ```
 
-3. "make" 명령어로 빌드 및 실행
-    > 내부적으로 docker-compose.yml를 사용하여 컨테이너들을 빌드하고 실행합니다.
+2. "make" 명령어로 웹 서버 빌드 및 실행
+    > 내부적으로 docker-compose.yml를 사용하여 컨테이너 빌드 및 실행.
 ```bash
 $> make
 ```
+
+### 웹 페이지 접속
+1. 웹 브라우저에서 웹 페이지 접속
+- URL : https://localhost
 
 ---
 
