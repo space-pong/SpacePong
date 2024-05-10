@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper__album {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+[class$="header"] {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+[class$=header__title] {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: end;
+  margin-bottom: 2px;
+}
+
+[class$="title__main"]{
+  color: rgb(0, 149, 149);
+  font-size: 16px;
+  font-weight: 700;
+  padding-left: 4px;
+}
+
+[class$="title__sub"]{
+  font-size: 10px;
+  padding-left: 8px;
+}
+
+.divider {
+  width: 100%;
+  border-top: 1px solid gray;
+}
+
+.album__body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.album__body__element{
+  display: flex;
+  flex-direction: column;
+}
+
+.album__body__element__img {
+  width: 120px;
+  height: 120px;
+}
+
+.album__body__element__title{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.album__body__element__singer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 10px;
+  color: gray;
+}
+
+.wrapper__list {
+  width: 100%;
+  /*display: flex;
+  flex-direction: column;
+  justify-content: end;*/
+  /*margin: 10px 8px 10px 8px;*/
+  /*background-color: blueviolet;*/
+}
+
+.list__body__table {
+  /* background-color: aqua; */
+  /*table-layout: fixed;*/
+  width: 100%;
+  padding-top: 8px;
+  /*border-collapse: collapse;*/
+  border-spacing: 0px;
+  /*margin-top: 10px;
+  margin-left: 8px;*/
+}
+
+/*.list__body__table__head {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  text-align: left;
+  background-color: lightgray;
+}*/
+
+.list__body__table th {
+  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  color: gray;
+  background-color: #eeeeee;
+  padding-top: 5px;
+  border-top: 1px solid gray;
+  border-bottom: 1px dashed gray;
+}
+
+.list__body__table td {
+  height: 20px;
+  font-size: 10px;
+  color: 0f465e;
+  border-bottom: 1px dashed gray;
+}
+
+.table__checkbox {
+  width: 5%;
+  text-align: center;
+}
+
+.table__number {
+  width: 10%;
+  text-align: center;
+}
+
+.table__title {
+  width: 45%;
+  text-align: left;
+}
+
+.table__artist {
+  width: 30%;
+  text-align: center;
+}

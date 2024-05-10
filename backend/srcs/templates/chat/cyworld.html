@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{% static 'cyworld.css' %}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Sunflower:wght@300&display=swap');
+  </style>
+  <title>콩언주의 미니홈피::사이좋은 사람들, 싸이월드</title>
+  <script src="https://kit.fontawesome.com/4144ae2d0a.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="./images/favicon.png">
+  <script src="{%static 'index.js' %}"></script>
+</head>
+<body>
+  <div class="background">
+    <div class="outerbox">
+      <div class="wrapper">
+        <aside class="wrapper__profile">
+          <header class="profile__header">
+            <div class="today">
+              <span>TODAY</span>
+              <span>0</span>
+              <span>   |   TOTAL</span>
+              <span>12345</span>
+            </div>
+          </header>
+          <div class="profile__body">
+            <figure class="profile__body__image">
+              <img src="{%static 'images/profile.jpeg' %}">
+            </figure>
+            <div class="profile__body__divider"></div>
+            <div class="profile__body__content">
+              <i class="fa-regular fa-face-smile"></i><span> 콩언주</span><br>
+              <i class="fa-solid fa-head-side-virus"></i><span> INTJ</span><br>
+              <i class="fa-solid fa-cake-candles"></i><span> 1996.04.29</span><br>
+              <i class="fa-solid fa-droplet"></i><span> RH+O</span><br>
+            </div>
+            <div class="profile__body__mood">
+              <div class="mood__title">오늘의 기분</div>
+              <select name="mood__list">
+                <option value="행복">행복🥰</option>
+                <option value="신남">신남🤩</option>
+                <option value="평온">평온🙂</option>
+                <option value="우울">우울😔</option>
+                <option value="화남">화남😡</option>
+                <option value="졸림">졸림🥱</option>
+              </select>
+            </div>
+          </div>
+        </aside>
+        <div class="wrapper__home">
+          <div class="home__header"> 
+            <div class="home__header__title">
+              사이좋은 사람들, 싸이월드
+            </div>
+            <div class="home__header__setting">
+              사생활보호설정
+            </div>
+          </div>
+          <div class="home__body">
+            <!--<iframe src="home.html"></iframe>-->
+            <iframe id="contentFrame" src="home.html"></iframe>
+          </div>
+        </div>
+        <div class="wrapper__menu">
+          <div class="menu__item" id="menuHome" onclick="menuHome()">홈</div>
+          <div class="menu__item" id="menuJukebox" onclick="menuJukebox()">쥬크박스</div>
+          <div class="menu__item" id="menuGame" onclick="menuGame()">게임</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- wrapper__left를 wrapper__profile로 변경 -->
+<!-- wrapper__right를 wrapper__home로 변경 -->

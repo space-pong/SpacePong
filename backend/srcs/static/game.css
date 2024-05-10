@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper__header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+.header__title__main {
+  color: rgb(0, 149, 149);
+  font-size: 16px;
+  font-weight: 700;
+  padding-left: 4px;
+}
+
+.header__title__sub {
+  font-size: 10px;
+  padding-left: 8px;
+}
+
+.divider {
+  width: 100%;
+  border-top: 1px solid gray;
+  margin-top: -20px;
+}
+
+.game__container {
+  width: 222px;
+  height: 168px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f6f6f6;
+}
+
+.game__title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+.game__title__main {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.game__title__sub {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.game__content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.game__content__textbox {
+  width: 130px;
+  height: 24px;
+  border: 1px solid gray;
+  border-radius:  5px;
+}
+
+.game__content__submit {
+  font-size: 11px;
+  font-weight: 700;
+  width: 38px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.game__result {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+
+#lotto_title {
+  margin-top: -2px;
+}
+#lotto_content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#lotto_num_box {
+  width: 130px;
+  height: 21px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: #ffe400;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px 8px;
+  margin-top: 10px;
+  margin-bottom: 11px;
+}
+
+#lotto_submit_button {
+  width: 62px;
+  height: 24px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 11px;
+}
+
+#lotto_submit_button:hover {
+  background-color: rgb(228, 225, 225);
+}

@@ -13,9 +13,9 @@ COPY requirements.txt /app
 
 # 의존성 설치
 RUN pip install -r requirements.txt
-
+# RUN source venvs/mysite/bin/activate
 # Django 서버 시작
 # gunicorn = WSGI(Web Server Gateway Interface)
 # WSGI는 nginx와 장고의 중간 다리 역할
 # WSGI를 실행시키는 것이, Django 서버 시작과 같음
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+CMD python manage.py runserver 0.0.0.0:8000

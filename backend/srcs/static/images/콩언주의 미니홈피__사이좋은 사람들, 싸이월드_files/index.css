@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.background {
+  width: 1024px;
+  height: 600px;
+  padding: 20px 0 0 20px;
+  background-image: url("../images/background.png");
+}
+
+.outerbox {
+  width: 808px;
+  height: 544px;
+  background-image: url("../images/outerbox.png");
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 32px 0 0 32px;
+}
+
+.wrapper__profile {
+  width: 208px;
+  height: 472px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__header {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.today {
+  font-size: 9px;
+}
+
+.profile__body {
+  width: 100%;
+  height: 100%;
+  border: 1px solid gray;
+  border-radius: 15px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 12px 12px 12px;
+}
+
+.profile__body__image {
+  width: 148px;
+  height: 133px;
+  background-color: gray;
+  margin-top: 12px;
+}
+
+.profile__body__divider {
+  width: 100%;
+  border-top: 1px dotted black;
+  margin: 12px 0;
+}
+
+.profile__body__content { 
+  width: 100%;
+  height: 200px;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.profile__body__mood {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 16px;
+}
+
+.profile__body__mood select {
+  width: 80%;
+  font-family: "Sunflower", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+  margin-top: 4px;
+  padding: 2px 0 2px 0;
+}
+
+.wrapper__home {
+  width: 524px;
+  height: 472px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-left: 5px;
+}
+
+.home__header {
+  width: 510px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 14px;
+}
+
+.home__header__title, .home__header__setting {
+  color: #55B2E4;
+  font-size: 9px;
+}
+
+.home__header__title {
+  font-size: 16px;
+}
+
+.home__body {
+  width: 510px;
+  height: 445px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  background-color: white;
+}

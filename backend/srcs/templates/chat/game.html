@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{% static 'game.css' %}">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Sunflower:wght@300&display=swap');
+  </style>
+  <title>Game</title>
+  <script src="{%static 'game.js' %}"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="wrapper__header">
+      <div class="header__title">
+        <div class="header__title__main">GAME</div>
+        <div class="header__title__sub">mini game heaven</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="game__container">
+        <img src="./images/wordchain.png">
+        <div class="game__title">
+          <div class="game__title__main">끝말잇기</div>
+          <div class="game__title__sub">제시어 : <span id ="wordchain_current_word">다람쥐</span></div>
+        </div>
+        <div class="game__content">
+          <input class="game__content__textbox" id="wordchain_input_box" autocomplete="off">
+          <button class="game__content__submit" onclick="wordChain()">입력</button>
+        </div>
+        <div class="game__result" id="wordchain_result">결과!</div>
+    </div>
+    <div class="game__container" id="lotto_container">
+      <img src="./images/lotto.png">
+      <div class="game__title" id="lotto_title">
+        <div class="game__title__main">LOTTO</div>
+        <div class="game__title__sub">추첨 버튼을 누르세요.</div>
+      </div>
+      <div class="game__content" id =lotto_content>
+        <div class="game__content__textbox" id="lotto_num_box">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+        </div>
+        <button class="game__content__submit" id="lotto_submit_button" onclick="lotto()">추첨</button>
+    </div>
+  </div>
+</body>
+</html>
