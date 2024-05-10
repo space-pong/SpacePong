@@ -1,2 +1,8 @@
 # TODO : 평가시 .env 파일을 ignore 해서 로컬에만 저장할지 고민해봐야함.
 # .env
+
+# 배포에 필요없는 파일들 무시
+backend/srcs/config/__pycache__/
+backend/srcs/config/__pycache__/*.pyc
+backend/srcs/db.sqlite3
+
