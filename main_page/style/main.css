@@ -1,0 +1,127 @@
+@import url('font/montserrat.css');
+@import url('reset.css');
+
+body {
+  /* background image */
+  background-image: url("../assets/images/earth-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  /* font */
+  font-family: 'Montserrat', sans-serif;
+  font-variation-settings: 'wght' 400;
+  color: white;
+
+  /* arrange */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* size */
+  height: 100vh;
+  
+}
+
+.mainbox {
+  border: 2px solid white;
+  border-radius: 15px;
+
+  background-color: rgb(255,255,255,0.3);
+
+  position: relative;
+}
+
+.mainbox__inner {
+  /*background-color: aqua;*/
+
+  /* size */
+  width: 100%;
+  height: 100%;
+
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.control-bar {
+  background-color: rgb(255,255,255,0.3);
+  border: 2px solid white;
+  border-radius: 15px;
+
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* shadow */
+  box-shadow: 4px 4px 5px 3px rgb(79, 79, 79);
+}
+
+.mainbox__img {
+  position: absolute;
+  top: 20%;
+  left: 42%;
+}
+
+/* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 16/11) {
+  .mainbox {
+    aspect-ratio: 16/11;
+    width: 80%;
+    padding: 3vw;
+  }
+
+  .mainbox__header {
+    font-size: 4.5vw;
+  }
+
+  .mainbox__footer {
+    font-size: 2vw;
+  }
+
+  .control-bar {
+    width: 20vw;
+    aspect-ratio:  16/9;
+
+    margin-top: -10vw;
+    border-radius: 1.8vw;
+  }
+
+  .mainbox__img--moon {
+    width: 40vw;
+    aspect-ratio: 1/1;
+  }
+}
+
+/* 화면의 비율이 16:9보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 16/11) {
+  .mainbox {
+    aspect-ratio: 16/11;
+    height: 80%;
+    padding: 3vh;
+  }
+
+  .mainbox__header {
+    font-size: 8vh;
+  }
+
+  .mainbox__footer {
+    font-size: 4vh;
+  }
+
+  .control-bar {
+    height: 20vh;
+    aspect-ratio: 16/9;
+
+    margin-top: -15vh;
+    border-radius: 2vh;
+  }
+
+  .mainbox__img--moon {
+    aspect-ratio: 1/1;
+    height: 70vh;
+  }
+}
