@@ -4,4 +4,4 @@
 Django==4.2.11
 
 # postgreSQL과 통신을 위해 필요한 패키지(psycopg3)
-psycopg
+psycopg2-binary
