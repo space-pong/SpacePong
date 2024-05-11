@@ -11,6 +11,7 @@ body {
   /* font */
   font-family: 'orbitron', sans-serif;
   font-variation-settings: 'wght' 700;
+  /*letter-spacing: 0.2em;*/
   color: whitesmoke;
 
   /* arrange */
@@ -24,11 +25,19 @@ body {
 }
 
 .mainbox {
-  background-color: rgb(255,255,255,0.3);
-
+  /* backdrop effects */
+  backdrop-filter: blur(15px);
+  background-color: rgb(178, 177, 185, 0.4);
+  /*background-blend-mode: overlay;*/
+  /*mix-blend-mode: overlay;*/
+  /* border */
   border: 3px solid rgb(178, 177, 185);
   border-radius: 15px;
+
+  /* fix the box size not to be changed depending on padding value */
   box-sizing: border-box;
+
+  /* for moon img position */
   position: relative;
 }
 
@@ -54,10 +63,16 @@ body {
 
 .mainbox__footer {
   letter-spacing: 0.2em;
-  text-shadow: 2px 2px 10px rgb(178, 177, 185);
+  text-shadow: 2px 2px 2px rgb(178, 177, 185);
 }
+
 .control-bar__login {
-  background-color: rgb(255,255,255,0.3);
+  /*backdrop-filter: blur(px);*/
+  background: linear-gradient(to bottom right, rgb(245, 245, 245, 0.5), rgb(178, 177, 185, 0.5));
+  /*background-color: rgb(178, 177, 185, 0.1);*/
+  /*background-image: linear-gradient(to bottom right, rgb(178, 177, 185, 0.1), whitesmoke);*/
+  /*mix-blend-mode: overlay;*/
+  /*background-blend-mode: overlay;*/
   border: 2px solid white;
   border-radius: 15px;
 
@@ -67,8 +82,8 @@ body {
   justify-content: center;
   align-items: center;
 
-  /* shadow */
-  box-shadow: 4px 4px 5px 3px rgb(79, 79, 79);
+  /*shadow*/
+  box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.5)
 }
 
 .control-bar__login__btn {
@@ -118,19 +133,22 @@ body {
 
   .control-bar__login {
     width: 20vw;
-    aspect-ratio:  16/9;
+    aspect-ratio:  17/9;
 
-    margin-top: -10vw;
-    border-radius: 1.8vw;
+    margin-top: -16vw;
+    
+    border: 0.25vw solid rgb(178, 177, 185);
+    border-radius: 1.5vw;
   }
 
   .control-bar__login__btn {
-    width: 70%;
-    height: 34%;
+    width: 80%;
+    height: 20%;
 
-    font-size: 2.5vw;
+    font-size: 1.4vw;
+    letter-spacing: 0.1em;
 
-    border-radius: 1.8vw;
+    border-radius: 1.5vw;
   }
 
   .mainbox__img--moon {
