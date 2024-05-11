@@ -53,6 +53,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
 }
 
 .mainbox__header {
@@ -63,16 +64,12 @@ body {
 
 .mainbox__footer {
   letter-spacing: 0.2em;
-  text-shadow: 2px 2px 2px rgb(178, 177, 185);
+  text-shadow: 1px 1px 1px rgb(178, 177, 185);
 }
 
 .control-bar__login {
-  /*backdrop-filter: blur(px);*/
-  background: linear-gradient(to bottom right, rgb(245, 245, 245, 0.5), rgb(178, 177, 185, 0.5));
-  /*background-color: rgb(178, 177, 185, 0.1);*/
-  /*background-image: linear-gradient(to bottom right, rgb(178, 177, 185, 0.1), whitesmoke);*/
-  /*mix-blend-mode: overlay;*/
-  /*background-blend-mode: overlay;*/
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.5), rgb(89, 82, 96, 0.5));
+  mix-blend-mode: overlay;
   border: 2px solid white;
   border-radius: 15px;
 
@@ -83,17 +80,18 @@ body {
   align-items: center;
 
   /*shadow*/
-  box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.5)
+  /*box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.8)*/
+  box-shadow: 2px 5px 10px 1px rgb(20, 20, 20)
 }
 
 .control-bar__login__btn {
-  background-color: green;
+  background: linear-gradient(to bottom right, rgba(205, 247, 209), rgba(22, 85, 19));
+  /*background-color: green;*/
 
   border: 1px solid green;
   border-radius: 15px;
 
   text-align: center;
-  /* vertical-align: middle; */
 
   /* arrange */
   display: flex;
@@ -102,7 +100,7 @@ body {
   align-items: center;
 
   /* shadow */
-  box-shadow: 4px 4px 5px 3px rgb(79, 79, 79);
+  box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.5)
 
 }
 
@@ -135,19 +133,20 @@ body {
     width: 20vw;
     aspect-ratio:  17/9;
 
-    margin-top: -16vw;
+    margin-top: -18vw;
     
-    border: 0.25vw solid rgb(178, 177, 185);
+    border: 0.2vw solid rgb(178, 177, 185);
     border-radius: 1.5vw;
   }
-
+  
   .control-bar__login__btn {
     width: 80%;
-    height: 20%;
-
+    height: 25%;
+    
     font-size: 1.4vw;
     letter-spacing: 0.1em;
-
+    
+    border: 0.2vw solid rgb(178, 177, 185, 0.2);
     border-radius: 1.5vw;
   }
 
@@ -180,7 +179,8 @@ body {
     height: 20vh;
     aspect-ratio: 16/9;
 
-    margin-top: -15vh;
+    margin-top: -30vh;
+    border: 0.2vh solid rgb(178, 177, 185);
     border-radius: 2vh;
   }
 
