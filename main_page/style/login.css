@@ -149,7 +149,7 @@ body {
     width: 80%;
     height: 25%;
     
-    font-size: 1.4vw;
+    font-size: 1vw;
     letter-spacing: 0.15em;
     
     border: 0.2vw solid rgb(178, 177, 185, 0.2);
@@ -195,7 +195,7 @@ body {
     width: 70%;
     height: 30%;
 
-    font-size: 2vh;
+    font-size: 1.5vh;
     letter-spacing: 0.15em;
 
     border: 0.4vh solid rgb(178, 177, 185, 0.2);
