@@ -106,8 +106,13 @@ body {
 
   /* shadow */
   box-shadow: 2px 2px 20px 1px rgb(44, 46, 67, 0.5);
-  cursor: pointer;
 
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-bar__login__btn:active {
+  background-color: rgb(50, 100, 86); /* 클릭 시 약간 더 밝은 배경색 적용 */
 }
 
 .mainbox__img {
