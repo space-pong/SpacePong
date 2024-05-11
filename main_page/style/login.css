@@ -1,4 +1,4 @@
-@import url('font/montserrat.css');
+@import url('font/orbitron.css');
 @import url('reset.css');
 
 body {
@@ -9,9 +9,9 @@ body {
   background-position: center;
 
   /* font */
-  font-family: 'Montserrat', sans-serif;
-  font-variation-settings: 'wght' 400;
-  color: white;
+  font-family: 'orbitron', sans-serif;
+  font-variation-settings: 'wght' 700;
+  color: whitesmoke;
 
   /* arrange */
   display: flex;
@@ -32,6 +32,9 @@ body {
   position: relative;
 }
 
+.mainbox__header {
+  letter-spacing: 0.2em;
+}
 .mainbox__inner {
   /*background-color: aqua;*/
 
