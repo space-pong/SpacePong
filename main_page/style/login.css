@@ -24,11 +24,11 @@ body {
 }
 
 .mainbox {
-  border: 2px solid white;
-  border-radius: 15px;
-
   background-color: rgb(255,255,255,0.3);
 
+  border: 3px solid rgb(178, 177, 185);
+  border-radius: 15px;
+  box-sizing: border-box;
   position: relative;
 }
 
@@ -86,12 +86,15 @@ body {
   left: 42%;
 }
 
-/* 화면의 비율이 16:9보다 작을 때 (세로가 더길때) */
-@media (max-aspect-ratio: 16/9) {
+/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 3/2) {
   .mainbox {
-    aspect-ratio: 16/9;
-    width: 80%;
+    aspect-ratio: 3/2;
+    width: 90%;
     padding: 3vw;
+
+    border: 0.25vw solid rgb(178, 177, 185);
+    border-radius: 1.8vw;
   }
 
   .mainbox__header {
@@ -125,12 +128,15 @@ body {
   }
 }
 
-/* 화면의 비율이 16:9보다 클 때 (가로가 더길때) */
-@media (min-aspect-ratio: 16/9) {
+/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 3/2) {
   .mainbox {
-    aspect-ratio: 16/9;
-    height: 80%;
+    aspect-ratio: 3/2;
+    height: 90%;
     padding: 3vh;
+
+    border: 0.5vh solid rgb(178, 177, 185);
+    border-radius: 1.8vh;
   }
 
   .mainbox__header {
