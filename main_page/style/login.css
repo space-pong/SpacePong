@@ -11,7 +11,6 @@ body {
   /* font */
   font-family: 'orbitron', sans-serif;
   font-variation-settings: 'wght' 700;
-  /*letter-spacing: 0.2em;*/
   color: whitesmoke;
 
   /* arrange */
@@ -22,16 +21,23 @@ body {
   /* size */
   height: 100vh;
   
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.5); /* 검은색 배경에 30%의 투명도 적용 */
+    z-index: 0; /* 배경 이미지 위에 오버레이되도록 z-index 설정 */
+  }
 }
 
 .mainbox {
   /* backdrop effects */
   backdrop-filter: blur(15px);
   background-color: rgb(178, 177, 185, 0.4);
-  /*background-blend-mode: overlay;*/
-  /*mix-blend-mode: overlay;*/
-  /* border */
-  border: 3px solid rgb(178, 177, 185);
+
   border-radius: 15px;
 
   /* fix the box size not to be changed depending on padding value */
@@ -68,10 +74,11 @@ body {
 }
 
 .control-bar__login {
+  /* background effect */
   background: linear-gradient(to bottom right, rgb(245,245,245, 0.5), rgb(89, 82, 96, 0.5));
-  mix-blend-mode: overlay;
   border: 2px solid white;
   border-radius: 15px;
+  mix-blend-mode: overlay;
 
   /* arrange */
   display: flex;
@@ -81,14 +88,12 @@ body {
 
   /*shadow*/
   /*box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.8)*/
-  box-shadow: 2px 5px 10px 1px rgb(20, 20, 20)
 }
 
 .control-bar__login__btn {
-  background: linear-gradient(to bottom right, rgba(205, 247, 209), rgba(22, 85, 19));
-  /*background-color: green;*/
+  background: rgb(51, 115, 87);
 
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   border-radius: 15px;
 
   text-align: center;
@@ -100,7 +105,8 @@ body {
   align-items: center;
 
   /* shadow */
-  box-shadow: 2px 5px 10px 1px rgb(44, 46, 67, 0.5)
+  box-shadow: 2px 2px 20px 1px rgb(44, 46, 67, 0.5);
+  cursor: pointer;
 
 }
 
@@ -117,7 +123,7 @@ body {
     width: 90%;
     padding: 5vw;
 
-    border: 0.25vw solid rgb(178, 177, 185);
+    border: 0.25vw solid rgb(178, 177, 185, 0.2);
     border-radius: 1.8vw;
   }
 
@@ -130,12 +136,12 @@ body {
   }
 
   .control-bar__login {
-    width: 20vw;
     aspect-ratio:  17/9;
+    width: 18vw;
 
     margin-top: -18vw;
     
-    border: 0.2vw solid rgb(178, 177, 185);
+    border: 0.2vw solid rgb(89, 82, 96);
     border-radius: 1.5vw;
   }
   
@@ -144,7 +150,7 @@ body {
     height: 25%;
     
     font-size: 1.4vw;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     
     border: 0.2vw solid rgb(178, 177, 185, 0.2);
     border-radius: 1.5vw;
@@ -163,7 +169,7 @@ body {
     height: 90%;
     padding: 5vh;
 
-    border: 0.5vh solid rgb(178, 177, 185);
+    border: 0.5vh solid rgba(178, 177, 185. 0.2);
     border-radius: 1.8vh;
   }
 
@@ -176,18 +182,23 @@ body {
   }
 
   .control-bar__login {
-    height: 20vh;
     aspect-ratio: 16/9;
+    height: 15vh;
 
     margin-top: -30vh;
-    border: 0.2vh solid rgb(178, 177, 185);
+
+    border: 0.2vh solid rgb(89, 82, 96);
     border-radius: 2vh;
   }
 
   .control-bar__login__btn {
     width: 70%;
     height: 30%;
+
     font-size: 3vh;
+
+    border: 0.4vh solid rgb(178, 177, 185, 0.2);
+    border-radius: 1.5vw;
   }
 
   .mainbox__img--moon {
