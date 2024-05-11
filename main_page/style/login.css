@@ -195,7 +195,8 @@ body {
     width: 70%;
     height: 30%;
 
-    font-size: 3vh;
+    font-size: 2vh;
+    letter-spacing: 0.15em;
 
     border: 0.4vh solid rgb(178, 177, 185, 0.2);
     border-radius: 1.5vw;
