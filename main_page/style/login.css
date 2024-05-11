@@ -32,9 +32,7 @@ body {
   position: relative;
 }
 
-.mainbox__header {
-  letter-spacing: 0.2em;
-}
+
 .mainbox__inner {
   /*background-color: aqua;*/
 
@@ -48,6 +46,16 @@ body {
   justify-content: space-between;
 }
 
+.mainbox__header {
+  letter-spacing: 0.2em;
+  color: whitesmoke;
+  text-shadow: 2px 2px 10px rgb(178, 177, 185);
+}
+
+.mainbox__footer {
+  letter-spacing: 0.2em;
+  text-shadow: 2px 2px 10px rgb(178, 177, 185);
+}
 .control-bar__login {
   background-color: rgb(255,255,255,0.3);
   border: 2px solid white;
@@ -102,12 +110,10 @@ body {
 
   .mainbox__header {
     font-size: 3vw;
-    color: whitesmoke;
-    text-shadow: 2px 2px 10px rgb(178, 177, 185);
   }
 
   .mainbox__footer {
-    font-size: 2vw;
+    font-size: 1.5vw;
   }
 
   .control-bar__login {
@@ -149,7 +155,7 @@ body {
   }
 
   .mainbox__footer {
-    font-size: 4vh;
+    font-size: 2vh;
   }
 
   .control-bar__login {
