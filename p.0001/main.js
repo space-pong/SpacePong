@@ -9,6 +9,7 @@ const canvas = document.getElementById('art');
 // 로더
 const gltfLoader = new GLTFLoader();
 const rgbeLoader = new RGBELoader();
+const audioLoader = new THREE.AudioLoader();
 
 // 씬
 const scene = new THREE.Scene();
@@ -42,7 +43,6 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
 
 // 배경: 우주
-
 rgbeLoader.load('../a/Nebula4.hdr', (texture) => {
   const envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.background = envMap;
@@ -57,13 +57,17 @@ rgbeLoader.load('../a/Nebula4.hdr', (texture) => {
 // 앰비언트 라이트
 const light = new THREE.AmbientLight( 0xffffff, 1 ); // soft white light
 scene.add( light );
-var satellite = null;
 
-// 사운드
+
+// 오디오 리스너
 const listener = new THREE.AudioListener();
 camera.add(listener);
+
+// 오디오 로더
+
+
+// 배경음악
 const bgmSound = new THREE.Audio(listener);
-const audioLoader = new THREE.AudioLoader();
 audioLoader.load('../a/bgm.mp3', function(buffer) {
   bgmSound.setBuffer(buffer);
   bgmSound.setLoop(true); // 반복 재생
@@ -87,12 +91,16 @@ audioLoader.load('../a/bgm.mp3', function(buffer) {
   }
   fadeInAudio(bgmSound, 2000);
 });
+
+// 충돌효과음
 const attackSound = new THREE.Audio(listener);
 audioLoader.load('../a/effect.mp3', function(buffer) {
   attackSound.setBuffer(buffer);
   attackSound.setLoop(false); // 반복 재생 안함
-  attackSound.setVolume(0.05); // 볼륨 설정
+  attackSound.setVolume(0.2); // 볼륨 설정
 });
+
+// 나레이션
 const robertSound = new THREE.Audio(listener);
 audioLoader.load('../a/robert.mp3', function(buffer) {
   robertSound.setBuffer(buffer);
@@ -101,12 +109,13 @@ audioLoader.load('../a/robert.mp3', function(buffer) {
   robertSound.play();
 });
 
-// 인공위성
+// 인공위성1
+var satellite1 = null;
 gltfLoader.load("../a/satellite.glb",  function (gltf) {
-    satellite = gltf.scene;
-    satellite.position.set(0, 0, 80);
-    satellite.rotation.set(Math.PI * 0.5, 0, 0);
-    scene.add(satellite); // 로드된 모델을 씬에 추가
+    satellite1 = gltf.scene;
+    satellite1.position.set(0, 0, 80);
+    satellite1.rotation.set(Math.PI * 0.5, 0, 0.0);
+    scene.add(satellite1); // 로드된 모델을 씬에 추가
 });
 
 // 인공위성2
@@ -150,23 +159,43 @@ function shakeCamera(duration = 100, intensity = 0.05) {
   const startTime = Date.now();
   const originalPosition = camera.position.clone();
   function shake() {
-      const elapsedTime = Date.now() - startTime;
-      if (elapsedTime < duration) {
-          const progress = elapsedTime / duration;
-          const xShake = (Math.random() - 0.5) * intensity * (1 - progress);
-          const yShake = (Math.random() - 0.5) * intensity * (1 - progress);
-          camera.position.x = originalPosition.x + xShake;
-          camera.position.y = originalPosition.y + yShake;
-
-          requestAnimationFrame(shake);
-      } else {
-          camera.position.copy(originalPosition); // 흔들림 종료 후 원래 위치로 복귀
-      }
+    const elapsedTime = Date.now() - startTime;
+    if (elapsedTime < duration) {
+      const progress = elapsedTime / duration;
+      const xShake = (Math.random() - 0.5) * intensity * (1 - progress);
+      const yShake = (Math.random() - 0.5) * intensity * (1 - progress);
+      camera.position.x = originalPosition.x + xShake;
+      camera.position.y = originalPosition.y + yShake;
+      requestAnimationFrame(shake);
+    } else {
+      camera.position.copy(originalPosition); // 흔들림 종료 후 원래 위치로 복귀
+    }
   }
   shake();
 }
 
 
+
+function tiltSatellite(satellite, targetRotationY) {
+  if (targetRotationY == satellite.rotation.y) {
+    return ;
+  } else {
+    if (targetRotationY > satellite.rotation.y) {
+      satellite.rotation.y += 0.1;
+      if (satellite.rotation.y > targetRotationY) {
+        satellite.rotation.y = targetRotationY;
+      }
+    } else if (targetRotationY < satellite.rotation.y) {
+      satellite.rotation.y -= 0.1;
+      if (satellite.rotation.y < targetRotationY) {
+        satellite.rotation.y = targetRotationY;
+      }
+    }
+  }
+}
+
+
+
 // 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
 // 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
 // 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더 게임 코드 헤더
@@ -175,7 +204,9 @@ function shakeCamera(duration = 100, intensity = 0.05) {
 
 
 
-let ballSpeed = { x: 2, z: 2 };
+let ballSpeed = 2;
+let ballDir = new THREE.Vector3(0, 0, 1);
+ballDir.normalize();
 let paddleWidth = 18, paddleDepth = 4;
 let fieldWidth = 120, fieldDepth = 160;
 let player1Score = 0, player2Score = 0;
@@ -183,15 +214,21 @@ let player1Score = 0, player2Score = 0;
 // Paddle movement parameters
 let moveSpeed = 1.5;
 
-
 function gameProcess() {
   // 플레이어 키보드 움직임
-  if (moveLeft) {
-    if (satellite) satellite.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), -moveSpeed );
+  if (moveLeft || moveRight) {
+    if (moveLeft == true && moveRight == false) {
+      satellite1.position.x -= 1.5;
+      tiltSatellite(satellite1, 0.2);
+    }
+    if (moveLeft == false && moveRight == true) {
+      satellite1.position.x += 1.5;
+      tiltSatellite(satellite1, -0.2);
+    }
+  } else {
+    tiltSatellite(satellite1, 0.0);
   }
-  if (moveRight) {
-    if (satellite) satellite.translateOnAxis( new THREE.Vector3( 1, 0, 0 ), moveSpeed );
-  }
+
 
   // AI
 
@@ -203,34 +240,38 @@ function gameProcess() {
   
 
   // 인공위성 움직임 범위 제한
-  if (satellite) {
-    satellite.position.x = Math.max(-fieldWidth / 2 + paddleWidth / 2, Math.min(fieldWidth / 2 - paddleWidth / 2, satellite.position.x));
+  if (satellite1) {
+    satellite1.position.x = Math.max(-fieldWidth / 2 + paddleWidth / 2, Math.min(fieldWidth / 2 - paddleWidth / 2, satellite1.position.x));
   }
   if (satellite2) {
     satellite2.position.x = Math.max(-fieldWidth / 2 + paddleWidth / 2, Math.min(fieldWidth / 2 - paddleWidth / 2, satellite2.position.x));
   }
 
   // 공 움직임
-  ball.position.x += ballSpeed.x;
-  ball.position.z += ballSpeed.z;
+  ball.position.x += ballSpeed * ballDir.x;
+  ball.position.z += ballSpeed * ballDir.z;
   
   // 공과 벽 충돌
   if (ball.position.x <= -fieldWidth / 2 + 0.5 || ball.position.x >= fieldWidth / 2 - 0.5) {
-    ballSpeed.x *= -1;
+    ballDir.x *= -1;
     shakeCamera(100, 2);
   }
 
 
   // 공과 인공위성 충돌
-  if (ball.position.z <= satellite.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite.position.z - paddleDepth / 2 - 0.5 &&
-      ball.position.x >= satellite.position.x - paddleWidth / 2 && ball.position.x <= satellite.position.x + paddleWidth / 2) {
-    ballSpeed.z *= -1;
+  if (ball.position.z <= satellite1.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite1.position.z - paddleDepth / 2 - 0.5 &&
+      ball.position.x >= satellite1.position.x - paddleWidth / 2 && ball.position.x <= satellite1.position.x + paddleWidth / 2) {
+    //ballDir.z *= -1;
+
+    ballDir.x = (ball.position.x - satellite1.position.x) / ((paddleWidth / 2) + 0.1);
+    ballDir.z = -Math.sqrt(1 - ballDir.x * ballDir.x);
+    ballDir.normalize();
+    attackSound.play();
     shakeCamera(500, 4);
-    //attackSound.play();
   }
   if (ball.position.z <= satellite2.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite2.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= satellite2.position.x - paddleWidth / 2 && ball.position.x <= satellite2.position.x + paddleWidth / 2) {
-    ballSpeed.z *= -1;
+    ballDir.z *= -1;
     shakeCamera(500, 4);
     //attackSound.play();
   }
@@ -269,7 +310,8 @@ function animate() {
   requestAnimationFrame(animate);
   scene.environmentRotation.z += rotationSpeed;
   scene.backgroundRotation.z += rotationSpeed;
-  if (satellite) gameProcess();
+  //satellite1.rotation.set(Math.PI * 0.5,0.2,0);
+  if (satellite1) gameProcess();
   //controls.update();
 
   renderer.render(scene, camera);
@@ -310,6 +352,7 @@ window.addEventListener('keydown', (event) => {
     case 'ArrowDown':
       moveDown = true;
       bgmSound.setVolume(0);
+      robertSound.setVolume(0);
       break;
   }
 });
