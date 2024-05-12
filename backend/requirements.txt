@@ -3,8 +3,5 @@
 # 사용할 Django 버전
 Django==4.2.11
 
-# 사용될 WSGI
-gunicorn
-
-# postgreSQL과 통신을 위해 필요한 패키지
+# postgreSQL과 통신을 위해 필요한 패키지(psycopg3)
 psycopg2-binary
