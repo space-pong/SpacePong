@@ -5,6 +5,7 @@ services:
   frontend:
     build: # 도커 이미지 빌드를 위한 Dockerfile의 경로
       context: ./frontend
+    init: true
     ports: # 사용할 포트 번호 ([Host port]:[Container port])
       - "443:443"
     restart: always
@@ -18,6 +19,7 @@ services:
   backend:
     build:
       context: ./backend
+    init: true
     ports:
       - "8000:8000"
     restart: always
@@ -33,6 +35,7 @@ services:
   db:
     build:
       context: ./db
+    init: true
     ports:
       - "5432:5432"
     restart: always
