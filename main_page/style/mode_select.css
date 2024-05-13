@@ -95,50 +95,77 @@ body {
   align-items: center;
 
   letter-spacing: 0.2em;
+
+  position: relative;
 }
 
 .control-bar__profile {
   width: 100%;
+}
+
+.control-bar__profile__icon {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /*background-color: aqua;*/
 }
 
 .control-bar__mode {
   width: 100%;
-  flex-grow: 1;
+  height: 100%;
+  /*background-color: antiquewhite;*/
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 }
 
 .control-bar__mode__online {
+  /*height: 100%;*/
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
 .mode__online__title {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.control-bar__mode__local {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.mode__online__name {
+  /*background-color: aqua;*/
+  /*height: 100%;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.control-bar__mode__local {
+  /*height: 100%;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
 .mode__local__title {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode__local__name {
+  /*height: 100%;*/
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -177,21 +204,43 @@ body {
   }
 
   .mainbox__img--moon {
-    width: 25vw;
     aspect-ratio: 1/1;
+    width: 25vw;
   }
 
-  .control-bar__profile__icon--logout {
+  .control-bar__profile__icon img {
     aspect-ratio: 1/1;
-    height: 5vw;
+    width: 4vw;
   }
-  .control-bar__profile__icon--info {
-    aspect-ratio: 1/1;
-    height: 5vw;
+
+  .mode__online__title img{
+    width: 5vw;
+    margin-bottom: 0.4vw;
   }
-  .control-bar__profile__icon--setting {
-    aspect-ratio: 1/1;
-    height: 5vw;
+
+  .mode__online__title__text {
+    font-size: 0.8vw;
+    margin-left: 0.6vw;
+    margin-right: 0.6vw;
+  }
+
+  .mode__online__name {
+    font-size: 1.2vw;
+  }
+
+  .mode__local__title img{
+    width: 5vw;
+    margin-bottom: 0.4vw;
+  }
+
+  .mode__local__title__text {
+    font-size: 0.8vw;
+    margin-left: 0.6vw;
+    margin-right: 0.6vw;
+  }
+
+  .mode__local__name {
+    font-size: 1.2vw;
   }
 }
 
@@ -216,7 +265,7 @@ body {
 
   .control-bar {
     aspect-ratio: 2/3;
-    height: 15vh;
+    height: 30vh;
 
     border: 0.2vh solid rgb(89, 82, 96);
     border-radius: 2vh;
@@ -227,8 +276,39 @@ body {
     height: 35vh;
   }
 
-  .control-bar__profile__icon {
+  .control-bar__profile__icon img {
     aspect-ratio: 1/1;
-    height: 3vh;
+    height: 5vh;
   }
+
+  .mode__online__title img{
+    width: 5vh;
+    margin-bottom: 0.6vh;
+  }
+
+  .mode__online__title__text {
+    font-size: 0.8vh;
+    margin-left: 0.6vh;
+    margin-right: 0.6vh;
+  }
+
+  .mode__online__name {
+    font-size: 1.2vh;
+  }
+
+  .mode__local__title img{
+    width: 5vh;
+    margin-bottom: 0.6vh;
+  }
+
+  .mode__local__title__text {
+    font-size: 0.8vh;
+    margin-left: 0.6vh;
+    margin-right: 0.6vh;
+  }
+
+  .mode__local__name {
+    font-size: 1.2vh;
+  }
+  /* 이 부분은 나중에 이미지로 만들어서 넣는게 퀄리티가 더 좋을 듯 */
 }
