@@ -1,0 +1,234 @@
+@import url('font/orbitron.css');
+@import url('reset.css');
+
+body {
+  /* background image */
+  background-image: url("../assets/images/earth-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  /* font */
+  font-family: 'orbitron', sans-serif;
+  font-variation-settings: 'wght' 700;
+  color: whitesmoke;
+
+  /* arrange */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* size */
+  height: 100vh;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.5); /* 검은색 배경에 30%의 투명도 적용 */
+    z-index: 0; /* 배경 이미지 위에 오버레이되도록 z-index 설정 */
+  }
+}
+
+.mainbox {
+  /* backdrop effects */
+  backdrop-filter: blur(15px);
+  background-color: rgb(178, 177, 185, 0.4);
+
+  border-radius: 15px;
+
+  /* fix the box size not to be changed depending on padding value */
+  box-sizing: border-box;
+  
+  /* for moon img position */
+  position: relative;
+}
+
+
+.mainbox__inner {
+  /*background-color: aqua;*/
+  
+  /* size */
+  width: 100%;
+  height: 100%;
+  
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mainbox__header {
+  letter-spacing: 0.2em;
+  color: whitesmoke;
+  text-shadow: 2px 2px 10px rgb(178, 177, 185);
+}
+
+.mainbox__footer {
+  letter-spacing: 0.2em;
+  text-shadow: 1px 1px 1px rgb(178, 177, 185);
+}
+
+.mainbox__control-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-bar {
+  /* background effect */
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  border: 2px solid white;
+  border-radius: 15px;
+  mix-blend-mode: overlay;
+
+  box-sizing: border-box;
+
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  letter-spacing: 0.2em;
+}
+
+.control-bar__profile {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /*background-color: aqua;*/
+}
+
+.control-bar__mode {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar__mode__online {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode__online__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar__mode__local {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode__local__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainbox__img {
+  position: absolute;
+  top: 13%;
+  left: 60%;
+}
+
+/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 3/2) {
+  .mainbox {
+    aspect-ratio: 3/2;
+    width: 90%;
+    padding: 5vw;
+
+    border: 0.25vw solid rgb(178, 177, 185, 0.2);
+    border-radius: 1.8vw;
+  }
+
+  .mainbox__header {
+    font-size: 3vw;
+  }
+
+  .mainbox__footer {
+    font-size: 1.5vw;
+  }
+
+  .control-bar {
+    aspect-ratio:  2/3;
+    width: 18vw;
+
+    border: 0.2vw solid rgb(89, 82, 96);
+    border-radius: 1.5vw;
+  }
+
+  .mainbox__img--moon {
+    width: 25vw;
+    aspect-ratio: 1/1;
+  }
+
+  .control-bar__profile__icon--logout {
+    aspect-ratio: 1/1;
+    height: 5vw;
+  }
+  .control-bar__profile__icon--info {
+    aspect-ratio: 1/1;
+    height: 5vw;
+  }
+  .control-bar__profile__icon--setting {
+    aspect-ratio: 1/1;
+    height: 5vw;
+  }
+}
+
+/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 3/2) {
+  .mainbox {
+    aspect-ratio: 3/2;
+    height: 90%;
+    padding: 5vh;
+
+    border: 0.5vh solid rgba(178, 177, 185. 0.2);
+    border-radius: 1.8vh;
+  }
+
+  .mainbox__header {
+    font-size: 5vh;
+  }
+
+  .mainbox__footer {
+    font-size: 2vh;
+  }
+
+  .control-bar {
+    aspect-ratio: 2/3;
+    height: 15vh;
+
+    border: 0.2vh solid rgb(89, 82, 96);
+    border-radius: 2vh;
+  }
+
+  .mainbox__img--moon {
+    aspect-ratio: 1/1;
+    height: 35vh;
+  }
+
+  .control-bar__profile__icon {
+    aspect-ratio: 1/1;
+    height: 3vh;
+  }
+}
