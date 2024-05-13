@@ -42,7 +42,7 @@ body {
 
   /* fix the box size not to be changed depending on padding value */
   box-sizing: border-box;
-
+  
   /* for moon img position */
   position: relative;
 }
@@ -50,11 +50,11 @@ body {
 
 .mainbox__inner {
   /*background-color: aqua;*/
-
+  
   /* size */
   width: 100%;
   height: 100%;
-
+  
   /* arrange */
   display: flex;
   flex-direction: column;
@@ -73,9 +73,15 @@ body {
   text-shadow: 1px 1px 1px rgb(178, 177, 185);
 }
 
+.control-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .control-bar__login {
   /* background effect */
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.5), rgb(89, 82, 96, 0.5));
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
   border: 2px solid white;
   border-radius: 15px;
   mix-blend-mode: overlay;
@@ -112,13 +118,14 @@ body {
 }
 
 .control-bar__login__btn:active {
-  background-color: rgb(50, 100, 86); /* 클릭 시 약간 더 밝은 배경색 적용 */
+  /* 클릭 시 약간 더 밝은 배경색 적용 */
+  background-color: rgb(50, 100, 86); 
 }
 
 .mainbox__img {
   position: absolute;
-  top: 20%;
-  left: 42%;
+  top: 13%;
+  left: 60%;
 }
 
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
@@ -144,8 +151,6 @@ body {
     aspect-ratio:  17/9;
     width: 18vw;
 
-    margin-top: -18vw;
-    
     border: 0.2vw solid rgb(89, 82, 96);
     border-radius: 1.5vw;
   }
@@ -162,7 +167,7 @@ body {
   }
 
   .mainbox__img--moon {
-    width: 40vw;
+    width: 25vw;
     aspect-ratio: 1/1;
   }
 }
@@ -190,8 +195,6 @@ body {
     aspect-ratio: 16/9;
     height: 15vh;
 
-    margin-top: -30vh;
-
     border: 0.2vh solid rgb(89, 82, 96);
     border-radius: 2vh;
   }
@@ -209,6 +212,6 @@ body {
 
   .mainbox__img--moon {
     aspect-ratio: 1/1;
-    height: 70vh;
+    height: 35vh;
   }
 }
