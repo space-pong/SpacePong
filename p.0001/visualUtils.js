@@ -19,6 +19,7 @@ export function shakeCamera(camera, duration = 100, intensity = 0.05) {
   shake();
 }
 
+// 기체 틸트
 export function tiltZ(object, targetRotationZ) {
   if (targetRotationZ == object.rotation.z) {
     return ;

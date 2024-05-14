@@ -1,12 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
 import { shakeCamera, tiltZ } from './visualUtils.js';
 
 // 캔버스 얻기
@@ -31,9 +27,11 @@ scene.add(rotationCenter);
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
-  alpha: true,
-  precision: 'mediump'
+  alpha: false,
+  precision: "lowp",
+  powerPreference: "high-performance"
 });
+renderer.autoClear = false;
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -125,7 +123,7 @@ thrustLight.position.set( 0, 6, 82 );
 scene.add( thrustLight );
 
 // 드래곤
-let mixer;
+let dragonMixer = null;
 var dragon = null;
 gltfLoader.load("../a/dragon.glb",  function (gltf) {
   dragon = gltf.scene;
@@ -133,11 +131,14 @@ gltfLoader.load("../a/dragon.glb",  function (gltf) {
   dragon.scale.set(0.06, 0.04, 0.04);
   dragon.rotation.set(Math.PI * -0.3, 0, 0);
   scene.add(dragon); // 로드된 모델을 씬에 추가
-  mixer = new THREE.AnimationMixer(gltf.scene);
-  const action = mixer.clipAction(gltf.animations[0]);
+  dragonMixer = new THREE.AnimationMixer(gltf.scene);
+  const action = dragonMixer.clipAction(gltf.animations[0]);
   action.timeScale =2;
   action.play();
 });
+const dragonLight = new THREE.PointLight( 0xff0000, 600, 100 );
+dragonLight.position.set( 0, 0, -80 );
+scene.add( dragonLight );
 
 // 공
 const ballGeometry = new THREE.SphereGeometry( 2, 16, 16 ); 
@@ -212,15 +213,19 @@ function gameProcess() {
     thrustLight.position.x = satellite1.position.x;
     tiltZ(satellite1, 0.0);
   }
+
   // AI
   if (dragon.position.x < ball.position.x) {
     dragon.position.x = ball.position.x;
     tiltZ(dragon, -0.3);
+    dragonLight.position.x = ball.position.x;
   } else if (dragon.position.x > ball.position.x) {
     //satellite2.position.x -= 1.5;\
     dragon.position.x = ball.position.x;
+    dragonLight.position.x = ball.position.x;
     tiltZ(dragon, 0.3);
   };
+
   // 인공위성 움직임 범위 제한
   if (satellite1) {
     satellite1.position.x = Math.max(-fieldWidth / 2 + paddleWidth / 2, Math.min(fieldWidth / 2 - paddleWidth / 2, satellite1.position.x));
@@ -240,7 +245,7 @@ function gameProcess() {
   if (ball.position.z <= satellite1.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= satellite1.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= satellite1.position.x - paddleWidth / 2 && ball.position.x <= satellite1.position.x + paddleWidth / 2) {
     //ballDir.z *= -1;
-
+    
     ballDir.x = (ball.position.x - satellite1.position.x) / ((paddleWidth / 2) + 0.1);
     ballDir.z = -Math.sqrt(1 - ballDir.x * ballDir.x);
     ballDir.normalize();
@@ -281,8 +286,14 @@ function animate() {
   scene.backgroundRotation.z += rotationSpeed;
 
   const delta = clock.getDelta();
-  if (mixer) mixer.update(delta);
-  if (satellite1) gameProcess();
+  if (dragonMixer) {
+    dragonMixer.update(delta);
+  }
+
+  if (satellite1) {
+    gameProcess();
+  }
+  
   //controls.update();
   renderer.render(scene, camera);
 }
@@ -317,7 +328,6 @@ window.addEventListener('keydown', (event) => {
     case 'ArrowDown':
       moveDown = true;
       bgmSound.setVolume(0);
-      robertSound.setVolume(0);
       break;
   }
 });
