@@ -4,10 +4,16 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { HorizontalBlurShader } from 'three/addons/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/addons/shaders/VerticalBlurShader.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { LUTPass } from 'three/addons/postprocessing/LUTPass.js';
+import { LUTCubeLoader } from 'three/addons/loaders/LUTCubeLoader.js';
+import { LUT3dlLoader } from 'three/addons/loaders/LUT3dlLoader.js';
+
+
 
 import { shakeCamera, tiltZ } from './visualUtils.js';
 
@@ -93,7 +99,7 @@ audioLoader.load('../a/strike-sound.mp3', function(buffer) {
 
 // 배경 맵
 var envMap = null;
-rgbeLoader.load('../a/Nebula3.hdr', (texture) => {
+rgbeLoader.load('../a/Nebula3_t.hdr', (texture) => {
   envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.background = envMap;
   scene.environment = envMap;
@@ -144,7 +150,7 @@ gltfLoader.load("../a/mutalisk.glb",  function (gltf) {
   action.timeScale = 1;
   action.play();
 });
-const dragonLight = new THREE.PointLight( 0xff0000, 800, 100 );
+const dragonLight = new THREE.PointLight( 0x0000ff, 800, 100 );
 dragonLight.position.set( 0, -10, -70 );
 scene.add( dragonLight );
 /* const sphereSize = 1;
@@ -200,6 +206,16 @@ gltfLoader.load("../a/cradle.glb",  function (gltf) {
   cradle2.position.set(-90, 0, -20);
   scene.add(cradle2);
 });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -344,7 +360,6 @@ function animate() {
 }
 
 window.onload = animate;
-
 
 
 
