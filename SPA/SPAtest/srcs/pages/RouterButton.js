@@ -35,3 +35,22 @@ export default class RouterButton {
       });
   }
 }
+
+/*
+dummyClickEvent = ({target}) => {
+  if(target.classList.contains('A')){
+      this.setState({...this.state, locate : '/A'});
+  }
+  if(target.classList.contains('B')){
+      this.setState({...this.state, locate: '/B'});
+  }
+  if(target.classList.contains('C')){
+      this.setState({...this.state, locate: '/C'});
+  }
+}
+
+
+setDummyEvent(){
+  this.root.addEventListener('click', this.dummyClickEvent);
+}
+*/

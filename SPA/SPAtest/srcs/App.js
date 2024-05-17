@@ -42,7 +42,7 @@ class App {
     }
 
     historyRouterPush(locate) {
-        window.history.pushState({}, locate, window.location.origin + locate);
+        //window.history.pushState({}, locate, window.location.origin + locate);
     }
 }
 
