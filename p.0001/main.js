@@ -102,6 +102,7 @@ var envMap = null;
 rgbeLoader.load('../a/Nebula3_t.hdr', (texture) => {
   envMap = pmremGenerator.fromEquirectangular(texture).texture;
   scene.background = envMap;
+  scene.backgroundBlurriness = 0.03;
   scene.environment = envMap;
   scene.backgroundRotation.set(3,0,0);
   scene.environmentRotation.set(3,0,0);
@@ -144,13 +145,22 @@ gltfLoader.load("../a/mutalisk.glb",  function (gltf) {
   dragon.position.set(0, 0, -80);
   dragon.scale.set(10, 10, 10);
   //dragon.rotation.set(Math.PI * -0.3, 0, 0);
+  dragon.traverse(function (child) {
+    if (child.isMesh) { // 메쉬인 경우
+      if (child.material) { // 재질이 있는 경우
+        child.material.metalness = 0.7;
+        child.material.roughness = 0.2;
+        child.material.needsUpdate = true;
+      }
+    }
+  });
   scene.add(dragon); // 로드된 모델을 씬에 추가
   dragonMixer = new THREE.AnimationMixer(gltf.scene);
   const action = dragonMixer.clipAction(gltf.animations[1]);
   action.timeScale = 1;
   action.play();
 });
-const dragonLight = new THREE.PointLight( 0x0000ff, 800, 100 );
+const dragonLight = new THREE.PointLight( 0xff0000, 800, 100 );
 dragonLight.position.set( 0, -10, -70 );
 scene.add( dragonLight );
 /* const sphereSize = 1;
@@ -158,17 +168,39 @@ const pointLightHelper = new THREE.PointLightHelper( dragonLight, sphereSize );
 scene.add( pointLightHelper ); */
 
 // 홀로그램
-let hologram = null;
+/* let hologram = null;
 let hologramMixer = null;
 gltfLoader.load("../a/hologram.glb", function(gltf) {
   hologram  = gltf.scene;
   hologram.position.set(0,20,-100);
+  hologram.rotation.set(0, 0, Math.PI * 0.5);
   const hologramSize = 120;
   hologram.scale.set(hologramSize * 1.2, hologramSize, hologramSize);
   scene.add(hologram);
   hologramMixer = new THREE.AnimationMixer(gltf.scene);
   const action = hologramMixer.clipAction(gltf.animations[0]);
   action.play();
+}) */
+let hologram = null;
+let hologramMixer = null;
+gltfLoader.load("../a/space_station.glb", function(gltf) {
+  hologram  = gltf.scene;
+  hologram.position.set(0,10,-500);
+  //hologram.position.set(0,-50,-130);
+  hologram.rotation.set(0, 0, 0);
+  const hologramSize = 20;
+  hologram.scale.set(hologramSize * 1.2, hologramSize, hologramSize);
+  hologram.traverse(function (child) {
+    if (child.isMesh) { // 메쉬인 경우
+      if (child.material) { // 재질이 있는 경우
+        child.material.metalness = 0.8;
+        child.material.roughness = 0.7;
+        child.material.needsUpdate = true;
+      }
+    }
+  });
+  scene.add(hologram);
+
 })
 
 // 공
@@ -200,7 +232,7 @@ gltfLoader.load("../a/cradle.glb",  function (gltf) {
       }
     }
   });
-  scene.add(cradle);
+ scene.add(cradle);
 
   cradle2 = cradle.clone();
   cradle2.position.set(-90, 0, -20);
@@ -218,11 +250,9 @@ gltfLoader.load("../a/cradle.glb",  function (gltf) {
 
 
 
-
 // 게임 로직
-let ballSpeed = 3;
+let ballSpeed = 2.5;
 let ballDir = new THREE.Vector3(0, 0, 1);
-ballDir.normalize();
 let paddleWidth = 18, paddleDepth = 4;
 let fieldWidth = 120, fieldDepth = 160;
 let player1Score = 0, player2Score = 0;
@@ -280,10 +310,20 @@ function gameProcess() {
     //ballDir.z *= -1;
     
     ballDir.x = (ball.position.x - satellite1.position.x) / ((paddleWidth / 2) + 0.1);
-    ballDir.z = -Math.sqrt(1 - ballDir.x * ballDir.x);
-    ballDir.normalize();
+    ballDir.z *= -1;
     strikeSound.play();
     shakeCamera(camera, 500, 4);
+    const gamepads = navigator.getGamepads();
+    for (let gamepad of gamepads) {
+      if (gamepad) {
+        gamepad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 300,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0,
+        });
+      }
+    }
   }
   if (ball.position.z <= dragon.position.z + paddleDepth / 2 + 0.5 && ball.position.z >= dragon.position.z - paddleDepth / 2 - 0.5 &&
       ball.position.x >= dragon.position.x - paddleWidth / 2 && ball.position.x <= dragon.position.x + paddleWidth / 2) {
@@ -296,14 +336,12 @@ function gameProcess() {
     player2Score++;
     ball.position.set(0, 0, 0);
     ballDir.x = Math.random() * 2 -1;
-    ballDir.z = Math.random() * -1;
-    ballDir.normalize();
+    ballDir.z = -1;
   } else if (ball.position.z > fieldDepth / 2) {
     player1Score++;
     ball.position.set(0, 0, 0);
     ballDir.x = Math.random() * 2 -1;
-    ballDir.z = Math.random() * -1;
-    ballDir.normalize();
+    ballDir.z = -1;
   }
 }
 
@@ -328,12 +366,32 @@ if (NDEBUG) {
   controls = new OrbitControls(camera, renderer.domElement);
 }
 //const controls = new OrbitControls( camera, renderer.domElement );
+
 function animate() {
+  
+  
   requestAnimationFrame(animate);
-
+  
   stats.begin();
+  const gamepads = navigator.getGamepads();
+  
+  for (let gamepad of gamepads) {
+    if (gamepad) {
+      console.log(gamepad.axes[0]);
+      if (gamepad.axes[0] < -0.1) {
+        moveLeft = true;
+        moveRight = false;
+      } else if (gamepad.axes[0] > 0.1) {
+        moveRight = true;
+        moveLeft = false;
+      } else {
+        moveLeft = false;
+        moveRight = false;
+      }
+    }
+  }
 
-  const rotationSpeed = -0.02;
+  const rotationSpeed = -0.01;
   scene.environmentRotation.z += rotationSpeed;
   scene.backgroundRotation.z += rotationSpeed;
 
@@ -343,8 +401,8 @@ function animate() {
     dragonMixer.update(delta);
   }
 
-  if (hologramMixer) {
-    hologramMixer.update(delta);
+  if (hologram) {
+    hologram.rotation.y += 0.01;
   }
 
   if (satellite1) {
@@ -410,3 +468,10 @@ window.addEventListener('keyup', (event) => {
   }
 });
 
+window.addEventListener("gamepadconnected", function(e) {
+  console.log("게임패드 연결됨:", e.gamepad);
+});
+
+window.addEventListener("gamepaddisconnected", function(e) {
+  console.log("게임패드 연결 해제됨:", e.gamepad);
+});
