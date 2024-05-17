@@ -1,4 +1,4 @@
-@import url('font/orbitron.css');
+@import url('font/nicomoji.css');
 @import url('reset.css');
 
 body {
@@ -9,12 +9,13 @@ body {
   background-position: center;
 
   /* font */
-  font-family: 'orbitron', sans-serif;
+  font-family: 'nicomoji', sans-serif;
   font-variation-settings: 'wght' 700;
   color: whitesmoke;
 
   /* arrange */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 

@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script>
+      // run this function when the document is loaded
+      window.onload = function () {
+        // create a couple of elements in an otherwise empty HTML page
+        var heading = document.createElement("h1");
+        var heading_text = document.createTextNode("Big Head!");
+        var heading2 = document.createElement("h2");
+        var heading_text2 = document.createTextNode("small Head!");
+        heading.appendChild(heading_text);
+        heading.appendChild(heading_text2);
+        document.body.appendChild(heading);
+        document.body.appendChild(heading2);
+      };
+    </script>
+  </head>
+  <body></body>
+</html>
