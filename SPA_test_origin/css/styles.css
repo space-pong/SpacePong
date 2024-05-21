@@ -1,0 +1,11 @@
+/* 스타일시트를 포함합니다. */
+
+/* 기본 스타일 */
+body {
+  font-family: Arial, sans-serif;
+}
+
+#app {
+  padding: 20px;
+  text-align: center;
+}
