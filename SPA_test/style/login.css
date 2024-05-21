@@ -7,7 +7,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
+  
   /* font */
   font-family: 'nicomoji', sans-serif;
   font-variation-settings: 'wght' 700;
@@ -50,7 +50,7 @@ body {
 
 
 .mainbox__inner {
-  /*background-color: aqua;*/
+   /*background-color: aqua;*/
   
   /* size */
   width: 100%;

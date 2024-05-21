@@ -110,6 +110,10 @@ body {
   align-items: center;
 }
 
+.control-bar__profile__icon img {
+  cursor: pointer;
+}
+
 .control-bar__mode {
   width: 100%;
   height: 100%;
