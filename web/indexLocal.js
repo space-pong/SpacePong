@@ -10,7 +10,7 @@ document.getElementById('art').addEventListener('click', async function handler(
     const keyboard2 = new KeyboardController(65, 68, 87, 83, 70); // wasd + f
     const pongGameLogic = new PongGameLogic(keyboard1, keyboard2);
     const pongRenderer = new PongRenderer();
-    await pongRenderer.init('art', pongGameLogic);
+    await pongRenderer.init('art', pongGameLogic, "Zerg", "Zerg");
     pongRenderer.setTopView();
     pongRenderer.start();
     pongGameLogic.start();
