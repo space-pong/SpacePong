@@ -14,6 +14,7 @@ document.getElementById('art').addEventListener('click', async function handler(
     pongRenderer.setTopView();
     pongRenderer.start();
     pongGameLogic.start();
+
   } catch (error) {
     console.error(error);
   }

@@ -1,6 +1,6 @@
-import { AIController } from "./AIController.js";
-import { Controller } from "./Controller.js";
-import { DualSenseController } from "./DualSenseController.js";
+import { AIController } from "./Controller/AIController.js";
+import { Controller } from "./Controller/Controller.js";
+import { DualSenseController } from "./Controller/DualSenseController.js";
 
 export class PongGameLogic {
   constructor(controller1, controller2) {

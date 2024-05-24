@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
-
+import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
 
 export class PongRenderer {
   constructor() {
@@ -458,12 +458,18 @@ export class PongRenderer {
 
   animate() {
     requestAnimationFrame(this.animate);
+    this.stats.begin();
     this.animateEnvironments();
     this.animateGame();
     this.renderer.render(this.scene, this.camera);
+    this.stats.end();
   }
 
   start() {
+    this.stats = new Stats();
+    this.stats.showPanel(0); // 0: fps, 1: ms/frame, 2: memory
+    document.body.appendChild(this.stats.dom);
+
     this.animate();
   }
 }
