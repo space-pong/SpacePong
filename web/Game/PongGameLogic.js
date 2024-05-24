@@ -4,29 +4,27 @@ import { DualSenseController } from "./Controller/DualSenseController.js";
 
 export class PongGameLogic {
   constructor(controller1, controller2) {
-
+    this.isRemoteGame = false;
+    this.isHost = false;
+    this.isGuest = false;
     this.fieldWidth = 120;
     this.fieldDepth = 160;
     this.paddleWidth = 18;
     this.speedZ = 2.5;
-    
     this.player1 = {
       position: { x: 0, y: 0, z: 80 },
       score: 0,
       controller: controller1
     };
-
     this.player2 = {
       position: { x: 0, y: 0, z: -80 },
       score: 0,
       controller: controller2
     };
-
     this.ball = {
       position: { x: 0, y: 0, z: 0 },
       velocity: { x: 0, y: 0, z: this.speedZ }
     };
-
     this.isPlayer1Strike = false;
     this.isPlayer2Strike = false;
     this.isWallStrike = false;
