@@ -66,7 +66,7 @@ export class AIController extends Controller {
         }
       }
       this.targetX = estimatePosX;
-      console.log("defense! " + ballVelZ);
+      console.log("defense! " + getCurrentTimeFormatted());
       setTimeout(this.updateInfo, defenseInTime + ((fieldDepth / Math.abs(ballVelZ)) * (1000 / 60)) + 5);
     }
 
@@ -94,4 +94,14 @@ export class AIController extends Controller {
     }
     setTimeout(this.updateInfo, 1000); */
   }
+}
+
+function getCurrentTimeFormatted() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+
+  return `${hours}시 ${minutes}분 ${seconds}초 ${milliseconds}밀리초`;
 }
