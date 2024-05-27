@@ -4,9 +4,6 @@ import { DualSenseController } from "./Controller/DualSenseController.js";
 
 export class PongGameLogic {
   constructor(controller1, controller2) {
-    this.isRemoteGame = false;
-    this.isHost = false;
-    this.isGuest = false;
     this.fieldWidth = 120;
     this.fieldDepth = 160;
     this.paddleWidth = 18;
@@ -28,21 +25,78 @@ export class PongGameLogic {
     this.isPlayer1Strike = false;
     this.isPlayer2Strike = false;
     this.isWallStrike = false;
-    this.update = this.update.bind(this);
+    this.update = this.#update.bind(this);
+    this.loop = this.loop.bind(this);
+    this.targetScore = 10;
+    this.pauseDuration = 90;
+    this.isHost = false;
+    this.isGuest = false;
+    this.channel = null;
   }
 
-  start() {
-    this.update();
-  }
+  
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async update() {
-    if (this.player1.score == 10 || this.player2.score == 10) {
-      return ;
+  setHost(channel) {
+    if (this.isHost || this.isGuest) {
+      return false;
     }
+    this.isHost = true;
+    this.channel = channel;
+    this.socket = new WebSocket("ws://" + window.location.host + '/ws/pong/');
+  }
+
+  setGuest(channel) {
+    if (this.isHost || this.isGuest) {
+      return false;
+    }
+    this.isGuest = true;
+    this.channel = channel;
+  }
+
+
+  #send() {
+    this.socket.send(JSON.stringify({
+      'position' : this.player1.position
+    }));
+  }
+
+  #recv() {
+    
+  }
+
+  async loop() {
+    this.startTime = performance.now();
+
+    // 리모트인 경우 
+    if (this.isHost) {
+      // 호스트 <- 게스트 : 컨트롤러 입력값
+      // 호스트 -> 게스트 : 게임 상태
+    } else if (this.isGuest) {
+      // 게스트 <- 호스트 : 게임상태
+      // 게스트 -> 호스트 : 컨트롤러 입력값
+    }
+
+    // 로직 처리(로컬)
+    if (this.pauseDuration) {
+      this.pauseDuration--;
+    } else {
+      await this.#update();
+    }
+
+    if (this.player1.score == this.targetScore || this.player2.score == this.targetScore) {
+      return;
+    }
+    let endTime = performance.now();
+    let gapTime = this.startTime - endTime;
+    if (gapTime < (1000 / 60)) {
+      setTimeout(this.loop, (1000 / 60) - gapTime);
+    } else {
+      setTimeout(this.loop, 0);
+    }
+    
+  }
+
+  async #update() {
     // 컨트롤러값으로 기체 움직임 적용
     let player1Moved = false;
     if (this.player1.controller.left == true) {
@@ -62,7 +116,6 @@ export class PongGameLogic {
     if (Math.abs(this.player1.controller.stick.x) > 0.05 && player1Moved == false) {
       this.player1.position.x += 1.5 * this.player1.controller.stick.x;
     }
-    
     
     // 기체 움직임 범위 제한
     this.player1.position.x = Math.max(
@@ -110,7 +163,7 @@ export class PongGameLogic {
         this.ball.position.z = 0;
         this.player1.position.x = 0;
         this.player2.position.x = 0;
-        await this.sleep(1500);
+        this.pauseDuration = 90;
       }
     } else if (this.ball.position.z <= -this.fieldDepth / 2) { // 공이 플레이어 2의 라인을 넘었을 경우
       if (this.player2.position.x - (this.paddleWidth / 2) <= this.ball.position.x && // 공 반사
@@ -132,10 +185,9 @@ export class PongGameLogic {
         this.ball.position.z = 0;
         this.player1.position.x = 0;
         this.player2.position.x = 0;
-        await this.sleep(1500);
+        this.pauseDuration = 90;
       }
     }
-    setTimeout(this.update, 16.6667);
   }
 
 

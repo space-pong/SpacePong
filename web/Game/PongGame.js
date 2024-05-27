@@ -7,7 +7,6 @@ import { PongGameRenderer } from "./PongGameRenderer.js";
 
 export class PongGame {
   constructor() {
-
   }
 
   async init (controller1, controller2, skin1, skin2, canvasId) {
@@ -29,8 +28,19 @@ export class PongGame {
     await this.renderer.init(canvasId, this.logic, skin1, skin2);
   }
 
-  start() {
-    this.renderer.start();
-    this.logic.start();
+  setHost(channel) {
+    this.logic.setHost(channel);
+  }
+
+  setGuest(channel) {
+    this.logic.setGuest(channel);
+  }
+
+  async start() {
+    await this.renderer.start();
+    if (this.controller2 instanceof AIController) {
+      this.controller2.start();
+    }
+    this.logic.loop();
   }
 }

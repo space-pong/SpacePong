@@ -30,7 +30,7 @@ export class PongGameRenderer {
       0.1,  // 최소 렌더링 거리
       1000  // 최대 렌더링 거리
     )
-    this.camera.position.set(0, 40, 95);
+    this.camera.position.set(0, 40, 100);
     this.camera.lookAt(new THREE.Vector3(0, 0, 35));
     this.rotationCenter = new THREE.Object3D();
     this.rotationCenter.add(this.camera);
@@ -41,7 +41,7 @@ export class PongGameRenderer {
       canvas: this.canvas,
       antialias: true,
       alpha: false,
-      precision: "highp",
+      precision: "lowp",
       powerPreference: "high-performance"
     });
     this.renderer.autoClear = false;
@@ -66,7 +66,7 @@ export class PongGameRenderer {
       this.envMap = this.pmremGenerator.fromEquirectangular(texture).texture;
       this.scene.background = this.envMap;
       this.scene.environment = this.envMap;
-      this.scene.backgroundBlurriness = 0.03;
+      //this.scene.backgroundBlurriness = 0.03;
       this.scene.backgroundRotation.set(3, 0, 0);
       this.scene.environmentRotation.set(3, 0, 0);
       texture.dispose();
@@ -86,7 +86,7 @@ export class PongGameRenderer {
       this.bgmSound.play();
       function fadeInAudio(audio, duration) {
         const initialVolume = 0.0;
-        const targetVolume = 0.5;
+        const targetVolume = 0.3;
         const step = (targetVolume - initialVolume) / (duration / 100);
         let currentVolume = initialVolume;
         function increaseVolume() {
@@ -131,6 +131,8 @@ export class PongGameRenderer {
     } else if (player2Skin == "Zerg") {
       await this.setPlayer2UnitZerg();
     }
+
+
     
 
     // 양 옆 가이드라인
@@ -177,6 +179,8 @@ export class PongGameRenderer {
     } catch (error) {
       console.error('Error loading model:', error);
     }
+
+
 
 
     // 함수 바인드
@@ -227,7 +231,7 @@ export class PongGameRenderer {
       const thrustLight = new THREE.PointLight(0xff0000, 10000, 100);
       thrustLight.position.set(0, 6, -2); // 부모 객체의 로컬 좌표계 기준으로 위치 설정
       this.player1Unit.add(thrustLight);
-      this.scene.add(this.player1Unit);
+      this.scene.add(this.player1Unit);    
     } catch (error) {
       console.error('Error loading model:', error);
     }
@@ -465,7 +469,7 @@ export class PongGameRenderer {
     this.stats.end();
   }
 
-  start() {
+  async start() {
     this.stats = new Stats();
     this.stats.showPanel(0); // 0: fps, 1: ms/frame, 2: memory
     document.body.appendChild(this.stats.dom);

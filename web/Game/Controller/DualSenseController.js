@@ -22,7 +22,7 @@ export class DualSenseController extends Controller {
 
   update() {
     this.stick.x = this.ds.states.ls.x;
-    setTimeout(this.update, 16);
+    setTimeout(this.update, 16.66667);
   }
 
   setSubKeyboard(leftKeycode, rightKeycode, upKeycode, downKeycode, hotKeycode) {
