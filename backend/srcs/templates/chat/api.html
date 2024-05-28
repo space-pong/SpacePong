@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Information</title>
+</head>
+<body>
+    <h1>Token Information</h1>
+    <p><strong>Access Token:</strong> <span id="access-token"></span></p>
+
+    <script>
+        // 액세스 토큰을 가져와서 HTML에 표시
+        var accessToken = "{{ access }}";
+        
+        document.getElementById("access-token").innerText = accessToken;
+    </script>
+</body>
+</html>
