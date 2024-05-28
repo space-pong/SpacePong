@@ -1,0 +1,106 @@
+@import url('/main/styles/font/nicomoji.css');
+@import url('/main/styles/css/reset.css');
+
+
+body {
+  font-family: 'nicomoji', sans-serif;
+  font-variation-settings: 'wght' 700;
+  color: whitesmoke;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  background-image: url("/main/assets/images/earth-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.main-box {
+  backdrop-filter: blur(15px);
+  background-color: rgb(178, 177, 185, 0.4);
+
+  border-radius: 15px;
+
+  /* fix the box size not to be changed depending on padding value */
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  overflow: hidden;
+
+  /* for moon img position */
+  position: relative;
+}
+
+.main-img {
+  position: absolute;
+  top: 13%;
+  left: 60%;
+}
+
+/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 3/2) {
+  .main-box {
+    aspect-ratio: 3/2;
+    width: 90%;
+    padding: 5vw;
+
+    border: 0.25vw solid rgb(178, 177, 185, 0.2);
+    border-radius: 1.8vw;
+  }
+
+  .header {
+    font-size: 3vw;
+  }
+
+  .footer {
+    font-size: 1.5vw;
+  }
+
+  .main-img--moon {
+    width: 25vw;
+    aspect-ratio: 1/1;
+  }
+}
+
+/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 3/2) {
+  .main-box {
+    aspect-ratio: 3/2;
+    height: 90%;
+    padding: 5vh;
+
+    border: 0.5vh solid rgba(178, 177, 185. 0.2);
+    border-radius: 1.8vh;
+  }
+
+  .header {
+    font-size: 5vh;
+  }
+
+  .footer {
+    font-size: 2vh;
+  }
+
+  .main-img--moon {
+    aspect-ratio: 1/1;
+    height: 35vh;
+  }
+}
