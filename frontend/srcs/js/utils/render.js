@@ -3,6 +3,10 @@ export function renderPage(page) {
   const app = document.getElementById('app');
   app.innerHTML = page.html;
   loadCSS(page.css);
+  if (page.js && Array.isArray(page.js)) {
+    loadScriptsSequentially(page.js).catch(error => {
+        console.error('Error loading scripts:', error);
+    })}
 }
 
 function loadCSS(cssPath) {
@@ -21,4 +25,25 @@ function loadCSS(cssPath) {
 
   link.setAttribute('data-dynamic-css', 'true');
   head.appendChild(link);
+}
+
+function loadScript(jsPath) {
+  return new Promise((resolve, reject) => {
+      const body = document.body;
+      const script = document.createElement('script');
+
+      script.type = 'module';
+      script.src = jsPath;
+
+      script.onload = resolve;
+      script.onerror = reject;
+
+      body.appendChild(script);
+  });
+}
+
+function loadScriptsSequentially(scripts) {
+  return scripts.reduce((promise, script) => {
+      return promise.then(() => loadScript(script));
+  }, Promise.resolve());
 }

@@ -3,6 +3,13 @@
 import { renderPage } from './utils/render.js';
 import loginPage from './pages/login.js';
 import modeSelectPage from './pages/mode_select.js';
+import gamepage from './pages/game.js';
+
+const routes = {
+    login: loginPage,
+    mode_select: modeSelectPage,
+    game: gamepage,
+};
 
 async function fetchTokens() {
   try {
@@ -104,7 +111,7 @@ async function init() {
             localStorage.removeItem('refreshToken');
             renderPage(loginPage);
           }
-          else
+          else 
             renderPage(routes[page]);
           history.pushState({ page }, '', page);
       }

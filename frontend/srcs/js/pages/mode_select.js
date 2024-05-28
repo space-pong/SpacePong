@@ -10,7 +10,7 @@ const modeSelectPage = {
           <div class="control-bar__profile">
               <div class="control-bar__profile__icon">
                 <img class="control-bar__profile__icon--logout" src="assets/images/icon_logout.png" alt="logout" data-link="login">
-                <img class="control-bar__profile__icon--info" src="assets/images/icon_info.png" alt="logout">
+                <img class="control-bar__profile__icon--info" src="assets/images/icon_info.png" alt="logout" data-link="game">
                 <img class="control-bar__profile__icon--setting" src="assets/images/icon_setting.png" alt="logout">
               </div>
           </div>

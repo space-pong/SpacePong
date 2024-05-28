@@ -67,6 +67,7 @@ class Auth42CallbackView(View):
             'access_token': str(refresh.access_token),
             'refresh_token': str(refresh)
         }
+        # response_data.set_cookie('refresh_token', str(refresh), httponly=True)
         return JsonResponse(response_data)
 
 
