@@ -1,6 +1,10 @@
 // pages/loginPage.js
+
 export const loginPage = {
   html: `
-    <button>Login</button>
-  `
+    <button class=login-button>Login</button>
+  `,
+  css: 'styles/css/loginPage.css'
 };
+
+//import '../../styles/css/loginPage.css'
