@@ -37,10 +37,12 @@ export class PongGame {
   }
 
   async start() {
-    await this.renderer.start();
-    if (this.controller2 instanceof AIController) {
+    await this.renderer.loop();
+
+    if (this.controller2 instanceof AIController) { 
       this.controller2.start();
     }
+
     this.logic.loop();
   }
 }

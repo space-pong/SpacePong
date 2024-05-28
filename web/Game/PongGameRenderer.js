@@ -469,9 +469,9 @@ export class PongGameRenderer {
     this.stats.end();
   }
 
-  async start() {
+  async loop() {
     this.stats = new Stats();
-    this.stats.showPanel(2); // 0: fps, 1: ms/frame, 2: memory
+    this.stats.showPanel(0); // 0: fps, 1: ms/frame, 2: memory
     document.body.appendChild(this.stats.dom);
 
     this.animate();

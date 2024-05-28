@@ -27,7 +27,7 @@ export class AIController extends Controller {
       this.left = false;
       this.right = false;
     }
-    setTimeout(this.updateMovement, 16);
+    setTimeout(this.updateMovement, 1000 / 60);
   }
 
   updateInfo() {
