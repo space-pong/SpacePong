@@ -14,5 +14,5 @@ COPY requirements.txt /app
 # 의존성 설치
 RUN pip install -r requirements.txt
 
-# Django 서버 시작
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# init.sh 스크립트 실행
+CMD ["/app/init.sh"]

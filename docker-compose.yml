@@ -20,8 +20,8 @@ services:
     build:
       context: ./backend
     init: true
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     restart: always
     env_file:
       - ./.env
@@ -36,8 +36,8 @@ services:
     build:
       context: ./db
     init: true
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     restart: always
     env_file: 
       - ./.env
