@@ -24,18 +24,15 @@
 
   background: rgb(51, 115, 87);
 
-  /*border: 1px solid green;*/
   border-radius: 15px;
 
   text-align: center;
 
-  /* arrange */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  /* shadow */
   box-shadow: 2px 2px 20px 1px rgb(44, 46, 67, 0.5);
 
   cursor: pointer;

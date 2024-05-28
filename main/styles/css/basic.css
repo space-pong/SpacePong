@@ -6,6 +6,8 @@ body {
   font-family: 'nicomoji', sans-serif;
   font-variation-settings: 'wght' 700;
   color: whitesmoke;
+
+  user-select: none;
 }
 
 .app {
