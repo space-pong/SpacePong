@@ -381,7 +381,7 @@ export class PongGameRenderer {
   }
 
   animateEnvironments() {
-    const rotationSpeed = -0.01;
+    const rotationSpeed = (Math.abs(this.pongGameInstance.ball.velocity.z) / 1.8) / 100;
     this.scene.environmentRotation.z += rotationSpeed;
     this.scene.backgroundRotation.z += rotationSpeed;
     this.spaceStation.rotation.y += 0.01;
@@ -471,7 +471,7 @@ export class PongGameRenderer {
 
   async start() {
     this.stats = new Stats();
-    this.stats.showPanel(0); // 0: fps, 1: ms/frame, 2: memory
+    this.stats.showPanel(2); // 0: fps, 1: ms/frame, 2: memory
     document.body.appendChild(this.stats.dom);
 
     this.animate();

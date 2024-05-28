@@ -7,7 +7,7 @@ export class PongGameLogic {
     this.fieldWidth = 120;
     this.fieldDepth = 160;
     this.paddleWidth = 18;
-    this.speedZ = 2.5;
+    this.speedZ = 1.8;
     this.player1 = {
       position: { x: 0, y: 0, z: 80 },
       score: 0,
@@ -143,7 +143,7 @@ export class PongGameLogic {
     }
 
     // 공이 라인을 넘었을 경우 (공 반사 or 실점 판정)
-    if (this.ball.position.z >= this.fieldDepth / 2) { // 공이 플레이어 1의 라인을 넘었을 경우
+    if (this.ball.position.z >= this.fieldDepth / 2) { // 라인을 넘었을 경우 : 1p
       if (this.player1.position.x - (this.paddleWidth / 2) <= this.ball.position.x && // 공 반사
         this.ball.position.x <= this.player1.position.x + (this.paddleWidth / 2)) {
           this.ball.position.z = this.fieldDepth / 2;
@@ -165,7 +165,7 @@ export class PongGameLogic {
         this.player2.position.x = 0;
         this.pauseDuration = 90;
       }
-    } else if (this.ball.position.z <= -this.fieldDepth / 2) { // 공이 플레이어 2의 라인을 넘었을 경우
+    } else if (this.ball.position.z <= -this.fieldDepth / 2) { // 라인을 넘었을 경우 : 2p
       if (this.player2.position.x - (this.paddleWidth / 2) <= this.ball.position.x && // 공 반사
         this.ball.position.x <= this.player2.position.x + (this.paddleWidth / 2)) {
           this.ball.position.z = -this.fieldDepth / 2;
@@ -188,7 +188,13 @@ export class PongGameLogic {
         this.pauseDuration = 90;
       }
     }
+
+    // 공 속도 점점 빠르게
+    if (this.ball.velocity.z > 0) {
+      this.ball.velocity.z += 0.001;
+    } else if (this.ball.velocity.z < 0) {
+      this.ball.velocity.z -= 0.001;
+    }
+
   }
-
-
 }
