@@ -8,5 +8,3 @@ export const loginPage = {
   `,
   css: 'styles/css/loginPage.css'
 };
-
-//import '../../styles/css/loginPage.css'
