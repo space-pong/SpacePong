@@ -1,13 +1,91 @@
-/* styles/css/loginPage.css */
-.login-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+.control-bar {
+  align-self: center;
 }
 
-.login-button:hover {
-  background-color: #0056b3;
+.control-bar__login {
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  border: 2px solid white;
+  border-radius: 15px;
+  mix-blend-mode: overlay;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-bar__login__btn {
+  border: 0;
+  background-color: transparent;
+
+  font-family: 'nicomoji', sans-serif;
+  font-variation-settings: 'wght' 700;
+  color: whitesmoke;
+
+  background: rgb(51, 115, 87);
+
+  /*border: 1px solid green;*/
+  border-radius: 15px;
+
+  text-align: center;
+
+  /* arrange */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* shadow */
+  box-shadow: 2px 2px 20px 1px rgb(44, 46, 67, 0.5);
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-bar__login__btn:active {
+  /* 클릭 시 약간 더 밝은 배경색 적용 */
+  background-color: rgb(50, 100, 86); 
+}
+/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 3/2) {
+  .control-bar__login {
+    aspect-ratio:  17/9;
+    width: 18vw;
+
+    border: 0.2vw solid rgb(89, 82, 96);
+    border-radius: 1.5vw;
+  }
+  
+  .control-bar__login__btn {
+    width: 80%;
+    height: 25%;
+    
+    font-size: 1vw;
+    letter-spacing: 0.15em;
+    
+    border: 0.2vw solid rgb(178, 177, 185, 0.2);
+    border-radius: 1.5vw;
+  }
+}
+
+@media (min-aspect-ratio: 3/2) {
+  .control-bar__login {
+    aspect-ratio: 16/9;
+    height: 15vh;
+
+    border: 0.2vh solid rgb(89, 82, 96);
+    border-radius: 2vh;
+  }
+
+  .control-bar__login__btn {
+    width: 70%;
+    height: 30%;
+
+    font-size: 1.5vh;
+    letter-spacing: 0.15em;
+
+    border: 0.4vh solid rgb(178, 177, 185, 0.2);
+    border-radius: 1.5vw;
+  }
+
 }

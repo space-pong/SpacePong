@@ -2,7 +2,9 @@
 
 export const loginPage = {
   html: `
-    <button class=login-button>Login</button>
+  <div class="control-bar__login">
+    <button class="control-bar__login__btn">42 Login</button>
+  </div>
   `,
   css: 'styles/css/loginPage.css'
 };

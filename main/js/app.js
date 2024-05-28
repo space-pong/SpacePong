@@ -8,7 +8,7 @@ import { mainPage } from './pages/mainPage.js'
 //}
 
 function init() {
-  renderControlBar(loginPage)
+  renderControlBar(loginPage);
 }
 
 init();
