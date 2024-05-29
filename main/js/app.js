@@ -11,7 +11,9 @@ import { singleTournamentPage } from './pages/singleTournamentPage.js'
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
+  singleAIPage: singleAIPage
 };
+//routes에서 경로쓰는 방식으로 바꿔주기
 
 function init() {
   //테스트위한 방법
@@ -38,5 +40,3 @@ function init() {
 
 
 window.addEventListener('DOMContentLoaded', init);
-
-//깜빡임이 너무 심함;; 왜그렇지?
