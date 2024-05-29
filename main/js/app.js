@@ -3,7 +3,7 @@
 import { renderControlBar} from './utils/renderControlBar.js';
 import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
-import { localOneToOnePage } from './pages/localOneToOnePage.js'
+import { remotePage } from './pages/remotePage.js'
 import { singleAIPage } from './pages/singleAIPage.js'
 import { singleOneToOnePage } from './pages/singleOneToOnePage.js'
 import { singleTournamentPage } from './pages/singleTournamentPage.js'
