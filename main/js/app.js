@@ -7,9 +7,11 @@ import { localOneToOnePage } from './pages/localOneToOnePage.js'
 import { singleAIPage } from './pages/singleAIPage.js'
 import { singleOneToOnePage } from './pages/singleOneToOnePage.js'
 import { singleTournamentPage } from './pages/singleTournamentPage.js'
-//const routes = {
-//  login: loginPage
-//}
+
+const routes = {
+  loginPage: loginPage,
+  mainPage: mainPage,
+};
 
 function init() {
   //테스트위한 방법
@@ -23,10 +25,18 @@ function init() {
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
         const page = e.target.getAttribute('data-link');
-        renderPage(page);
+        renderControlBar(routes[page]);
         history.pushState({ page }, '', page);
     }
 });
 }
 
-init();
+window.addEventListener('popstate', (event) => {
+  const page = event.state?.page || 'login';
+  renderControlBar(routes[page]);
+});
+
+
+window.addEventListener('DOMContentLoaded', init);
+
+//깜빡임이 너무 심함;; 왜그렇지?
