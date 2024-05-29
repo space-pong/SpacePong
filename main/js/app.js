@@ -26,15 +26,15 @@ function init() {
     if (e.target.matches('[data-link]')) {
         const page = e.target.getAttribute('data-link');
         renderControlBar(routes[page]);
-        history.pushState({ page }, '', page);
+        //history.pushState({ page }, '', page);
     }
 });
 }
 
-window.addEventListener('popstate', (event) => {
-  const page = event.state?.page || 'login';
-  renderControlBar(routes[page]);
-});
+//window.addEventListener('popstate', (event) => {
+//  const page = event.state?.page || 'login';
+//  renderControlBar(routes[page]);
+//});
 
 
 window.addEventListener('DOMContentLoaded', init);

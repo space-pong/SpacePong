@@ -3,7 +3,7 @@ export const mainPage = {
   <div class="control-bar__main">
   <div class="control-bar__main__icon">
     <div class="control-bar__main__icon--logout">
-      <img src="/main/assets/images/icon_logout.svg" alt="logout">
+      <img src="/main/assets/images/icon_logout.svg" data-link="loginPage" alt="logout">
     </div>
     <div class="control-bar__main__icon--controller"></div>
       <img src="/main/assets/images/icon_controller.svg" alt="controller">
