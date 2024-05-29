@@ -37,6 +37,8 @@
 
 .control-bar__singleAI__confirm__btn--play {
   background-color: rgba(115,178,93, 0.4);
+
+  cursor: pointer;
 }
 
 .control-bar__singleAI__confirm__btn--play:hover {
@@ -45,6 +47,8 @@
 
 .control-bar__singleAI__confirm__btn--cancel {
   background-color: rgba(255, 0, 0, 0.2);
+
+  cursor: pointer;
 }
 
 .control-bar__singleAI__confirm__btn--cancel:hover {
