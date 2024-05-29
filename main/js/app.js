@@ -13,8 +13,8 @@ import { singleTournamentPage } from './pages/singleTournamentPage.js'
 
 function init() {
   //테스트위한 방법
-  //renderControlBar(loginPage);
-  renderControlBar(mainPage);
+  renderControlBar(loginPage);
+  //renderControlBar(mainPage);
   //renderControlBar(localOneToOnePage);
   //renderControlBar(singleAIPage);
   //renderControlBar(singleOneToOnePage);
