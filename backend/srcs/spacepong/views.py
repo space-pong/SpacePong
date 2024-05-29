@@ -38,15 +38,10 @@ class DataAPI(APIView):
                 oppositeSkin=request.data.get('mySkin')
         )
         else :
-            GameData.objects.filter(oppositeName='').update(oppositeName=request.user)
-            GameData.objects.filter(myName='').update(myName=request.user)
-            GameData.objects.filter(hostName='').update(hostName=request.user)
-            GameData.objects.filter(guestName='').update(guestName=request.user)
-            GameData.objects.filter(mySkin='').update(mySkin=request.data.get('mySkin'))
-            GameData.objects.filter(oppositeSkin='').update(oppositeSkin=request.data.get('mySkin'))
+            GameData.objects.filter(oppositeName='', guestName='', oppositeSkin='')[0].update(oppositeName=request.user,guestName=request.user,oppositeSkin=request.data.get('mySkin'))
+            GameData.objects.filter(myName='',hostName='',mySkin='')[0].update(myName=request.user, hostName=request.user, mySkin=request.data.get('mySkin'))
         return Response("OK")
 
     def delete(self, request):
         GameData.objects.filter(myName=request.user).delete()
-        GameData.objects.filter(oppositeName=request.user).delete()
         return Response("OK")
