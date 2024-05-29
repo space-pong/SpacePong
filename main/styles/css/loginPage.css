@@ -25,7 +25,7 @@
   font-variation-settings: 'wght' 700;
   color: whitesmoke;
 
-  background: rgb(51, 115, 87);
+  background-color: rgba(115,178,93, 0.4);
 
   border-radius: 15px;
 
@@ -40,12 +40,15 @@
 
   cursor: pointer;
   user-select: none;
+
+  transition: filter 0.3s ease, cursor 0.3s ease;
 }
 
-.control-bar__login__btn:active {
+.control-bar__login__btn:hover {
   /* 클릭 시 약간 더 밝은 배경색 적용 */
-  background-color: rgb(50, 100, 86); 
+  background-color: rgba(115,178,93, 0.6); 
 }
+
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
 @media (max-aspect-ratio: 3/2) {
   .control-bar__login {
