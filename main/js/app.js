@@ -19,6 +19,14 @@ function init() {
   //renderControlBar(singleAIPage);
   //renderControlBar(singleOneToOnePage);
   //renderControlBar(singleTournamentPage);
+
+  document.body.addEventListener('click', (e) => {
+    if (e.target.matches('[data-link]')) {
+        const page = e.target.getAttribute('data-link');
+        renderPage(page);
+        history.pushState({ page }, '', page);
+    }
+});
 }
 
 init();
