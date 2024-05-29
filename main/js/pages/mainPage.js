@@ -12,9 +12,9 @@ export const mainPage = {
   </div>
   <div class="control-bar__main__online">
     <div class="control-bar__main__online__title">
-      <div class="control-bar__main__online__title--divider"></div>
+      <hr class="control-bar__main__online__title--divider">
       <div class="control-bar__main__online__title--text">online</div>
-      <div class="control-bar__main__online__title--divider"></div>
+      <hr class="control-bar__main__online__title--divider">
     </div>
     <div class="control-bar__main__online__mode">
       <div class="control-bar__main__online__mode--text">Remote Play</div>
@@ -22,9 +22,9 @@ export const mainPage = {
   </div>
   <div class="control-bar__main__local">
     <div class="control-bar__main__local__title">
-      <div class="control-bar__main__local__title--divider"></div>
+      <hr class="control-bar__main__local__title--divider">
       <div class="control-bar__main__local__title--text">local</div>
-      <div class="control-bar__main__local__title--divider"></div>
+      <hr class="control-bar__main__local__title--divider">
     </div>
     <div class="control-bar__main__local__mode">
       <div class="control-bar__main__local__mode--text">Tournament</div>
@@ -33,5 +33,6 @@ export const mainPage = {
     </div>
   </div>
 </div>
-  `
+  `,
+  css: 'styles/css/mainPage.css'
 };

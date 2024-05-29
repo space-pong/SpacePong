@@ -1,0 +1,192 @@
+.control-bar{
+  align-self: center;
+}
+
+.control-bar__main {
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  border: 2px solid white;
+  border-radius: 15px;
+  mix-blend-mode: overlay;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.control-bar__main__icon {
+  width: 100%;
+  height: 15%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+
+  box-sizing: border-box;
+}
+
+.control-bar__main__online {
+  width: 100%;
+  height: 35%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar__main__online__title {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.control-bar__main__online__title--text {
+  margin-bottom: 2px;
+}
+
+.control-bar__main__online__mode {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-bar__main__local {
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar__main__local__title {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.control-bar__main__local__title--text {
+  margin-bottom: 2px;
+}
+
+.control-bar__main__local__mode {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
+@media (max-aspect-ratio: 3/2) {
+  .control-bar__main {
+    aspect-ratio:  2/3;
+    width: 20vw;
+
+    border: 0.2vw solid rgb(89, 82, 96);
+    border-radius: 1.5vw;
+  }
+
+  .control-bar__main__icon {
+    padding-left: 1vw;
+    padding-right: 1vw;
+  }
+
+  .control-bar__main__icon img {
+    aspect-ratio: 1/1;
+    width: 5vw;
+  }
+
+  .control-bar__main__online__title {
+    font-size: 1vw;
+  }
+
+  .control-bar__main__online__title--divider {
+    width: 5vw;
+  }
+
+  .control-bar__main__online__mode {
+    font-size: 1.4vw;
+  }
+
+  .control-bar__main__local__title {
+    font-size: 1vw;
+  }
+
+  .control-bar__main__local__title--divider {
+    width: 5vw;
+  }
+
+  .control-bar__main__local__mode {
+    font-size: 1.4vw;
+    padding-top: 1vw;
+    padding-bottom: 1.5vw;
+  }
+
+}
+
+/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
+@media (min-aspect-ratio: 3/2) {
+  .control-bar__main {
+    aspect-ratio: 2/3;
+    height: 40vh;
+    border: 0.2vh solid rgb(89, 82, 96);
+    border-radius: 2vh;
+  }
+
+  .control-bar__main__icon {
+    padding-left: 1vh;
+    padding-right: 1vh;
+  }
+
+  .control-bar__main__icon img {
+    aspect-ratio: 1/1;
+    width: 6vh;
+  }
+
+  .control-bar__main__online__title {
+    font-size: 1vh;
+  }
+
+  .control-bar__main__online__title--divider {
+    width: 8vh;
+  }
+
+  .control-bar__main__online__mode {
+    font-size: 2vh;
+  }
+
+  .control-bar__main__local__title {
+    font-size: 1vh;
+  }
+
+  .control-bar__main__local__title--divider {
+    width: 8vh;
+  }
+
+  .control-bar__main__local__mode {
+    font-size: 2vh;
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+  }
+
+}
