@@ -17,7 +17,7 @@ export const mainPage = {
       <hr class="control-bar__main__online__title--divider">
     </div>
     <div class="control-bar__main__online__mode">
-      <div class="control-bar__main__online__mode--text" data-link="localOneToOnePage">Remote Play</div>
+      <div class="control-bar__main__online__mode--text" data-link="remotePage">Remote Play</div>
     </div>
   </div>
   <div class="control-bar__main__local">
