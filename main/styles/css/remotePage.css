@@ -1,0 +1,37 @@
+.control-bar {
+  height: 100%;
+  display: unset;
+  box-sizing: border-box;
+}
+
+.control-bar__remote {
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  border: 2px solid white;
+  border-radius: 15px;
+  mix-blend-mode: overlay;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@media (max-aspect-ratio: 3/2) {
+  .control-bar {
+    padding-top: 4vw;
+  }
+
+  .control-bar__remote {
+    aspect-ratio:  7/9;
+    width: 20vw;
+
+    border: 0.2vw solid rgb(89, 82, 96);
+    border-radius: 1.5vw;
+
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+  }
+}

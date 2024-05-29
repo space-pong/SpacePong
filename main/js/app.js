@@ -11,15 +11,16 @@ import { singleTournamentPage } from './pages/singleTournamentPage.js'
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
+  remotePage: remotePage,
   singleAIPage: singleAIPage
 };
 //routes에서 경로쓰는 방식으로 바꿔주기
 
 function init() {
   //테스트위한 방법
-  renderControlBar(loginPage);
+  //renderControlBar(loginPage);
   //renderControlBar(mainPage);
-  //renderControlBar(localOneToOnePage);
+  renderControlBar(remotePage);
   //renderControlBar(singleAIPage);
   //renderControlBar(singleOneToOnePage);
   //renderControlBar(singleTournamentPage);
