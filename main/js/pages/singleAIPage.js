@@ -8,7 +8,7 @@ export const singleAIPage = {
     </div>
     <div class="control-bar__singleAI__confirm">
       <button class="control-bar__singleAI__confirm__btn--play">Play</button>
-      <button class="control-bar__singleAI__confirm__btn--cancel">Cancel</button>
+      <button class="control-bar__singleAI__confirm__btn--cancel" data-link="mainPage">Cancel</button>
     </div>
   </div>
   `,
