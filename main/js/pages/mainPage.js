@@ -17,7 +17,7 @@ export const mainPage = {
       <hr class="control-bar__main__online__title--divider">
     </div>
     <div class="control-bar__main__online__mode">
-      <div class="control-bar__main__online__mode--text">Remote Play</div>
+      <div class="control-bar__main__online__mode--text" data-link="localOneToOnePage">Remote Play</div>
     </div>
   </div>
   <div class="control-bar__main__local">
@@ -27,9 +27,9 @@ export const mainPage = {
       <hr class="control-bar__main__local__title--divider">
     </div>
     <div class="control-bar__main__local__mode">
-      <div class="control-bar__main__local__mode--text">Tournament</div>
-      <div class="control-bar__main__local__mode--text">1 vs 1</div>
-      <div class="control-bar__main__local__mode--text">Single Play</div>
+      <div class="control-bar__main__local__mode--text" data-link="SingleTournamentPage">Tournament </div>
+      <div class="control-bar__main__local__mode--text" data-link="singleOneToOnePage">1 vs 1</div>
+      <div class="control-bar__main__local__mode--text" data-link="singleAIPage">Single Play </div>
     </div>
   </div>
 </div>
