@@ -123,7 +123,8 @@ async function DeleteData() {
 async function init() {
   // 기본적으로 로그인 페이지를 로드
   const currentPath = window.location.pathname;
-  await fetchTokens();
+  if (!localStorage.getItem('accessToken'))
+    await fetchTokens();
   if (currentPath.startsWith('/chat/mode_select')) {
     const Token = localStorage.getItem('accessToken');
     if (Token)
@@ -133,9 +134,6 @@ async function init() {
   } else {
     const Token = localStorage.getItem('accessToken');
     if (Token) {
-      await postData(skin);  
-      await fetchData();
-      await DeleteData();
       renderPage(modeSelectPage);
     }
     else 

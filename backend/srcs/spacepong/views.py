@@ -15,31 +15,40 @@ class DataAPI(APIView):
         serializer = DataSerializer(Data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
-        Data = GameData.objects.filter(myName='')
-        if (not Data):
+        if (GameData.objects.filter(myName='').count() == 0):
             GameData.objects.create(
                 IsMatched=False,
-                RoomNumber=request.user,
-                myName=request.user,
+                RoomNumber=request.user.username,
+                myName=request.user.username,
                 oppositeName='',
-                hostName=request.user,
+                hostName=request.user.username,
                 guestName='',
                 mySkin=request.data.get('mySkin'),
                 oppositeSkin=''
         )
             GameData.objects.create(
                 IsMatched=False,
-                RoomNumber=request.user,
+                RoomNumber=request.user.username,
                 myName='',
-                oppositeName=request.user,
-                hostName=request.user,
-                guestName='',
+                oppositeName=request.user.username,
+                hostName='',
+                guestName=request.user.username,
                 mySkin='',
                 oppositeSkin=request.data.get('mySkin')
         )
         else :
-            GameData.objects.filter(oppositeName='', guestName='', oppositeSkin='')[0].update(oppositeName=request.user,guestName=request.user,oppositeSkin=request.data.get('mySkin'))
-            GameData.objects.filter(myName='',hostName='',mySkin='')[0].update(myName=request.user, hostName=request.user, mySkin=request.data.get('mySkin'))
+            opposite = GameData.objects.filter(oppositeName='', guestName='', oppositeSkin='').first()
+            if opposite:
+                opposite.oppositeName = request.user.username
+                opposite.guestName = request.user.username
+                opposite.oppositeSkin = request.data.get('mySkin')
+                opposite.save()
+            myself = GameData.objects.filter(myName='',hostName='',mySkin='').first()
+            if myself:
+                myself.myName = request.user.username
+                myself.hostName = request.user.username
+                myself.mySkin = request.data.get('mySkin')
+                myself.save()
         return Response("OK")
 
     def delete(self, request):
