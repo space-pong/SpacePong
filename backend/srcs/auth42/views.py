@@ -1,26 +1,20 @@
-
-from django.conf import settings
-from django.shortcuts import redirect
-from django.views import View
-
-class Auth42LoginView(View):
-    def get(self, request):
-        authorization_url = f"https://api.intra.42.fr/oauth/authorize?client_id={settings.API42_UID}&redirect_uri={settings.API42_REDIRECT_URI}&response_type=code"
-        return redirect(authorization_url)
-
-
 from django.conf import settings
 from django.shortcuts import redirect
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth import login
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.exceptions import TokenError  
 from django.contrib.auth.models import User
 import requests
 from urllib.parse import urlencode
 from .serializers import TokenSerializer
 from django.http import JsonResponse
-from django.shortcuts import render
+
+class Auth42LoginView(View):
+    def get(self, request):
+        authorization_url = f"https://api.intra.42.fr/oauth/authorize?client_id={settings.API42_UID}&redirect_uri={settings.API42_REDIRECT_URI}&response_type=code"
+        return redirect(authorization_url)
 
 class Auth42CallbackView(View):
     def get(self, request):
@@ -61,22 +55,14 @@ class Auth42CallbackView(View):
         login(request, user)
 
         refresh = RefreshToken.for_user(user)
-        token_serializer = TokenSerializer(data={'access': str(refresh.access_token)})
-        token_serializer.is_valid()
+        # token_serializer = TokenSerializer(data={'access': str(refresh.access_token)})
+        # token_serializer.is_valid()
         response_data = {
             'access_token': str(refresh.access_token),
-            'refresh_token': str(refresh)
         }
-        # response_data.set_cookie('refresh_token', str(refresh), httponly=True)
-        return JsonResponse(response_data)
-
-
-
-from django.conf import settings
-from django.http import JsonResponse
-from django.views import View
-from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
-from rest_framework_simplejwt.exceptions import TokenError
+        response = JsonResponse(response_data)
+        response.set_cookie('refresh_token', str(refresh), httponly=True)
+        return response
 
 class VerifyAccessTokenView(View):
     def get(self, request):
@@ -90,13 +76,18 @@ class VerifyAccessTokenView(View):
             return JsonResponse({'message': 'Access token is valid'}, status=200)
         except TokenError as e:
             try:
-                refresh_token = request.GET.get('refresh_token')
+                refresh_token = request.COOKIES.get('refresh_token')
                 if not refresh_token:
                     raise TokenError('Refresh token is required')
 
                 refresh_token = RefreshToken(refresh_token)
                 access_token = str(refresh_token.access_token)
                 new_refresh_token = str(refresh_token)
-                return JsonResponse({'access_token': access_token, 'refresh_token': new_refresh_token}, status=200)
+                response_data = {
+                        'access_token': str(access_token),
+                }
+                response = JsonResponse(response_data)
+                response.set_cookie('refresh_token', str(new_refresh_token), httponly=True)
+                return response
             except TokenError as e:
                 return JsonResponse({'error': str(e)}, status=401)

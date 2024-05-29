@@ -19,6 +19,20 @@ import { shakeCamera, tiltZ } from './visualUtils.js';
 
 import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
 
+const chatSocket = new WebSocket(
+  'wss://'
+  + window.location.host
+  + '/ws/channel/a/'
+);
+
+chatSocket.onmessage = function(e) {
+  const data = JSON.parse(e.data);
+
+  if (data.username != 10) {
+    dragon.position.x += data.usr_pos;
+  }
+};
+
 // 캔버스 얻기
 const canvas = document.getElementById('art');
 
@@ -264,11 +278,19 @@ function gameProcess() {
   if (moveLeft || moveRight) {
     if (moveLeft == true && moveRight == false) {
       satellite1.position.x -= 1.5;
+      chatSocket.send(JSON.stringify({
+        'usr_pos' : -1.5,
+        'username' : 10
+    }));
       thrustLight.position.x = satellite1.position.x;
       tiltZ(satellite1, 0.3);
     }
     if (moveLeft == false && moveRight == true) {
       satellite1.position.x += 1.5;
+      chatSocket.send(JSON.stringify({
+        'usr_pos' : +1.5,
+        'username' : 10
+    }));
       thrustLight.position.x = satellite1.position.x;
       tiltZ(satellite1, -0.3);
     }
@@ -278,16 +300,16 @@ function gameProcess() {
   }
 
   // AI
-  if (dragon.position.x < ball.position.x) {
-    dragon.position.x += 1.5;
-    tiltZ(dragon, -0.1);
-    dragonLight.position.x += 1.5;
-  } else if (dragon.position.x > ball.position.x) {
-    //satellite2.position.x -= 1.5;\
-    dragon.position.x -= 1.5;
-    dragonLight.position.x -= 1.5;
-    tiltZ(dragon, 0.1);
-  };
+  // if (dragon.position.x < ball.position.x) {
+  //   dragon.position.x += 1.5;
+  //   tiltZ(dragon, -0.1);
+  //   dragonLight.position.x += 1.5;
+  // } else if (dragon.position.x > ball.position.x) {
+  //   //satellite2.position.x -= 1.5;\
+  //   dragon.position.x -= 1.5;
+  //   dragonLight.position.x -= 1.5;
+  //   tiltZ(dragon, 0.1);
+  // };
 
   // 인공위성 움직임 범위 제한
   if (satellite1) {

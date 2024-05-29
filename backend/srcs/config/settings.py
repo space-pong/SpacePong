@@ -33,8 +33,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'daphne',
-    'chat',
-    # 'corsheaders',
+    'channel',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,7 +162,7 @@ REST_FRAMEWORK = {
 from datetime import datetime, timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -172,4 +170,3 @@ API42_UID = 'u-s4t2ud-879db4e7443b9a563f1c477134b70f126aff4afc1844d3d71495ac67c9
 API42_SECRET = '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'
 API42_REDIRECT_URI = 'https://localhost'
 
-# CORS_ORIGIN_ALLOW_ALL = True  #나중에 바꿔야함 모든 요청에 대해 허가

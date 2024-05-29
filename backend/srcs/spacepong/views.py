@@ -6,22 +6,20 @@ from rest_framework.permissions import IsAuthenticated
 from .models import GameData
 from .serializers import DataSerializer
 
-@api_view(['GET'])
-def HELLoAPI(request):
-    return Response("hello world")
-
 
 class DataAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        Data = GameData.objects.filter(myName=request.user)
+        # Data = GameData.objects.filter(myName=request.user)
+        Data = GameData.objects.all()
         serializer = DataSerializer(Data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
-        if (GameData.objects.count() != 2):
+        Data = GameData.objects.filter(myName='')
+        if (not Data):
             GameData.objects.create(
                 IsMatched=False,
-                RoomNumber='Room1',
+                RoomNumber=request.user,
                 myName=request.user,
                 oppositeName='',
                 hostName=request.user,
@@ -31,7 +29,7 @@ class DataAPI(APIView):
         )
             GameData.objects.create(
                 IsMatched=False,
-                RoomNumber='Room1',
+                RoomNumber=request.user,
                 myName='',
                 oppositeName=request.user,
                 hostName=request.user,
@@ -40,11 +38,15 @@ class DataAPI(APIView):
                 oppositeSkin=request.data.get('mySkin')
         )
         else :
-            GameData.objects.filter(oppositeName='').update(oppositeName='secondplayer')
-            GameData.objects.filter(myName='').update(myName='secondplayer')
-            GameData.objects.filter(hostName='').update(hostName='secondplayer')
-            GameData.objects.filter(guestName='').update(guestName='secondplayer')
+            GameData.objects.filter(oppositeName='').update(oppositeName=request.user)
+            GameData.objects.filter(myName='').update(myName=request.user)
+            GameData.objects.filter(hostName='').update(hostName=request.user)
+            GameData.objects.filter(guestName='').update(guestName=request.user)
             GameData.objects.filter(mySkin='').update(mySkin=request.data.get('mySkin'))
             GameData.objects.filter(oppositeSkin='').update(oppositeSkin=request.data.get('mySkin'))
+        return Response("OK")
 
+    def delete(self, request):
+        GameData.objects.filter(myName=request.user).delete()
+        GameData.objects.filter(oppositeName=request.user).delete()
         return Response("OK")

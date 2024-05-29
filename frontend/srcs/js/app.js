@@ -11,6 +11,10 @@ const routes = {
     game: gamepage,
 };
 
+const skin = {
+  mySkin: 'migo-skin-data', // 실제 데이터로 교체
+};
+
 async function fetchTokens() {
   try {
     // 현재 URL에서 코드 가져오기
@@ -24,7 +28,6 @@ async function fetchTokens() {
     const response = await fetch(`auth42/callback/?code=${code}`, {
       method: 'GET',
     });
-    
     if (!response.ok) {
       throw new Error('Failed to fetch tokens');
     }
@@ -34,8 +37,6 @@ async function fetchTokens() {
     
     // 로컬 스토리지에 토큰 저장
     localStorage.setItem('accessToken', data.access_token);
-    localStorage.setItem('refreshToken', data.refresh_token);
-    
     // 모드 선택 페이지 렌더링
     renderPage(modeSelectPage);
   } catch (error) {
@@ -44,10 +45,10 @@ async function fetchTokens() {
   }
 }
 
-async function fetchData() {
+async function checkaccess() {
   let token = localStorage.getItem('accessToken');
   if (token) {
-    const accessresponse = await fetch(`auth42/access?access_token=${token}&refresh_token=${localStorage.getItem('refreshToken')}`, {
+    const accessresponse = await fetch(`auth42/access?access_token=${token}}`, {
       method: 'GET'
     });
     if (!accessresponse.ok) {
@@ -59,25 +60,64 @@ async function fetchData() {
     if (!responseData.message) {
       token = responseData.access_token;
       localStorage.setItem('accessToken', responseData.access_token);
-      localStorage.setItem('refreshToken', responseData.refresh_token);
     }
-    const response = await fetch('spacepong/data/', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
-    });
-    if (!response.ok) {
-      // Handle errors (optional)
-      const errorData = await response.json();
-      console.error('Error fetching data:', errorData);
-      return;
-    }
-    const data = await response.json();
-    console.log(data);
-}
+  }
 }
 
+async function fetchData() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  console.log(token);
+  const response = await fetch('spacepong/data/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',// 이거 안쓰면 못읽음
+      'Authorization': 'Bearer ' + token,
+    },
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Error fetching data:', errorData);
+    return;
+  }
+  const data = await response.json();
+  console.log(data);
+}
+
+async function postData(data = {}) {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('spacepong/data/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    console.error('Error fetching data:');
+    return;
+  }
+  return response.json();
+}
+
+
+async function DeleteData() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('spacepong/data/', {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer ' + token
+    },
+  });
+  if (!response.ok) {
+    console.error('Error fetching data:');
+    return;
+  }
+  return response.json();
+}
 
 
 async function init() {
@@ -93,7 +133,9 @@ async function init() {
   } else {
     const Token = localStorage.getItem('accessToken');
     if (Token) {
+      await postData(skin);  
       await fetchData();
+      await DeleteData();
       renderPage(modeSelectPage);
     }
     else 
@@ -108,7 +150,6 @@ async function init() {
           }
           else if (page == 'login') {
             localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
             renderPage(loginPage);
           }
           else 
