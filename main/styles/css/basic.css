@@ -53,8 +53,8 @@ body {
 
 .main-img {
   position: absolute;
-  top: 13%;
-  left: 60%;
+  top: 10%;
+  left: 65%;
 }
 
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
