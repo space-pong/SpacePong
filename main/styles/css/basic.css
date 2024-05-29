@@ -31,7 +31,6 @@ body {
 
 }
 
-
 .main-box {
   backdrop-filter: blur(15px);
   background-color: rgb(178, 177, 185, 0.4);
@@ -55,6 +54,10 @@ body {
   position: absolute;
   top: 10%;
   left: 65%;
+}
+
+.control-bar {
+  display: none;
 }
 
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */

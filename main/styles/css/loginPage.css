@@ -1,5 +1,7 @@
 .control-bar {
+  display: unset;
   align-self: center;
+  
 }
 
 .control-bar__login {

@@ -1,4 +1,5 @@
 .control-bar{
+  display: unset;
   align-self: center;
 }
 
