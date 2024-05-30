@@ -7,11 +7,13 @@ import { remotePage } from './pages/remotePage.js'
 import { localAIPage } from './pages/localAIPage.js'
 import { localOneToOnePage } from './pages/localOneToOnePage.js'
 import { localTournamentPage }  from './pages/localTournamentPage.js'
+import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
   remotePage: remotePage,
+  remoteMatchPage: remoteMatchPage,
   localAIPage: localAIPage,
   localOneToOnePage: localOneToOnePage,
   localTournamentPage: localTournamentPage

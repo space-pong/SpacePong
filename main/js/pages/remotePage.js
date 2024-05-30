@@ -21,7 +21,7 @@ export const remotePage = {
       </label>
     </div>
     <div class="control-bar__remote__confirm">
-      <button class="control-bar__remote__confirm__btn--select">Select</button>
+      <button class="control-bar__remote__confirm__btn--select" data-link="remoteMatchPage">Select</button>
       <button class="control-bar__remote__confirm__btn--cancel" data-link="mainPage">Cancel</button>
     </div>
 </div>
