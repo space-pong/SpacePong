@@ -4,7 +4,7 @@
 }
 
 .control-bar__main {
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.4), rgb(89, 82, 96, 0.4));
   border: 2px solid white;
   border-radius: 15px;
   mix-blend-mode: overlay;
@@ -132,8 +132,8 @@
     aspect-ratio:  2/3;
     width: 20vw;
 
-    border: 0.2vw solid rgb(89, 82, 96);
-    border-radius: 1.5vw;
+    border: 0.2vw solid rgba(89, 82, 96, 0.4);
+    border-radius: 1vw;
   }
 
   .control-bar__main__icon {
