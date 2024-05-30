@@ -100,12 +100,14 @@ body {
 
   .header {
     font-size: 5vh;
+    letter-spacing: 0.6vh;
   }
-
+  
   .footer {
     font-size: 2vh;
+    letter-spacing: 0.6vh;
   }
-
+  
   .main-img--moon {
     aspect-ratio: 1/1;
     height: 35vh;

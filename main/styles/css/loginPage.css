@@ -5,7 +5,7 @@
 }
 
 .control-bar__login {
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
+  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(0,0,0, 0.4));
   border: 2px solid white;
   border-radius: 15px;
   mix-blend-mode: overlay;
