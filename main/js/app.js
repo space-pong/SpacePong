@@ -5,7 +5,7 @@ import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
 import { remotePage } from './pages/remotePage.js'
 import { singleAIPage } from './pages/singleAIPage.js'
-import { singleOneToOnePage } from './pages/singleOneToOnePage.js'
+import { localOneToOnePage } from './pages/localOneToOnePage.js'
 import { singleTournamentPage }  from './pages/singleTournamentPage.js'
 
 const routes = {
@@ -13,7 +13,7 @@ const routes = {
   mainPage: mainPage,
   remotePage: remotePage,
   singleAIPage: singleAIPage,
-  singleOneToOnePage: singleOneToOnePage,
+  localOneToOnePage: localOneToOnePage,
   singleTournamentPage: singleTournamentPage
 };
 //routes에서 경로쓰는 방식으로 바꿔주기
@@ -24,8 +24,8 @@ function init() {
   //renderControlBar(mainPage);
   //renderControlBar(remotePage);
   //renderControlBar(singleAIPage);
-  //renderControlBar(singleOneToOnePage);
-  renderControlBar(singleTournamentPage);
+  renderControlBar(localOneToOnePage);
+  //renderControlBar(singleTournamentPage);
 
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
