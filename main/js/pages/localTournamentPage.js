@@ -1,4 +1,4 @@
-export const singleTournamentPage = {
+export const localTournamentPage = {
   html: `
   <div class="control-bar__tournament">
   <header class="control-bar__tournament__header">Tournament</header>
@@ -23,5 +23,5 @@ export const singleTournamentPage = {
   </div>
 </div>
   `,
-  css: 'styles/css/singleTournament.css'
+  css: 'styles/css/localTournament.css'
 };

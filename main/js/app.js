@@ -4,28 +4,28 @@ import { renderControlBar} from './utils/renderControlBar.js';
 import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
 import { remotePage } from './pages/remotePage.js'
-import { singleAIPage } from './pages/singleAIPage.js'
+import { localAIPage } from './pages/localAIPage.js'
 import { localOneToOnePage } from './pages/localOneToOnePage.js'
-import { singleTournamentPage }  from './pages/singleTournamentPage.js'
+import { localTournamentPage }  from './pages/localTournamentPage.js'
 
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
   remotePage: remotePage,
-  singleAIPage: singleAIPage,
+  localAIPage: localAIPage,
   localOneToOnePage: localOneToOnePage,
-  singleTournamentPage: singleTournamentPage
+  localTournamentPage: localTournamentPage
 };
 //routes에서 경로쓰는 방식으로 바꿔주기
 
 function init() {
   //테스트위한 방법
-  //renderControlBar(loginPage);
+  renderControlBar(loginPage);
   //renderControlBar(mainPage);
   //renderControlBar(remotePage);
-  //renderControlBar(singleAIPage);
-  renderControlBar(localOneToOnePage);
-  //renderControlBar(singleTournamentPage);
+  //renderControlBar(localAIPage);
+  //renderControlBar(localOneToOnePage);
+  //renderControlBar(localTournamentPage);
 
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {

@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.control-bar__singleAI {
+.control-bar__localAI {
   background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(89, 82, 96, 0.5));
   border: 2px solid white;
   border-radius: 15px;
@@ -19,11 +19,11 @@
   box-sizing: border-box;
 }
 
-.control-bar__singleAI__icon img {
+.control-bar__localAI__icon img {
   -webkit-user-drag: none;
 }
 
-.control-bar__singleAI__confirm {
+.control-bar__localAI__confirm {
   width: 100%;
   height: 15%;
 
@@ -35,23 +35,23 @@
   box-sizing: border-box;
 }
 
-.control-bar__singleAI__confirm__btn--play {
+.control-bar__localAI__confirm__btn--play {
   background-color: rgba(115,178,93, 0.4);
 
   cursor: pointer;
 }
 
-.control-bar__singleAI__confirm__btn--play:hover {
+.control-bar__localAI__confirm__btn--play:hover {
   background-color: rgba(115,178,93, 0.6); 
 }
 
-.control-bar__singleAI__confirm__btn--cancel {
+.control-bar__localAI__confirm__btn--cancel {
   background-color: rgba(255, 0, 0, 0.2);
 
   cursor: pointer;
 }
 
-.control-bar__singleAI__confirm__btn--cancel:hover {
+.control-bar__localAI__confirm__btn--cancel:hover {
   background-color: rgba(255, 0, 0, 0.4);
 }
 
@@ -61,7 +61,7 @@
     padding-top: 4vw;
   }
 
-  .control-bar__singleAI {
+  .control-bar__localAI {
     aspect-ratio:  7/9;
     width: 20vw;
 
@@ -72,25 +72,25 @@
     padding-bottom: 2vw;
   }
 
-  .control-bar__singleAI__title {
+  .control-bar__localAI__title {
     font-size: 1.6vw;
   }
 
-  .control-bar__singleAI__type {
+  .control-bar__localAI__type {
     font-size: 1.4vw;
   }
 
-  .control-bar__singleAI__icon img {
+  .control-bar__localAI__icon img {
     aspect-ratio: 1/1;
     width: 6vw;
   }
 
-  .control-bar__singleAI__confirm {
+  .control-bar__localAI__confirm {
     padding-left: 1.2vw;
     padding-right: 1.2vw;
   }
 
-  .control-bar__singleAI__confirm__btn--play {
+  .control-bar__localAI__confirm__btn--play {
     width: 100%;
     height: 100%;
 
@@ -102,7 +102,7 @@
     font-size: 1.2vw;
   }
 
-  .control-bar__singleAI__confirm__btn--cancel {
+  .control-bar__localAI__confirm__btn--cancel {
     width: 100%;
     height: 100%;
 
@@ -120,7 +120,7 @@
     padding-top: 6vh;
   }
 
-  .control-bar__singleAI {
+  .control-bar__localAI {
     aspect-ratio: 7/9;
     height: 40vh;
     border: 0.2vh solid rgb(89, 82, 96);
@@ -130,25 +130,25 @@
     padding-bottom: 2vh;
   }
 
-  .control-bar__singleAI__title {
+  .control-bar__localAI__title {
     font-size: 3vh;
   }
 
-  .control-bar__singleAI__type {
+  .control-bar__localAI__type {
     font-size: 2vh;
   }
 
-  .control-bar__singleAI__icon img {
+  .control-bar__localAI__icon img {
     aspect-ratio: 1/1;
     width: 8vh;
   }
 
-  .control-bar__singleAI__confirm {
+  .control-bar__localAI__confirm {
     padding-left: 1.2vh;
     padding-right: 1.2vh;
   }
 
-  .control-bar__singleAI__confirm__btn--play {
+  .control-bar__localAI__confirm__btn--play {
     width: 100%;
     height: 100%;
 
@@ -160,7 +160,7 @@
     font-size: 2vh;
   }
 
-  .control-bar__singleAI__confirm__btn--cancel {
+  .control-bar__localAI__confirm__btn--cancel {
     width: 100%;
     height: 100%;
 

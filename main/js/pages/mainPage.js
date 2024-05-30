@@ -27,9 +27,9 @@ export const mainPage = {
       <hr class="control-bar__main__local__title--divider">
     </div>
     <div class="control-bar__main__local__mode">
-      <div class="control-bar__main__local__mode--text" data-link="singleTournamentPage">Tournament </div>
-      <div class="control-bar__main__local__mode--text" data-link="singleOneToOnePage">1 vs 1</div>
-      <div class="control-bar__main__local__mode--text" data-link="singleAIPage">Single Play </div>
+      <div class="control-bar__main__local__mode--text" data-link="localTournamentPage">Tournament </div>
+      <div class="control-bar__main__local__mode--text" data-link="localOneToOnePage">1 vs 1</div>
+      <div class="control-bar__main__local__mode--text" data-link="localAIPage">Single Play </div>
     </div>
   </div>
 </div>
