@@ -73,6 +73,8 @@ input[type=text]::placeholder {
   background-color: rgba(115,178,93, 0.4);
 
   cursor: pointer;
+
+  transition: background-color 0.3s ease;
 }
 
 .control-bar__OneToOne__confirm__btn--play:hover {
@@ -83,6 +85,8 @@ input[type=text]::placeholder {
   background-color: rgba(255, 0, 0, 0.2);
 
   cursor: pointer;
+
+  transition: background-color 0.3s ease;
 }
 
 .control-bar__OneToOne__confirm__btn--cancel:hover {

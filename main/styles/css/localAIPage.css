@@ -19,8 +19,6 @@
   box-sizing: border-box;
 }
 
-
-
 .control-bar__localAI__icon img {
   -webkit-user-drag: none;
 }
@@ -39,8 +37,10 @@
 
 .control-bar__localAI__confirm__btn--play {
   background-color: rgba(115,178,93, 0.4);
-
+  
   cursor: pointer;
+
+  transition: background-color 0.3s ease;
 }
 
 .control-bar__localAI__confirm__btn--play:hover {
@@ -49,8 +49,10 @@
 
 .control-bar__localAI__confirm__btn--cancel {
   background-color: rgba(255, 0, 0, 0.2);
-
+  
   cursor: pointer;
+
+  transition: background-color 0.3s ease;
 }
 
 .control-bar__localAI__confirm__btn--cancel:hover {

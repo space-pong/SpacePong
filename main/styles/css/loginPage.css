@@ -41,7 +41,7 @@
   cursor: pointer;
   user-select: none;
 
-  transition: filter 0.3s ease, cursor 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .control-bar__login__btn:hover {
