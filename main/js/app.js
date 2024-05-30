@@ -6,13 +6,15 @@ import { mainPage } from './pages/mainPage.js'
 import { remotePage } from './pages/remotePage.js'
 import { singleAIPage } from './pages/singleAIPage.js'
 import { singleOneToOnePage } from './pages/singleOneToOnePage.js'
-import { singleTournamentPage } from './pages/singleTournamentPage.js'
+import { singleTournamentPage }  from './pages/singleTournamentPage.js'
 
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
   remotePage: remotePage,
-  singleAIPage: singleAIPage
+  singleAIPage: singleAIPage,
+  singleOneToOnePage: singleOneToOnePage,
+  singleTournamentPage: singleTournamentPage
 };
 //routes에서 경로쓰는 방식으로 바꿔주기
 
