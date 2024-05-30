@@ -85,6 +85,33 @@
     width: 6vw;
   }
 
+  .spinner-border {
+    position: relative;
+    width: 2vw;
+    height: 2vw;
+    border: 0.2vw solid rgba(225, 225, 225, 0.6);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  
+  .spinner-border::before {
+    content: '';
+    position: absolute;
+    top: 14%;
+    left: 44%;
+    width: 0.2vw;
+    height: 0.6vw;
+    background-color: rgba(225, 225, 225, 0.6);
+    transform-origin: bottom;
+    transform: rotate(0deg);
+    animation: spin-clock-hand 2s linear infinite;
+  }
+  
+  @keyframes spin-clock-hand {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   .control-bar__remoteMatch__confirm {
     padding-left: 1.2vw;
     padding-right: 1.2vw;
@@ -141,6 +168,33 @@
   .control-bar__remoteMatch__icon img {
     aspect-ratio: 1/1;
     width: 8vh;
+  }
+
+  .spinner-border {
+    position: relative;
+    width: 3vh;
+    height: 3vh;
+    border: 0.2vh solid rgba(225, 225, 225, 0.6);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+  }
+  
+  .spinner-border::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 46%;
+    width: 0.24vh;
+    height: 0.86vh;
+    background-color: rgba(225, 225, 225, 0.6);
+    transform-origin: bottom;
+    transform: rotate(0deg);
+    animation: spin-clock-hand 2s linear infinite;
+  }
+
+  @keyframes spin-clock-hand {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .control-bar__remoteMatch__confirm {
