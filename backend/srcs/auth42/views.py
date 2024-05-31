@@ -55,8 +55,6 @@ class Auth42CallbackView(View):
         login(request, user)
 
         refresh = RefreshToken.for_user(user)
-        # token_serializer = TokenSerializer(data={'access': str(refresh.access_token)})
-        # token_serializer.is_valid()
         response_data = {
             'access_token': str(refresh.access_token),
         }

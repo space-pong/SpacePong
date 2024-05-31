@@ -14,3 +14,4 @@ daphne
 djangorestframework
 djangorestframework-simplejwt
 requests
+channels_postgres
