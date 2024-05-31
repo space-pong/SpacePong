@@ -28,3 +28,10 @@ msgstr "Frances"
 #: config/settings.py:203
 msgid "Spanish"
 msgstr "Espanol"
+
+msgid "Space Pong"
+msgstr "1234 5678"
+
+
+msgid "ft_transcendence"
+msgstr "1234 5678"
