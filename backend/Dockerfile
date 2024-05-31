@@ -15,4 +15,8 @@ COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
 # init.sh 스크립트 실행
+<<<<<<< HEAD
 CMD ["/app/init.sh"]
+=======
+CMD ["/app/init.sh"]
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
