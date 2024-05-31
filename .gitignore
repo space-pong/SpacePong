@@ -2,9 +2,6 @@
 # .env
 
 # 배포에 필요없는 파일들 무시
-backend/srcs/*/__pycache__/
-backend/srcs/*/*/__pycache__/
-backend/srcs/*/*/*/__pycache__/
-
-.DS_Store
-*/.DS_Store
+**/__pycache__/
+**/.DS_Store
+**/.vscode
