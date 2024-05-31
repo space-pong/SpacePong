@@ -13,9 +13,5 @@ daphne
 
 djangorestframework
 djangorestframework-simplejwt
-<<<<<<< HEAD
 requests
 channels_postgres
-=======
-requests
->>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
