@@ -1,94 +1,40 @@
-.control-bar {
-  display: unset;
-  align-self: center;
-  
-}
-
-.control-bar__login {
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(0,0,0, 0.4));
-  border: 2px solid white;
-  border-radius: 15px;
-  mix-blend-mode: overlay;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.control-bar__login__btn {
-  all: unset;
-  border: 0;
-  background-color: transparent;
-
-  font-family: 'nicomoji', sans-serif;
-  font-variation-settings: 'wght' 700;
-  color: whitesmoke;
-
-  background-color: rgba(115,178,93, 0.4);
-
-  border-radius: 15px;
-
+.control-bar__login-btn {
+  color: rgb(183, 183, 183, 1.0);
   text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  box-shadow: 2px 2px 20px 1px rgb(44, 46, 67, 0.5);
-
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.05);
   cursor: pointer;
   user-select: none;
-
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
+  background-color: rgba(73, 161, 86, 0);
 }
 
-.control-bar__login__btn:hover {
-  /* 클릭 시 약간 더 밝은 배경색 적용 */
-  background-color: rgba(115,178,93, 0.6); 
-}
-
-/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
-@media (max-aspect-ratio: 3/2) {
-  .control-bar__login {
-    aspect-ratio:  17/9;
-    width: 18vw;
-
-    border: 0.2vw solid rgb(89, 82, 96);
-    border-radius: 1.5vw;
-  }
+.control-bar__login-btn:hover {
+  background-color: rgba(73, 161, 86, 0.331);
+  box-shadow: 0px 0px 24px rgba(38, 162, 75, 0.5);
+  border: 0.5px solid rgba(143, 255, 156, 0.678);
+  color: rgb(255, 255, 255);
   
-  .control-bar__login__btn {
-    width: 80%;
-    height: 25%;
-    
-    font-size: 1vw;
-    letter-spacing: 0.15em;
-    
-    border: 0.2vw solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.5vw;
+}
+
+@media (max-aspect-ratio: 3/2) {
+  .control-bar__login-btn {
+    border-radius: calc(2 * 0.5vw);
+    font-size: calc(2 * 0.7vw);
+    padding: calc(2 * 3.4vw);
+    padding-top: calc(2 * 0.5vw);
+    padding-bottom: calc(2 * 0.5vw);
   }
 }
 
+/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
+/* 기준값: 3 */
 @media (min-aspect-ratio: 3/2) {
-  .control-bar__login {
-    aspect-ratio: 16/9;
-    height: 15vh;
-
-    border: 0.2vh solid rgb(89, 82, 96);
-    border-radius: 2vh;
+  .control-bar__login-btn {
+    border-radius: calc(3 * 0.5vh);
+    font-size: calc(3 * 0.7vh);
+    padding: calc(3 * 3.4vh);
+    padding-top: calc(3 * 0.5vh);
+    padding-bottom: calc(3 * 0.5vh);
   }
-
-  .control-bar__login__btn {
-    width: 70%;
-    height: 30%;
-
-    font-size: 1.5vh;
-    letter-spacing: 0.15em;
-
-    border: 0.4vh solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.5vw;
-  }
-
 }
