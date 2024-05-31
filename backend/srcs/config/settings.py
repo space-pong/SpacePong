@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'auth42',
-    'spacepong'
+    'spacepong',
+    'translation',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -126,11 +128,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -187,3 +190,16 @@ API42_UID = 'u-s4t2ud-879db4e7443b9a563f1c477134b70f126aff4afc1844d3d71495ac67c9
 API42_SECRET = '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'
 API42_REDIRECT_URI = 'https://localhost'
 
+
+
+LOCALE_PATHS = [ 
+      BASE_DIR / 'locale/', 
+    ]   # 언어별 단어사전 file, 소위 message file들을 저장하기 위한 locale directory path. locale directory는 일반적으로 django project base directory 바로 아래 생성
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('es', _('Spanish')),
+)
