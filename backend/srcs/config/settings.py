@@ -33,8 +33,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'daphne',
+<<<<<<< HEAD
+    'channel',
+    'channels_postgres',
+=======
     'chat',
     # 'corsheaders',
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,7 +97,19 @@ DATABASES = {
         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
         'HOST': 'db',
         'PORT': '5432',
+<<<<<<< HEAD
+    },
+    'channels_postgres': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': 'db',
+        'PORT': '5432',
+    }    
+=======
     }
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
 }
 
 
@@ -132,9 +149,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+<<<<<<< HEAD
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',
+# ]
+=======
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -145,8 +168,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ASGI_APPLICATION = "config.asgi.application"
 
 CHANNEL_LAYERS = {
+<<<<<<< HEAD
+    "default": {
+        "BACKEND": "channels_postgres.core.PostgresChannelLayer",
+        "CONFIG": {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': 'db',
+        'PORT': '5432',
+        },
+=======
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
     },
 }
 
@@ -164,7 +200,11 @@ REST_FRAMEWORK = {
 from datetime import datetime, timedelta
 
 SIMPLE_JWT = {
+<<<<<<< HEAD
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+=======
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -172,4 +212,7 @@ API42_UID = 'u-s4t2ud-879db4e7443b9a563f1c477134b70f126aff4afc1844d3d71495ac67c9
 API42_SECRET = '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'
 API42_REDIRECT_URI = 'https://localhost'
 
+<<<<<<< HEAD
+=======
 # CORS_ORIGIN_ALLOW_ALL = True  #나중에 바꿔야함 모든 요청에 대해 허가
+>>>>>>> 390bbfae75df8f255d8512756a932f5fad670586
