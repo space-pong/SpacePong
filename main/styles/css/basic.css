@@ -1,5 +1,5 @@
-@import url('/main/styles/font/nicomoji.css');
-@import url('/main/styles/css/reset.css');
+@import url('../../styles/css/reset.css');
+@import url('../../styles/font/nicomoji.css');
 
 
 body {
@@ -16,7 +16,7 @@ body {
 }
 
 .background {
-  background-image: url("/main/assets/images/earth-bg.png");
+  background-image: url("../../assets/images/earth-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
