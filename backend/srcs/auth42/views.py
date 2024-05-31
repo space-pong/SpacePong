@@ -6,7 +6,8 @@ from django.contrib.auth import login
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework_simplejwt.exceptions import TokenError  
 from django.contrib.auth.models import User
-import requests
+import http.client
+import json
 from urllib.parse import urlencode
 from .serializers import TokenSerializer
 from django.http import JsonResponse
@@ -22,30 +23,38 @@ class Auth42CallbackView(View):
         if not code:
             return HttpResponse("No authorization code provided.", status=400)
         
-        token_url = 'https://api.intra.42.fr/oauth/token'
-        token_data = {
+        token_url = 'api.intra.42.fr'
+        token_path = '/oauth/token'
+        token_data = urlencode({
             'grant_type': 'authorization_code',
             'client_id': settings.API42_UID,
             'client_secret': settings.API42_SECRET,
             'code': code,
             'redirect_uri': settings.API42_REDIRECT_URI,
-        }
+        })
         
-        token_response = requests.post(token_url, data=token_data)
-        if token_response.status_code != 200:
+        conn = http.client.HTTPSConnection(token_url)
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        conn.request('POST', token_path, body=token_data, headers=headers)
+        token_response = conn.getresponse()
+        
+        if token_response.status != 200:
             return HttpResponse("Failed to obtain access token.", status=400)
 
-        token_json = token_response.json()
+        token_json = json.loads(token_response.read().decode())
         access_token = token_json.get('access_token')
         if not access_token:
             return HttpResponse("Failed to obtain access token.", status=400)
 
-        user_info_url = 'https://api.intra.42.fr/v2/me'
-        user_info_response = requests.get(user_info_url, headers={'Authorization': f'Bearer {access_token}'})
-        if user_info_response.status_code != 200:
+        user_info_url = 'api.intra.42.fr'
+        user_info_path = '/v2/me'
+        conn.request('GET', user_info_path, headers={'Authorization': f'Bearer {access_token}'})
+        user_info_response = conn.getresponse()
+        
+        if user_info_response.status != 200:
             return HttpResponse("Failed to obtain user info.", status=400)
 
-        user_info_json = user_info_response.json()
+        user_info_json = json.loads(user_info_response.read().decode())
         username = user_info_json.get('login')
         email = user_info_json.get('email')
         if not username or not email:
@@ -82,10 +91,11 @@ class VerifyAccessTokenView(View):
                 access_token = str(refresh_token.access_token)
                 new_refresh_token = str(refresh_token)
                 response_data = {
-                        'access_token': str(access_token),
+                    'access_token': str(access_token),
                 }
                 response = JsonResponse(response_data)
                 response.set_cookie('refresh_token', str(new_refresh_token), httponly=True)
                 return response
             except TokenError as e:
                 return JsonResponse({'error': str(e)}, status=401)
+
