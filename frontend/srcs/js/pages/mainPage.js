@@ -3,12 +3,12 @@ export const mainPage = {
   <div class="control-bar__main">
   <div class="control-bar__main__icon">
     <div class="control-bar__main__icon--logout">
-      <img src="/main/assets/images/icon_logout.svg" data-link="loginPage" alt="logout">
+      <img src="/frontend/srcs/assets/images/icon_logout.svg" data-link="loginPage" alt="logout">
     </div>
     <div class="control-bar__main__icon--controller"></div>
-      <img src="/main/assets/images/icon_controller.svg" alt="controller">
+      <img src="/frontend/srcs/assets/images/icon_controller.svg" alt="controller">
       <div class="control-bar__main__icon--setting"></div>
-        <img src="/main/assets/images/icon_setting.svg" alt="setting">
+        <img src="/frontend/srcs/assets/images/icon_setting.svg" alt="setting">
   </div>
   <div class="control-bar__main__online">
     <div class="control-bar__main__online__title">
