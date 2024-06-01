@@ -1,12 +1,9 @@
 @import url('../../styles/css/reset.css');
 @import url('../../styles/font/nicomoji.css');
 
-
 body {
   font-family: 'nicomoji', sans-serif;
-  font-variation-settings: 'wght' 700;
   color: rgba(245,245,245,0.7);
-
   user-select: none;
 }
 
@@ -16,7 +13,7 @@ body {
 }
 
 .background {
-  background-image: url("../../assets/images/earth-bg.png");
+  background-image: url("../../assets/images/abstract-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -28,88 +25,92 @@ body {
 
   width: 100%;
   height: 100%;
-
 }
 
 .main-box {
-  backdrop-filter: blur(15px);
-  background-color: rgb(178, 177, 185, 0.4);
-
+  backdrop-filter: blur(3px);
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: 15px;
-
-  /* fix the box size not to be changed depending on padding value */
+  box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.2);
+  aspect-ratio: 3/2;
   box-sizing: border-box;
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
   overflow: hidden;
-
-  /* for moon img position */
   position: relative;
 }
 
-.main-img {
-  position: absolute;
-  top: 10%;
-  left: 65%;
+.header {
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.765);
+  text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.71);
+}
+
+.footer {
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.765);
+  text-shadow: 0px 0px 9px rgba(255, 255, 255, 0.71);
 }
 
 .control-bar {
-  display: none;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 }
 
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
 @media (max-aspect-ratio: 3/2) {
   .main-box {
-    aspect-ratio: 3/2;
     width: 90%;
-    padding: 5vw;
-
-    border: 0.25vw solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.8vw;
+    padding: calc(2 * 2vw);
+    border-radius: 2vw;
   }
 
   .header {
-    font-size: 3.4vw;
-    letter-spacing: 0.4vw;
+    font-size: calc(2 * 1.5vw);
+    
   }
   
   .footer {
-    font-size: 1.5vw;
-    letter-spacing: 0.4vw;
+    font-size: calc(2 * 0.6vw);
+    
   }
 
-  .main-img--moon {
-    width: 25vw;
-    aspect-ratio: 1/1;
+  .control-bar {
+    border-radius: calc(2 * 0.75vw);
+    height: calc(2 * 15vw);
   }
 }
 
 /* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
 @media (min-aspect-ratio: 3/2) {
   .main-box {
-    aspect-ratio: 3/2;
     height: 90%;
-    padding: 5vh;
-
-    border: 0.5vh solid rgba(178, 177, 185. 0.2);
-    border-radius: 1.8vh;
+    padding: calc(3 * 2vh);
+    border-radius: 3vh;
   }
 
   .header {
-    font-size: 5vh;
-    letter-spacing: 0.6vh;
+    font-size: calc(3 * 1.5vh);
+    
   }
   
   .footer {
-    font-size: 2vh;
-    letter-spacing: 0.6vh;
+    font-size: calc(3 * 0.6vh);
+    
   }
   
-  .main-img--moon {
-    aspect-ratio: 1/1;
-    height: 35vh;
+  .control-bar {
+    border-radius: calc(3 * 0.75vh);
+    height: calc(3 * 15vh);
   }
 }

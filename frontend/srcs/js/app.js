@@ -22,8 +22,8 @@ const routes = {
 
 function init() {
   //테스트위한 방법
-  renderControlBar(loginPage);
-  //renderControlBar(mainPage);
+  //renderControlBar(loginPage);
+  renderControlBar(mainPage);
   //renderControlBar(remotePage);
   //renderControlBar(remoteMatchPage);
   //renderControlBar(localAIPage);
