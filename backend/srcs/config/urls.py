@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth42/', include('auth42.urls')),
     path('spacepong/', include('spacepong.urls')),
+    path('translation/', include('translation.urls')),
 ]
