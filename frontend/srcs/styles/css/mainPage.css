@@ -1,238 +1,69 @@
-.control-bar{
-  display: unset;
-  align-self: center;
-}
-
-.control-bar__main {
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(0,0,0, 0.4));
-  border: 2px solid white;
-  border-radius: 15px;
-  mix-blend-mode: overlay;
-
+.control-bar {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
-  overflow: hidden;
 }
 
-.control-bar__main__icon {
-  width: 100%;
-  height: 15%;
-
+.control-bar__icon {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: start;
-
-  box-sizing: border-box;
 }
 
-.control-bar__main__icon img {
+.control-bar__icon img {
   -webkit-user-drag: none;
-  
+  aspect-ratio: 1/1;
   cursor: pointer;
-
-  transition: filter 0.3s ease, cursor 0.3s ease;
-}
-
-.control-bar__main__icon img:hover {
   filter: brightness(80%);
-}
-.control-bar__main__online {
-  width: 100%;
-  height: 30%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  transition: filter 0.5s ease;
 }
 
-.control-bar__main__online__title {
-  width: 100%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.control-bar__icon img:hover {
+  filter: brightness(100%);
 }
 
-.control-bar__main__online__title--divider {
-  border-top: 1px solid whitesmoke;
-}
-
-.control-bar__main__online__mode {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.control-bar__main__online__mode--text {
+.control-bar__mode--text {
   cursor: pointer;
-  transition: filter 0.3s ease, cursor 0.3s ease;
+  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.454);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.control-bar__main__online__mode--text:hover {
-  filter: brightness(70%);
+.control-bar__mode--text:hover {
+  color: rgba(143, 255, 156, 0.678);
+  text-shadow: 0px 0px 12px rgba(38, 214, 91, 0.5);
 }
 
-.control-bar__main__local {
-  width: 100%;
-  height: 55%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.control-bar__main__local__title {
-  width: 100%;
-  height: 20%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.control-bar__main__local__title--divider {
-  border-top: 1px solid whitesmoke;
-}
-
-.control-bar__main__local__mode {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  box-sizing: border-box;
-}
-
-.control-bar__main__local__mode--text {
-  cursor: pointer;
-  transition: filter 0.3s ease, cursor 0.3s ease;
-}
-
-.control-bar__main__local__mode--text:hover {
-  filter: brightness(70%);
-}
-
-/* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
 @media (max-aspect-ratio: 3/2) {
-  .control-bar__main {
-    aspect-ratio:  2/3;
-    width: 20vw;
-
-    border: 0.2vw solid rgba(89, 82, 96, 0.4);
-    border-radius: 1vw;
+  .control-bar {
+    padding-top: calc(2 * 1.1vw);
+    padding-bottom: calc(2 * 1.6vw);
   }
 
-  .control-bar__main__icon {
-    padding-left: 1vw;
-    padding-right: 1vw;
-  }
-
-  .control-bar__main__icon img {
+  .control-bar__icon img {
     aspect-ratio: 1/1;
-    width: 5vw;
+    width: calc(2 * 0.9vw);
+    margin-left: calc(2 * 1.4vw);
+    margin-right: calc(2 * 1.4vw);
   }
 
-  .control-bar__main__online__title {
-    font-size: 1vw;
+  .control-bar__mode--text {
+    font-size: calc(2 * 0.8vw);
   }
-
-  .control-bar__main__online__title--divider {
-    width: 5vw;
-  }
-
-  .control-bar__main__online__title--text {
-    margin-bottom: 0.4vw;
-  }
-
-  .control-bar__main__online__mode {
-    font-size: 1.4vw;
-  }
-
-  .control-bar__main__local__title {
-    font-size: 1vw;
-  }
-
-  .control-bar__main__local__title--divider {
-    width: 5vw;
-  }
-
-  .control-bar__main__local__title--text {
-    margin-bottom: 0.4vw;
-  }
-
-  .control-bar__main__local__mode {
-    font-size: 1.4vw;
-    padding-top: 1vw;
-    padding-bottom: 1.5vw;
-  }
-
 }
 
-/* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
 @media (min-aspect-ratio: 3/2) {
-  .control-bar__main {
-    aspect-ratio: 2/3;
-    height: 40vh;
-    border: 0.2vh solid rgb(89, 82, 96);
-    border-radius: 2vh;
+  .control-bar {
+    padding-top: calc(3 * 1.1vh);
+    padding-bottom: calc(3 * 1vh);
   }
 
-  .control-bar__main__icon {
-    padding-left: 1vh;
-    padding-right: 1vh;
-  }
-
-  .control-bar__main__icon img {
+  .control-bar__icon img {
     aspect-ratio: 1/1;
-    width: 6vh;
+    width: calc(3 * 0.9vh);
+    margin-left: calc(3 * 1.4vh);
+    margin-right: calc(3 * 1.4vh);
   }
 
-  .control-bar__main__online__title {
-    font-size: 1vh;
+  .control-bar__mode--text {
+    font-size: calc(3 * 0.8vh);
   }
-
-  .control-bar__main__online__title--divider {
-    width: 8vh;
-  }
-
-  .control-bar__main__online__title--text {
-    margin-bottom: 0.2vw;
-  }
-
-  .control-bar__main__online__mode {
-    font-size: 2vh;
-  }
-
-  .control-bar__main__local__title {
-    font-size: 1vh;
-  }
-
-  .control-bar__main__local__title--divider {
-    width: 8vh;
-  }
-
-  .control-bar__main__local__title--text {
-    margin-bottom: 0.1vw;
-  }
-
-  .control-bar__main__local__mode {
-    font-size: 2vh;
-    padding-top: 1vh;
-    padding-bottom: 2vh;
-  }
-
 }
