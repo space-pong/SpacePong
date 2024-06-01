@@ -1,7 +1,6 @@
 @import url('../../styles/css/reset.css');
 @import url('../../styles/font/nicomoji.css');
 
-
 body {
   font-family: 'nicomoji', sans-serif;
   color: rgba(245,245,245,0.7);
