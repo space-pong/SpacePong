@@ -17,12 +17,12 @@
   <div class="app" id="app">
     <div class="background">
       <div class="main-box">
-        <div class="header" id="SpacePong"></div>
+        <div class="header" id="111"></div>
         <div class="control-bar"></div>
         <div class="main-img">
           <img class="main-img--moon" src="./assets/images/moon.png" alt="fullmoon" style="-webkit-user-drag: none;">
         </div>
-        <div class="footer" id="ft_transcendence"></div>
+        <div class="footer" id="222"></div>
       </div>
     </div>
   </div>
@@ -31,35 +31,18 @@
   integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
   crossorigin="anonymous"
   ></script>
-
+  <script type="module" src="./js/app.js"></script>
 
   <script type="module">
-    
-    async function loadTranslation(key) {
-        const response = await fetch(`translation/?key=${key}`,{
-          method: 'GET',
-        });
-        const translations = await response.json();
-        console.log(translations.key);
-        return translations.key;
-    }
-
-    function translate(elementId, translationKey) {
-        loadTranslation(translationKey).then(translatedText => {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = translatedText;
-            }
-        });
-    }
+    import { translate } from './js/utils/translate.js';
 
     document.addEventListener('DOMContentLoaded', () => {
-        translate('SpacePong', 'Space Pong');
-        translate('ft_transcendence', 'ft_transcendence');
+        //  사용방법 : translate('elementid', 'text to be translated')
+        translate('111', 'Space Pong');
+        translate('222', 'ft_transcendence');
         // Add more translations as needed
     });
   </script>
-
-  <script type="module" src="./js/app.js"></script>
+  
 </body>
 </html>
