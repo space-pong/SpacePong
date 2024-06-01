@@ -30,8 +30,7 @@ msgid "Spanish"
 msgstr "Espanol"
 
 msgid "Space Pong"
-msgstr "1234 5678"
-
+msgstr "Space Pong(es)"
 
 msgid "ft_transcendence"
-msgstr "1234 5678"
+msgstr "ft_transcendence(es)"

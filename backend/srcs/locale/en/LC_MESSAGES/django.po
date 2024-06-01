@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: config/settings.py:201
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: config/settings.py:202
 msgid "French"
@@ -27,4 +27,10 @@ msgstr ""
 
 #: config/settings.py:203
 msgid "Spanish"
+msgstr ""
+
+msgid "Space Pong"
+msgstr ""
+
+msgid "ft_transcendence"
 msgstr ""
