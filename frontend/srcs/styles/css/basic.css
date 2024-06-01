@@ -93,9 +93,6 @@ body {
 
 /* 화면의 비율이 3:2보다 클 때 (가로가 더길때) */
 @media (min-aspect-ratio: 3/2) {
-  .background {
-    background-image: url("../../assets/images/earth-bg.png");
-  }
   .main-box {
     height: 90%;
     padding: calc(3 * 2vh);
