@@ -53,7 +53,7 @@
 @media (min-aspect-ratio: 3/2) {
   .control-bar {
     padding-top: calc(3 * 1.1vh);
-    padding-bottom: calc(3 * 1vh);
+    padding-bottom: calc(3 * 1.6vh);
   }
 
   .control-bar__icon img {
