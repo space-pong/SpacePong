@@ -9,7 +9,7 @@ export const remoteMatchPage = {
       </div>
     </div>
     <div class="control-bar__remoteMatch__confirm">
-      <button class="control-bar__remoteMatch__confirm__btn--cancel" data-link="remotePage">Cancel</button>
+      <button class="control-bar__remoteMatch__confirm__btn--cancel" data-link="unitSelectPage" data-target="remoteMatchPage">Cancel</button>
     </div>
   </div>
   `,

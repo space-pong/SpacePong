@@ -3,7 +3,7 @@
 import { renderControlBar} from './utils/renderControlBar.js';
 import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
-import { remotePage } from './pages/remotePage.js'
+import { unitSelectPage } from './pages/unitSelectPage.js'
 import { localAIPage } from './pages/localAIPage.js'
 import { localOneToOnePage } from './pages/localOneToOnePage.js'
 import { localTournamentPage }  from './pages/localTournamentPage.js'
@@ -12,7 +12,7 @@ import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
-  remotePage: remotePage,
+  unitSelectPage: unitSelectPage,
   remoteMatchPage: remoteMatchPage,
   localAIPage: localAIPage,
   localOneToOnePage: localOneToOnePage,
@@ -22,9 +22,9 @@ const routes = {
 
 function init() {
   //테스트위한 방법
-  //renderControlBar(loginPage);
-  renderControlBar(mainPage);
-  //renderControlBar(remotePage);
+  renderControlBar(loginPage);
+  //renderControlBar(mainPage);
+  //renderControlBar(unitSelectPage);
   //renderControlBar(remoteMatchPage);
   //renderControlBar(localAIPage);
   //renderControlBar(localOneToOnePage);
@@ -33,7 +33,8 @@ function init() {
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
         const page = e.target.getAttribute('data-link');
-        renderControlBar(routes[page]);
+        const target = e.target.getAttribute('data-target');
+        renderControlBar(routes[page], { target });
         //history.pushState({ page }, '', page);
     }
 });
