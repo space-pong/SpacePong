@@ -9,6 +9,7 @@ import { localOneToOnePage } from './pages/localOneToOnePage.js'
 import { localTournamentPage }  from './pages/localTournamentPage.js'
 import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
+import globalState from './globalState.js';
 
 const routes = {
   loginPage: loginPage,
@@ -33,16 +34,16 @@ async function init() {
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
       const page = e.target.getAttribute('data-link');
-      const target = e.target.getAttribute('data-target');
+      globalState.target = e.target.getAttribute('data-target');
       if (page == "auth42") {
         window.location.href = 'auth42/login/';
       }
       else {
-        renderControlBar(routes[page], { target });
+        renderControlBar(routes[page]);
       }
         //history.pushState({ page }, '', page);
     }
-});
+  });
 }
 
 //window.addEventListener('popstate', (event) => {

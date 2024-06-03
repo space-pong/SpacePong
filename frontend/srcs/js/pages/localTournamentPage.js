@@ -1,19 +1,21 @@
+import globalState from '../globalState.js';
+
 export const localTournamentPage = {
   html: `
   <div class="control-bar__tournament">
   <header class="control-bar__tournament__header">Tournament</header>
   <div class="control-bar__tournament__alias-set">
     <div class="control-bar__tournament__alias-set__input">
-      <input type="text" name="alias" required placeholder="guest1" onfocus="this.placeholder=''" onblur="this.placeholder='guest1'">
+      <input type="text" name="alias" required placeholder="${globalState.player1Alias}" onfocus="this.placeholder=''" onblur="this.placeholder='${globalState.player1Alias}'">
     </div>
     <div class="control-bar__tournament__alias-set__input">
-      <input type="text" name="alias" required placeholder="guest2" onfocus="this.placeholder=''" onblur="this.placeholder='guest2'">
+      <input type="text" name="alias" required placeholder="${globalState.player2Alias}" onfocus="this.placeholder=''" onblur="this.placeholder='${globalState.player2Alias}'">
     </div>
     <div class="control-bar__tournament__alias-set__input">
-      <input type="text" name="alias" required placeholder="guest3" onfocus="this.placeholder=''" onblur="this.placeholder='guest3'">
+      <input type="text" name="alias" required placeholder="${globalState.player3Alias}" onfocus="this.placeholder=''" onblur="this.placeholder='${globalState.player3Alias}'">
     </div>
     <div class="control-bar__tournament__alias-set__input">
-      <input type="text" name="alias" required placeholder="guest4" onfocus="this.placeholder=''" onblur="this.placeholder='guest4'">
+      <input type="text" name="alias" required placeholder="${globalState.player4Alias}" onfocus="this.placeholder=''" onblur="this.placeholder='${globalState.player4Alias}'">
     </div>
   </div>
   <div class=control-bar__tournament__blank-box></div>

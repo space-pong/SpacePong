@@ -1,6 +1,8 @@
+import globalState from "../globalState.js";
+
 export const unitSelectPage = {
   html: `
-  <div class="control-bar__title">Unit</div>
+  <div class="control-bar__title">${globalState.currentAlias} Unit</div>
   <div class="control-bar__unit-selector">
     <label class="unit-selector__unit-option">
       <span class=unit-selector__unit-name>Default</span>
