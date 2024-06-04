@@ -64,6 +64,4 @@ class faAPI(APIView):
             return Response("OK")
         except Exception as e:
             server.quit()
-            print("@@@@@@@@@@@")
-            print(e)
             return Response(e)
