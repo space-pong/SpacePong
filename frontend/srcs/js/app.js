@@ -20,7 +20,6 @@ const routes = {
   localOneToOnePage: localOneToOnePage,
   localTournamentPage: localTournamentPage
 };
-//routes에서 경로쓰는 방식으로 바꿔주기
 
 async function init() {
   await fetchTokens();

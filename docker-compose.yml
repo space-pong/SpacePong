@@ -22,6 +22,7 @@ services:
     init: true
     ports:
       - "8000:8000"
+      - "587:587"
     restart: always
     env_file:
       - ./.env
