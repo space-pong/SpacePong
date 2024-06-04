@@ -8,7 +8,7 @@ export const unitSelectPage = {
     <div class="control-bar__unit-selector">
       <label class="unit-selector__unit-option">
         <span class=unit-selector__unit-name>Default</span>
-        <input type="radio" name="unit" value="Default">
+        <input type="radio" name="unit" value="Default" checked>
       </label>
       <label class="unit-selector__unit-option">
         <span class=unit-selector__unit-name>Zerg</span>
