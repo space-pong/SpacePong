@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+.control-bar__type {
+  color: white;
+}
+
 .control-bar__unit-selector {
   width: 100%;
   height: 70%;
@@ -89,6 +93,10 @@
     font-size: calc(2 * 1vw);
   }
 
+  .control-bar__type {
+    font-size: calc(2 * 0.7vw);
+  }
+
   .control-bar__unit-selector {
     padding-top: calc(2 * 3vw);
     padding-bottom: calc(2 * 3vw);
@@ -126,6 +134,10 @@
 
   .control-bar__title {
     font-size: calc(3 * 1vh);
+  }
+
+  .control-bar__type {
+    font-size: calc(3 * 0.7vh);
   }
 
   .control-bar__unit-selector {

@@ -1,3 +1,4 @@
+import globalState from "../globalState.js";
 export async function fetchTokens() {
   try {
     // 현재 URL에서 코드 가져오기
@@ -21,6 +22,7 @@ export async function fetchTokens() {
 
     // 로컬 스토리지에 토큰 저장
     localStorage.setItem('accessToken', data.access_token);
+    globalState.intraID = data.intra_id;
     // 모드 선택 페이지 렌더링
   } catch (error) {
     console.error('Error fetching tokens:', error);
