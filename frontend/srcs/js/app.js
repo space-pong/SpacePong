@@ -20,10 +20,27 @@ const routes = {
   localOneToOnePage: localOneToOnePage,
   localTournamentPage: localTournamentPage
 };
-//routes에서 경로쓰는 방식으로 바꿔주기
+
+async function postData() {
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('twofactor/mail/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    },
+  });
+  if (!response.ok) {
+    console.error('Error fetching data:');
+    return;
+  }
+  return response.json();
+}
+
 
 async function init() {
   await fetchTokens();
+  postData();
   if (!localStorage.getItem('accessToken')){
     renderControlBar(loginPage);
   }

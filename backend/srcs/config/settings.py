@@ -33,7 +33,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'daphne',
-    'channel',
+    'channel',    
     'channels_postgres',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'auth42',
     'spacepong',
     'translation',
+    'twofactor',
 ]
 
 MIDDLEWARE = [
