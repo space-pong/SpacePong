@@ -29,8 +29,8 @@ msgstr "Frances"
 msgid "Spanish"
 msgstr "Espanol"
 
-msgid "Space Pong"
-msgstr "Space Pong(es)"
+msgid "SPACE PONG"
+msgstr "SPACE PONG(es)"
 
 msgid "ft_transcendence"
 msgstr "ft_transcendence(es)"
