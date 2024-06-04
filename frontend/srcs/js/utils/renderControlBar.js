@@ -8,7 +8,7 @@ export function renderControlBar(page) {
   target.classList.add('fade-out');
   target.addEventListener('animationend', function handleAnimationEnd() {
     target.classList.remove('fade-out');
-    target.innerHTML = page.html;
+    target.innerHTML = page.getHtml();
     loadCSS(page.css);
     target.classList.add('fade-in');
     target.removeEventListener('animationend', handleAnimationEnd);

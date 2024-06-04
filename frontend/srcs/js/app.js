@@ -31,6 +31,9 @@ async function init() {
     renderControlBar(mainPage);
   }
 
+  globalState.currentAlias = globalState.intraID;
+  globalState.player1Alias = globalState.intraID;
+
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
       const page = e.target.getAttribute('data-link');
