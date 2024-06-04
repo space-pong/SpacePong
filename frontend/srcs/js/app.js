@@ -21,26 +21,8 @@ const routes = {
   localTournamentPage: localTournamentPage
 };
 
-async function postData() {
-  const token = localStorage.getItem('accessToken');
-  const response = await fetch('twofactor/mail/', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      'Authorization': 'Bearer ' + token
-    },
-  });
-  if (!response.ok) {
-    console.error('Error fetching data:');
-    return;
-  }
-  return response.json();
-}
-
-
 async function init() {
   await fetchTokens();
-  postData();
   if (!localStorage.getItem('accessToken')){
     renderControlBar(loginPage);
   }
