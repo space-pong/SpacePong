@@ -66,6 +66,7 @@ class Auth42CallbackView(View):
         refresh = RefreshToken.for_user(user)
         response_data = {
             'access_token': str(refresh.access_token),
+            'intra_id': str(username),
         }
         response = JsonResponse(response_data)
         response.set_cookie('refresh_token', str(refresh), httponly=True)
