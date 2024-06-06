@@ -10,6 +10,7 @@ import { localTournamentPage }  from './pages/localTournamentPage.js'
 import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 import { gamePage } from './pages/gamePage.js';
 import { gameResultPage } from './pages/gameResultPage.js'
+import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
 
@@ -22,7 +23,8 @@ const routes = {
   localOneToOnePage: localOneToOnePage,
   localTournamentPage: localTournamentPage,
   gamePage: gamePage,
-  gameResultPage: gameResultPage
+  gameResultPage: gameResultPage,
+  tournamentTablePage: tournamentTablePage
 };
 
 async function init() {
@@ -33,9 +35,9 @@ async function init() {
   else {
     renderControlBar(mainPage);
   }
-
+  globalState.intraID = "jeekpark";
+  globalState.alias.player1 = globalState.intraID;
   globalState.currentAlias = globalState.intraID;
-  globalState.player1Alias = globalState.intraID;
 
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
