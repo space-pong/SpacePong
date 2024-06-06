@@ -6,10 +6,10 @@ export const mainPage = {
       <img src="./assets/images/icon_controller.svg" alt="controller">
       <img src="./assets/images/icon_setting.svg" alt="setting">
     </div>
-    <div class="control-bar__mode--text" data-link="unitSelectPage" data-target="remoteMatchPage" game-mode="remote">Remote Play</div>
-    <div class="control-bar__mode--text" data-link="localTournamentPage">Tournament </div>
+    <div class="control-bar__mode--text" data-link="unitSelectPage" game-mode="remote">Remote Play</div>
+    <div class="control-bar__mode--text" data-link="tournamentFillAliasPage" game-mode="tournament">Tournament </div>
     <div class="control-bar__mode--text" data-link="localOneToOnePage">1 vs 1</div>
-    <div class="control-bar__mode--text" data-link="unitSelectPage" data-target="localAIPage" game-mode="ai">AI</div>
+    <div class="control-bar__mode--text" data-link="unitSelectPage" game-mode="ai">AI</div>
     `;
   },
   css: 'styles/css/mainPage.css'

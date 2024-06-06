@@ -17,14 +17,16 @@ const globalState = {
     player4: null,
   },
   tournament: {
-    groupAHome: "jeekpark",
-    groupAAway: "tnam",
-    groupBHome: "eoh",
-    groupBAway: "dmin",
+    groupAHome: null,
+    groupAAway: null,
+    groupBHome: null,
+    groupBAway: null,
     finalHome: "n/a",
     finalAway: "n/a"
   },
   winner: null,
 };
+
+
 
 export default globalState;

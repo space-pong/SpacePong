@@ -5,18 +5,98 @@ import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
 
 import globalState from '../globalState.js';
-export async function renderControlBar(page) {
+
+export function renderControlBar(page) {
   console.log(globalState);
   const target = document.querySelector('.control-bar');
-  target.innerHTML = page.getHtml();
-  loadCSS(page.css);
+  target.classList.remove('fade-in');
+  target.classList.add('fade-out');
+  target.addEventListener('animationend', function handleAnimationEnd() {
+    target.classList.remove('fade-out');
+    target.innerHTML = page.getHtml();
+    loadCSS(page.css);
+    if (globalState.gameMode == "ai") {
+      renderControlBarAI(page);
+    } else if (globalState.gameMode == "tournament") {
+      renderControlBarTournament(page);
+    }
+    target.classList.add('fade-in');
+    target.removeEventListener('animationend', handleAnimationEnd);
+  });
+}
 
-  if (globalState.gameMode == "ai") {
-    await renderControlBarAI(page);
-  } else if (globalState.gameMode == "remote") {
+function renderControlBarTournament(page) {
+  if (globalState.step == 0) {
+    const playButton = document.querySelector('.control-bar__confirm__btn--play');
+    playButton.setAttribute('data-link', "unitSelectPage");
+    playButton.addEventListener('click', playHandler);
+    function playHandler() {
+      for (let i = 1; i <= 4; ++i) {
+        let aliasInput = document.getElementById(`alias${i}`);
+        if (aliasInput.value !== "") {
+          globalState.alias[`player${i}`] = aliasInput.value;
+        }
+      }
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player1;
+      playButton.removeEventListener('click', playHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler)
+    function cancelHandler() {
+      console.log("he");
+      resetGlobalState();
+      playButton.removeEventListener('click', playHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 1) {
+    setupSelectButton(1, "unitSelectPage", globalState.alias.player2);
+  } else if (globalState.step == 2) {
+    setupSelectButton(2, "unitSelectPage", globalState.alias.player3);
+  } else if (globalState.step == 3) {
+    setupSelectButton(3, "unitSelectPage", globalState.alias.player4);
+  } else if (globalState.step == 4) {
+    setupSelectButton(4, "tournamentTablePage");
+  } else if (globalState.step == 5) {
+    const nextButton = document.querySelector('.control-bar__confirm__btn--next');
+    nextButton.setAttribute('data-link', "gamePage");
+    nextButton.addEventListener('click', nextHandler);
+    function nextHandler() {
+    }
+  }
 
+  function setupSelectButton(step, nextPage, nextAlias) {
+    const selectButton = document.querySelector('.control-bar__confirm__btn--select');
+    selectButton.setAttribute('data-link', nextPage);
+    selectButton.addEventListener('click', selectHandler);
+    function selectHandler() {
+      const selectedUnit = document.querySelector('input[name="unit"]:checked');
+      globalState.unit[`player${step}`] = selectedUnit.value;
+      ++globalState.step;
+      if (nextAlias) {
+        globalState.currentAlias = nextAlias;
+      }
+      if (step === 4) {
+        globalState.tournament.groupAHome = globalState.alias.player1;
+        globalState.tournament.groupAAway = globalState.alias.player2;
+        globalState.tournament.groupBHome = globalState.alias.player3;
+        globalState.tournament.groupBAway = globalState.alias.player4;
+      }
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "mainPage");
+    function cancelHandler() {
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
   }
 }
+
 
 async function renderControlBarAI(page) {
   if (globalState.step == 0) {
@@ -25,16 +105,16 @@ async function renderControlBarAI(page) {
     selectButton.addEventListener('click', selectHandler);
     function selectHandler() {
       const selectedUnit = document.querySelector('input[name="unit"]:checked');
-      globalState.player1Unit = selectedUnit.value;
+      globalState.unit.player1 = selectedUnit.value;
       globalState.step++;
       selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
     }
     const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
     cancelButton.addEventListener('click', cancelHandler)
     function cancelHandler() {
-      globalState.gameMode = null;
-      globalState.player1Unit = null;
-      globalState.step = 0;
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
       cancelButton.removeEventListener('click', cancelHandler);
     }
   } else if (globalState.step == 1) {
@@ -54,7 +134,7 @@ async function renderControlBarAI(page) {
     var key1 = new KeyboardController(37, 39, 38, 40, 32);
     const aiController = new AIController(); // AI로 작동되는 자동 컨트롤러
     const game = new PongGame();
-    await game.init(key1, aiController, globalState.player1Unit, "Zerg", "art");
+    await game.init(key1, aiController, globalState.unit.player1, "Zerg", "art");
     game.start();
   } else if (globalState.step == 3) {
     // 결과
@@ -62,29 +142,25 @@ async function renderControlBarAI(page) {
 }
 
 
+function resetGlobalState() {
+  globalState.gameMode = null;
+  globalState.step = 0;
+  globalState.currentAlias = null;
+  globalState.alias.player1 = globalState.intraID;
+  globalState.alias.player2 = "guest1";
+  globalState.alias.player3 = "guest2";
+  globalState.alias.player4 = "guest3";
+  globalState.unit.player1 = null;
+  globalState.unit.player2 = null;
+  globalState.unit.player3 = null;
+  globalState.unit.player4 = null;
+  globalState.tournament.groupAHome = null;
+  globalState.tournament.groupAAway = null;
+  globalState.tournament.groupBHome = null;
+  globalState.tournament.groupBHome = null;
+  globalState.tournament.finalHome = "n/a";
+  globalState.tournament.finalAway = "n/a";
+  globalState.winner = null;
+}
 
-
-
-/* // js/utils/renderControlBar.js
-import { loadCSS } from './loadCss.js';
-import globalState from '../globalState.js';
-
-export function renderControlBar(page) {
-  const target = document.querySelector('.control-bar');
-  target.classList.remove('fade-in');
-  target.classList.add('fade-out');
-  target.addEventListener('animationend', function handleAnimationEnd() {
-    target.classList.remove('fade-out');
-    target.innerHTML = page.getHtml();
-    loadCSS(page.css);
-    target.classList.add('fade-in');
-    target.removeEventListener('animationend', handleAnimationEnd);
-    if (globalState.target) {
-      const selectButton = document.querySelector('.control-bar__confirm__btn--select');
-      if (selectButton) {
-        selectButton.setAttribute('data-link', globalState.target);
-      }
-    }
-  });
-} */
 
