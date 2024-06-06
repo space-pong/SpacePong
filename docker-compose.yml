@@ -57,8 +57,8 @@ services:
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    ports:
-      - "9200:9200"
+    expose:
+      - "9200"
     networks:
       - spacepong-net
 
@@ -66,8 +66,8 @@ services:
     build:
       context: ./elk/logstash
     container_name: logstash
-    ports:
-      - "5044:5044"
+    expose:
+      - "5044"
     networks:
       - spacepong-net
 
