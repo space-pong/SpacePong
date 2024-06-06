@@ -1,49 +1,19 @@
 .control-bar {
-  height: 100%;
-  display: unset;
-  box-sizing: border-box;
-}
-
-.control-bar__tournament {
-  background: linear-gradient(to bottom right, rgb(245,245,245, 0.6), rgb(0,0,0, 0.4));
-  border: 2px solid white;
-  border-radius: 15px;
-  mix-blend-mode: overlay;
-
   display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   justify-content: space-between;
-  align-items: start;
-
-  box-sizing: border-box;
 }
 
-.control-bar__tournament__header {
-  width: 100%;
-  height: 15%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.control-bar__tournament__alias-set {
-  width: 100%;
-  height: 65%;
-
+.control-bar__alias-set {
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  
-  box-sizing: border-box;
-  overflow: hidden;
 }
 
 input[type=text] {
   border: 0;
   outline: none;
-
   color: whitesmoke;
 }
 
@@ -52,156 +22,116 @@ input[type=text]::placeholder {
   opacity: 0.4;
 }
 
-.control-bar__tournament__blank-box {
-  width: 100%;
-  height: 5%;
-}
-
-.control-bar__tournament__confirm {
+.control-bar__confirm {
   width: 100%;
   height: 15%;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   box-sizing: border-box;
 }
 
-.control-bar__tournament__confirm__btn--play {
-  background-color: rgba(115,178,93, 0.4);
-
+.control-bar__confirm__btn--play {
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.05);
   cursor: pointer;
-
-  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
 }
 
-.control-bar__tournament__confirm__btn--play:hover {
-  background-color: rgba(115,178,93, 0.6); 
+.control-bar__confirm__btn--play:hover {
+  background-color: rgba(73, 161, 86, 0.331);
+  box-shadow: 0px 0px 12px rgba(38, 162, 75, 0.5);
+  border: 0.5px solid rgba(143, 255, 156, 0.678);
+  color: rgb(255, 255, 255);
 }
 
-.control-bar__tournament__confirm__btn--cancel {
-  background-color: rgba(255, 0, 0, 0.2);
-
+.control-bar__confirm__btn--cancel {
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.05);
   cursor: pointer;
-
-  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
 }
 
-.control-bar__tournament__confirm__btn--cancel:hover {
-  background-color: rgba(255, 0, 0, 0.4);
+.control-bar__confirm__btn--cancel:hover {
+  background-color: rgba(192, 36, 36, 0.4);
+  box-shadow: 0px 0px 12px rgba(193, 36, 36, 0.5);
+  border: 0.5px solid rgba(255, 143, 143, 0.678);
+  color: rgb(255, 255, 255);
 }
 
 @media (max-aspect-ratio: 3/2) {
   .control-bar {
-    padding-top: 4vw;
+    padding-top: calc(2 * 1.3vw);
+    padding-bottom: calc(2 * 1.1vw);
   }
 
-  .control-bar__tournament {
-    aspect-ratio:  7/9;
-    width: 20vw;
-
-    border: 0.2vw solid rgb(89, 82, 96);
-    border-radius: 1.5vw;
-
-    padding: 2vw 1.8vw;
-  }
-
-  .control-bar__tournament__header {
-    font-size: 1.6vw;
-  }
-
-  .control-bar__tournament__alias-set {
-    padding-bottom: 4vw;
+  .control-bar__title {
+    font-size: calc(2 * 1vw);
   }
 
   input[type=text] {
-
-    width: 16vw;
-    height: 2.4vw;
-    font-size: 1.2vw;
-    
+    width: calc(2 * 9vw);
+    height: calc(2 * 1.1vw);
+    font-size: calc(2 * 0.6vw);
+    margin-top: calc(2 * 0.25vw);
+    margin-bottom: calc(2 * 0.25vw);
     background-color: transparent;
-    border-bottom: 0.1vw solid whitesmoke;
+    border-bottom: calc(2 * 0.01vw) solid whitesmoke;
   }
 
-  .control-bar__tournament__confirm__btn--play {
-    width: 100%;
-    height: 100%;
-
-    border: 0.2vw solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.2vw;
-
-    margin-right: 0.8vw;
-
-    font-size: 1.2vw;
+  .control-bar__confirm {
+    padding-left: calc(2 * 1vw);
+    padding-right: calc(2 * 1vw);
   }
-
-  .control-bar__tournament__confirm__btn--cancel {
-    width: 100%;
-    height: 100%;
-
-    border: 0.2vw solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.2vw;
-
-    margin-left: 0.8vw;
-
-    font-size: 1.2vw;
+  .control-bar__confirm__btn--play {
+    margin-right: calc(2 * 0.2vw);
+    border-radius: calc(2 * 0.5vw);
+    font-size: calc(2 * 0.6vw);
+  }
+  .control-bar__confirm__btn--cancel {
+    margin-left: calc(2 * 0.2vw);
+    border-radius: calc(2 * 0.5vw);
+    font-size: calc(2 * 0.6vw);
   }
 }
 
 @media (min-aspect-ratio: 3/2) {
   .control-bar {
-    padding-top: 6vh;
+    padding-top: calc(3 * 1.3vh);
+    padding-bottom: calc(3 * 1.1vh);
   }
 
-  .control-bar__tournament {
-    aspect-ratio: 7/9;
-    height: 40vh;
-    border: 0.2vh solid rgb(89, 82, 96);
-    border-radius: 2vh;
-
-    padding: 2vh 3vh 3vh 3vh;
-  }
-
-  .control-bar__tournament__header {
-    font-size: 2.4vh;
-  }
-
-  .control-bar__tournament__alias-set {
-    padding-bottom: 1vh;
+  .control-bar__title {
+    font-size: calc(3 * 1vh);
   }
 
   input[type=text] {
-    width: 30vh;
-    height: 3.8vh;
-    font-size: 2.2vh;
+    width: calc(3 * 9vh);
+    height: calc(3 * 1.1vh);
+    font-size: calc(3 * 0.6vh);
+    margin-top: calc(3 * 0.25vh);
+    margin-bottom: calc(3 * 0.25vh);
     background-color: transparent;
-    border-bottom: 0.1vh solid whitesmoke;
+    border-bottom: calc(3 * 0.01vh) solid whitesmoke;
   }
 
-  .control-bar__tournament__confirm__btn--play {
-    width: 100%;
-    height: 100%;
-
-    border: 0.2vh solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.4vh;
-
-    margin-right: 1.6vh;
-
-    font-size: 1.8vh;
+  .control-bar__confirm {
+    padding-left: calc(3 * 1vh);
+    padding-right: calc(3 * 1vh);
   }
-
-  .control-bar__tournament__confirm__btn--cancel {
-    width: 100%;
-    height: 100%;
-
-    border: 0.2vh solid rgb(178, 177, 185, 0.2);
-    border-radius: 1.4vh;
-
-    margin-left: 1.6vh;
-
-    font-size: 1.8vh;
+  .control-bar__confirm__btn--play {
+    margin-right: calc(3 * 0.2vh);
+    border-radius: calc(3 * 0.5vh);
+    font-size: calc(3 * 0.6vh);
+  }
+  .control-bar__confirm__btn--cancel {
+    margin-left: calc(3 * 0.2vh);
+    border-radius: calc(3 * 0.5vh);
+    font-size: calc(3 * 0.6vh);
   }
 }
