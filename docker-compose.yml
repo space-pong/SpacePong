@@ -2,9 +2,11 @@ name: spacepong
 version: '3.8'
 
 services:
+  ### WEB ###
   frontend:
     build: # 도커 이미지 빌드를 위한 Dockerfile의 경로
       context: ./frontend
+    container_name: frontend
     init: true
     ports: # 사용할 포트 번호 ([Host port]:[Container port])
       - "443:443"
@@ -19,6 +21,7 @@ services:
   backend:
     build:
       context: ./backend
+    container_name: backend
     init: true
     ports:
       - "8000:8000"
@@ -36,12 +39,46 @@ services:
   db:
     build:
       context: ./db
+    container_name: db
     init: true
     expose:
       - "5432"
     restart: always
     env_file: 
       - ./.env
+    networks:
+      - spacepong-net
+
+  ### ELK ###
+  elasticsearch:
+    build:
+      context: ./elk/elasticsearch
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    networks:
+      - spacepong-net
+
+  logstash:
+    build:
+      context: ./elk/logstash
+    container_name: logstash
+    ports:
+      - "5044:5044"
+    networks:
+      - spacepong-net
+
+  kibana:
+    build:
+      context: ./elk/kibana
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
     networks:
       - spacepong-net
 

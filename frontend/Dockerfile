@@ -4,8 +4,18 @@ FROM nginx:latest
 # ssl 인증서 발급
 RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -sha256 -subj "/CN=spacepong.42.kr"
 
+# log 전달용 rsyslog 패키지 설치
+RUN apt-get update && apt-get install -y rsyslog rsyslog-elasticsearch
+
 # 호스트 OS의 Nginx 설정 파일을 컨테이너로 복사
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# Nginx 실행
-CMD ["nginx", "-g", "daemon off;"]
+# 호스트 OS의 rsyslog 설정 파일을 컨테이너로 복사
+COPY conf/rsyslog.conf /etc/rsyslog.conf
+
+# init.sh 복사 및 실행 권한 추가
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
+
+# init.sh 실행
+CMD ["/init.sh"]
