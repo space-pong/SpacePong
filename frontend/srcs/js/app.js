@@ -6,11 +6,12 @@ import { mainPage } from './pages/mainPage.js'
 import { unitSelectPage } from './pages/unitSelectPage.js'
 import { localAIPage } from './pages/localAIPage.js'
 import { localOneToOnePage } from './pages/localOneToOnePage.js'
-import { localTournamentPage }  from './pages/localTournamentPage.js'
 import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 import { gamePage } from './pages/gamePage.js';
 import { gameResultPage } from './pages/gameResultPage.js'
 import { tournamentTablePage } from './pages/tournamentTablePage.js';
+import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
+
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
 
@@ -21,7 +22,7 @@ const routes = {
   remoteMatchPage: remoteMatchPage,
   localAIPage: localAIPage,
   localOneToOnePage: localOneToOnePage,
-  localTournamentPage: localTournamentPage,
+  tournamentFillAliasPage: tournamentFillAliasPage,
   gamePage: gamePage,
   gameResultPage: gameResultPage,
   tournamentTablePage: tournamentTablePage

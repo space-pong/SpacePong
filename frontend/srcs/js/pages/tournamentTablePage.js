@@ -6,11 +6,11 @@ export const tournamentTablePage = {
     var groupA = "";
     var groupB = "";
     var final = "";
-    if (globalState.step == 0) {
+    if (globalState.step == 5) {
       groupA = "next";
-    } else if (globalState.step == 1) {
+    } else if (globalState.step == 6) {
       groupB = "next";
-    } else if (globalState.step == 2) {
+    } else if (globalState.step == 7) {
       final = "next";
     }
     return `
