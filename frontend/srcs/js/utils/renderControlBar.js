@@ -6,7 +6,7 @@ import { PongGame } from '../game/PongGame.js'
 
 import globalState from '../globalState.js';
 
-export function renderControlBar(page) {
+export async function renderControlBar(page) {
   console.log(globalState);
   const target = document.querySelector('.control-bar');
   target.classList.remove('fade-in');
