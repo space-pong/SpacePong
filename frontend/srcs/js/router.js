@@ -54,7 +54,7 @@ export class Router {
     console.log(location.pathname);
     return this.routes.map((route) => ({
       route,
-      isMatch: location.pathname === "/frontend/srcs"+route.path
+      isMatch: location.pathname === route.path
     })).find((potentialMatch) => potentialMatch.isMatch);
   }
 
