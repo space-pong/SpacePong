@@ -36,7 +36,7 @@ export const tournamentTablePage = {
         </div>
     </div>
     <div class="control-bar__confirm">
-      <button class="control-bar__confirm__btn--next" data-link="dynamicPage">Next</button>
+      <button href="" class="control-bar__confirm__btn--next" data-link>Next</button>
     </div>
     `;
   },

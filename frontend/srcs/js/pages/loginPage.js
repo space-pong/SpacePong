@@ -3,7 +3,7 @@
 export const loginPage = {
   getHtml() {
     return `
-    <a href="/" class="control-bar__login-btn" data-link="auth42">Login</a>
+    <button href="/" class="control-bar__login-btn" data-link="auth42">Login</button>
     `;
   },
   css: 'styles/css/loginPage.css'
