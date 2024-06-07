@@ -27,11 +27,12 @@ export class PongGameLogic {
     this.isWallStrike = false;
     this.update = this.#update.bind(this);
     this.loop = this.loop.bind(this);
-    this.targetScore = 10;
+    this.targetScore = 1;
     this.pauseDuration = 90;
     this.isHost = false;
     this.isGuest = false;
     this.channel = null;
+    this.isEnd = false;
   }
 
   
@@ -84,6 +85,7 @@ export class PongGameLogic {
     }
 
     if (this.player1.score == this.targetScore || this.player2.score == this.targetScore) {
+      this.isEnd = true;
       return;
     }
     let endTime = performance.now();

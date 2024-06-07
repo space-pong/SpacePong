@@ -45,4 +45,20 @@ export class PongGame {
 
     this.logic.loop();
   }
+
+  async isEnd() {
+    // Promise를 반환
+    return new Promise((resolve) => {
+      const checkInterval = 100; // 체크 주기(ms)
+
+      // 인터벌로 this.logic.isEnd를 체크
+      const intervalId = setInterval(() => {
+        if (this.logic.isEnd === true) {
+          clearInterval(intervalId); // 인터벌 중지
+          resolve(true); // Promise를 해결
+        }
+      }, checkInterval);
+    });
+  }
+
 }
