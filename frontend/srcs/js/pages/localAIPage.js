@@ -8,7 +8,7 @@ export const localAIPage = {
     </div>
     <div class="control-bar__confirm">
       <button href="/game" class="control-bar__confirm__btn--play" data-link>Play</button>
-      <button href="/unitSelect" class="control-bar__confirm__btn--cancel" data-link data-target="localAIPage">Cancel</button>
+      <button href="/unitSelect" class="control-bar__confirm__btn--cancel" data-link>Cancel</button>
     </div>
     `;
   },

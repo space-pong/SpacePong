@@ -9,6 +9,8 @@ import { gamePage } from './pages/gamePage.js';
 import { gameResultPage } from './pages/gameResultPage.js'
 import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
+import {fetchTokens, checkaccess} from './utils/checkToken.js'
+import globalState from './globalState.js';
 
 export class Router {
   constructor() {
@@ -29,24 +31,38 @@ export class Router {
 
     this.route();
 
-
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
         e.preventDefault();
         const path = e.target.getAttribute('href');
+        const gameMode = e.target.getAttribute('game-mode');
+        if (gameMode) {
+          globalState.gameMode = e.target.getAttribute('game-mode');
+        }
         this.navigateTo(path);
       }
     });
+
   }
 
+
   async route() {
+
+    await fetchTokens();
+    if (!localStorage.getItem('accessToken'))
+    {
+      console.log("here");
+      renderControlBar(login);
+      return ;
+    }
     
     let match = this.findMatch();
     if (!match) {
-      console.log( match);
+      console.log(match);
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
     }
+    console.log('match: ', match);
     await this.render(match);
   }
 

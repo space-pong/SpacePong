@@ -7,6 +7,7 @@ import { PongGame } from '../game/PongGame.js'
 import globalState from '../globalState.js';
 
 export async function renderControlBar(page) {
+  console.log('page: ', page);
   console.log(globalState);
   const target = document.querySelector('.control-bar');
   target.classList.remove('fade-in');
@@ -28,7 +29,7 @@ export async function renderControlBar(page) {
 function renderControlBarTournament(page) {
   if (globalState.step == 0) {
     const playButton = document.querySelector('.control-bar__confirm__btn--play');
-    playButton.setAttribute('data-link', "unitSelectPage");
+    playButton.setAttribute('href', "/unitSelect");
     playButton.addEventListener('click', playHandler);
     function playHandler() {
       for (let i = 1; i <= 4; ++i) {
@@ -45,19 +46,18 @@ function renderControlBarTournament(page) {
     const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
     cancelButton.addEventListener('click', cancelHandler)
     function cancelHandler() {
-      console.log("he");
       resetGlobalState();
       playButton.removeEventListener('click', playHandler);
       cancelButton.removeEventListener('click', cancelHandler);
     }
   } else if (globalState.step == 1) {
-    setupSelectButton(1, "unitSelectPage", globalState.alias.player2);
+    setupSelectButton(1, "/unitSelect", globalState.alias.player2);
   } else if (globalState.step == 2) {
-    setupSelectButton(2, "unitSelectPage", globalState.alias.player3);
+    setupSelectButton(2, "/unitSelect", globalState.alias.player3);
   } else if (globalState.step == 3) {
-    setupSelectButton(3, "unitSelectPage", globalState.alias.player4);
+    setupSelectButton(3, "/unitSelect", globalState.alias.player4);
   } else if (globalState.step == 4) {
-    setupSelectButton(4, "tournamentTablePage");
+    setupSelectButton(4, "/tournamentTable");
   } else if (globalState.step == 5) {
     const nextButton = document.querySelector('.control-bar__confirm__btn--next');
     nextButton.setAttribute('data-link', "gamePage");
@@ -66,9 +66,9 @@ function renderControlBarTournament(page) {
     }
   }
 
-  function setupSelectButton(step, nextPage, nextAlias) {
+  function setupSelectButton(step, nextPath, nextAlias) {
     const selectButton = document.querySelector('.control-bar__confirm__btn--select');
-    selectButton.setAttribute('data-link', nextPage);
+    selectButton.setAttribute('href', nextPath);
     selectButton.addEventListener('click', selectHandler);
     function selectHandler() {
       const selectedUnit = document.querySelector('input[name="unit"]:checked');
@@ -100,8 +100,9 @@ function renderControlBarTournament(page) {
 
 async function renderControlBarAI(page) {
   if (globalState.step == 0) {
+    console.log("gasd");
     const selectButton = document.querySelector('.control-bar__confirm__btn--select');
-    selectButton.setAttribute('data-link', "localAIPage");
+    selectButton.setAttribute('href', "/localAI");
     selectButton.addEventListener('click', selectHandler);
     function selectHandler() {
       const selectedUnit = document.querySelector('input[name="unit"]:checked');
