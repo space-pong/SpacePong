@@ -1,21 +1,17 @@
 //import './utils/renderPage.js';
-
-import { renderControlBar} from './utils/renderControlBar.js';
-import { loginPage } from './pages/loginPage.js'
-import { mainPage } from './pages/mainPage.js'
-import { unitSelectPage } from './pages/unitSelectPage.js'
-import { localAIPage } from './pages/localAIPage.js'
-import { localOneToOnePage } from './pages/localOneToOnePage.js'
-import { remoteMatchPage }  from './pages/remoteMatchPage.js'
-import { gamePage } from './pages/gamePage.js';
-import { gameResultPage } from './pages/gameResultPage.js'
-import { tournamentTablePage } from './pages/tournamentTablePage.js';
-import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
-
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
 
-const routes = {
+
+import { Router } from './router.js';
+
+async function init() {
+  const router = new Router();
+  console.log("init");
+}
+
+
+/*const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
   unitSelectPage: unitSelectPage,
@@ -31,7 +27,7 @@ const routes = {
 async function init() {
   await fetchTokens();
   if (!localStorage.getItem('accessToken')){
-    renderControlBar(loginPage);
+    renderControlBar(mainPage);
   }
   else {
     renderControlBar(mainPage);
@@ -56,7 +52,7 @@ async function init() {
         //history.pushState({ page }, '', page);
     }
   });
-}
+}*/
 
 //window.addEventListener('popstate', (event) => {
 //  const page = event.state?.page || 'login';
@@ -65,3 +61,4 @@ async function init() {
 
 
 window.addEventListener('DOMContentLoaded', init);
+

@@ -7,8 +7,8 @@ export const localAIPage = {
       <img src="./assets/images/icon_ai.svg" alt="icon of AI">
     </div>
     <div class="control-bar__confirm">
-      <button class="control-bar__confirm__btn--play" data-link="gamePage">Play</button>
-      <button class="control-bar__confirm__btn--cancel" data-link="unitSelectPage" data-target="localAIPage">Cancel</button>
+      <button href="/game" class="control-bar__confirm__btn--play" data-link>Play</button>
+      <button href="/unitSelect" class="control-bar__confirm__btn--cancel" data-link>Cancel</button>
     </div>
     `;
   },

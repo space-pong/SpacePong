@@ -1,0 +1,88 @@
+```
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/css/basic.css">
+  <title>SPACE PONG</title>
+  <script type="module" src="./js/app.js" defer ></script>
+</head>
+<body>
+  <div class="app" id="app">
+  </div>
+</body>
+</html>
+```
+
+
+```
+import { Router } from './router.js';
+
+async function init() {
+  const router = new Router();
+}
+
+window.addEventListener('DOMContentLoaded', init);
+```
+
+
+```
+import { renderControlBar} from './utils/renderControlBar.js';
+import { loginPage } from './pages/loginPage.js'
+import { mainPage } from './pages/mainPage.js'
+
+export class Router {
+  constructor() {
+    this.routes = [
+      {path: "/", view: mainPage},
+      {path: "/login", view: loginPage},
+
+    ];
+    window.addEventListener('popstate', () => this.route());
+
+    document.addEventListener('DOMContentLoaded', () => {
+      this.route();
+    });
+
+
+    document.body.addEventListener('click', (e) => {
+      if (e.target.matches('[data-link]')) {
+        e.preventDefault();
+        const path = e.target.getAttribute('href');
+        this.navigateTo(path);
+      }
+    });
+  }
+
+
+  async route() {
+    console.log("route");
+    let match = this.findMatch();
+    if (!match) {
+      document.querySelector('#app').innerHTML = `<h1>404</h1>`;
+      return ;
+    }
+    await this.renderRoute(match);
+  }
+
+  findMatch() {
+    return this.routes.map((route) => ({
+      route,
+      isMatch: location.pathname === route.path
+    })).find((potentialMatch) => potentialMatch.isMatch);
+  }
+
+  async render (match) {
+    const view = match.route.view;
+    await renderControlBar(view);
+  }
+
+  navigateTo(url) {
+    history.pushState(null, null, url);
+    this.route();
+    
+  }
+
+}
+```

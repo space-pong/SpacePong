@@ -12,7 +12,7 @@ export const tournamentFillAliasPage = {
     </div>
     <div class="control-bar__confirm">
       <button class="control-bar__confirm__btn--play" data-link="dynamicPage">Play</button>
-      <button class="control-bar__confirm__btn--cancel" data-link="mainPage">Cancel</button>
+      <button href="/" class="control-bar__confirm__btn--cancel" data-link>Cancel</button>
     </div>
   `;
   },

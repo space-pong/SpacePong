@@ -2,14 +2,14 @@ export const mainPage = {
   getHtml() {
     return `
     <div class="control-bar__icon">
-      <img src="./assets/images/icon_logout.svg" data-link="loginPage" alt="logout">
+      <img src="./assets/images/icon_logout.svg" href="/login" data-link alt="logout">
       <img src="./assets/images/icon_controller.svg" alt="controller">
       <img src="./assets/images/icon_setting.svg" alt="setting">
     </div>
-    <div class="control-bar__mode--text" data-link="unitSelectPage" game-mode="remote">Remote Play</div>
-    <div class="control-bar__mode--text" data-link="tournamentFillAliasPage" game-mode="tournament">Tournament </div>
-    <div class="control-bar__mode--text" data-link="localOneToOnePage">1 vs 1</div>
-    <div class="control-bar__mode--text" data-link="unitSelectPage" game-mode="ai">AI</div>
+    <div href="/unitSelect" class="control-bar__mode--text" data-link game-mode="remote">Remote Play</div>
+    <div href="/tournamentFill" class="control-bar__mode--text" data-link game-mode="tournament">Tournament </div>
+    <div href="localOneToOne" class="control-bar__mode--text" data-link>1 vs 1</div>
+    <div href="/unitSelect" class="control-bar__mode--text" data-link game-mode="ai">AI</div>
     `;
   },
   css: 'styles/css/mainPage.css'

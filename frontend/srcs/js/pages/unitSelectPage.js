@@ -16,8 +16,8 @@ export const unitSelectPage = {
       </label>
     </div>
     <div class="control-bar__confirm">
-      <button class="control-bar__confirm__btn--select" data-link="dynamicPage">Select</button>
-      <button class="control-bar__confirm__btn--cancel" data-link="mainPage">Cancel</button>
+      <button href="" class="control-bar__confirm__btn--select" data-link>Select</button>
+      <button href="/" class="control-bar__confirm__btn--cancel" data-link>Cancel</button>
     </div>
     `;
   },
