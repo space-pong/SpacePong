@@ -48,14 +48,13 @@ export class Router {
 
   async route() {
 
-    await fetchTokens();
-    if (!localStorage.getItem('accessToken'))
-    {
-      console.log("here");
-      renderControlBar(login);
-      return ;
-      // 나중에
-    }
+    // await fetchTokens();
+    // if (!localStorage.getItem('accessToken'))
+    // {
+    //   console.log("accessToken issue");
+    //   renderControlBar(login);
+    //   return ;
+    // }
     
     let match = this.findMatch();
     if (!match) {
@@ -83,6 +82,5 @@ export class Router {
   navigateTo(url) {
     history.pushState(null, null, url);
     this.route();
-    
   }
 }
