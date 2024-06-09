@@ -1,7 +1,7 @@
 export const gamePage = {
   getHtml() {
     return `
-    <canvas id='art'></canvas>
+    <div id='art'></div>
     `;
   },
   css: 'styles/css/gamePage.css'

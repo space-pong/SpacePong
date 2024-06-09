@@ -5,6 +5,7 @@ import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
 
 import globalState from '../globalState.js';
+import { gameResultPage } from '../pages/gameResultPage.js';
 
 export async function renderControlBar(page) {
   console.log('page: ', page);
@@ -137,8 +138,25 @@ async function renderControlBarAI(page) {
     const game = new PongGame();
     await game.init(key1, aiController, globalState.unit.player1, "Zerg", "art");
     game.start();
+    game.isEnd().then(() => {
+      console.log("hello");
+      game.renderer.dispose(); 
+      ++globalState.step;
+      if (game.logic.winner == "1") {
+        globalState.winner = globalState.alias.player1;
+      } else {
+        globalState.winner = "AI";
+      }
+      renderControlBar(gameResultPage);
+    });
   } else if (globalState.step == 3) {
-    // 결과
+    const nextButton = document.querySelector('.control-bar__confirm__btn--next');
+    nextButton.addEventListener('click', nextHandler);
+    nextButton.setAttribute('href', "/");
+    function nextHandler() {
+      resetGlobalState();
+      nextButton.removeEventListener('click', nextHandler);
+    }
   }
 }
 

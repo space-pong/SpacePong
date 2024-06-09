@@ -8,10 +8,7 @@ export class PongGameRenderer {
 
   }
 
-  async init(canvasID, pongGame, player1Skin, player2Skin) {
-
-    // 캔버스 얻기
-    this.canvas = document.getElementById(canvasID);
+  async init(divID, pongGame, player1Skin, player2Skin) {
 
     // 퐁게임 참조 저장
     this.pongGameInstance = pongGame;
@@ -38,7 +35,6 @@ export class PongGameRenderer {
 
     // 렌더러
     this.renderer = new THREE.WebGLRenderer({
-      canvas: this.canvas,
       antialias: true,
       alpha: false,
       precision: "lowp",
@@ -50,7 +46,7 @@ export class PongGameRenderer {
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 2.0;
-    document.body.appendChild(this.renderer.domElement);
+    document.getElementById(divID).appendChild(this.renderer.domElement);
 
     // 포스트 프로세싱
     this.pmremGenerator = new THREE.PMREMGenerator(this.renderer);
@@ -461,7 +457,11 @@ export class PongGameRenderer {
   }
 
   animate() {
-    requestAnimationFrame(this.animate);
+    if (this.pongGameInstance.isEnd == false) {
+      requestAnimationFrame(this.animate);
+    } else {
+      return ;
+    }
     this.stats.begin();
     this.animateEnvironments();
     this.animateGame();
@@ -475,5 +475,77 @@ export class PongGameRenderer {
     document.body.appendChild(this.stats.dom);
 
     this.animate();
+  }
+
+  removeEventListeners() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+  disposeAudio() {
+    if (this.bgmSound && this.bgmSound.isPlaying) {
+      this.bgmSound.stop();
+    }
+    if (this.strikeSound && this.strikeSound.isPlaying) {
+      this.strikeSound.stop();
+    }
+  }
+
+  disposeScene() {
+    // 씬의 모든 객체 제거
+    while (this.scene.children.length > 0) {
+      const object = this.scene.children[0];
+      this.scene.remove(object);
+
+      if (object.geometry) {
+        object.geometry.dispose();
+      }
+      if (object.material) {
+        if (object.material instanceof Array) {
+          object.material.forEach(material => material.dispose());
+        } else {
+          object.material.dispose();
+        }
+      }
+      if (object.texture) {
+        object.texture.dispose();
+      }
+    }
+    // 씬의 배경과 환경맵 제거
+    if (this.scene.background) {
+      this.scene.background.dispose();
+    }
+    if (this.scene.environment) {
+      this.scene.environment.dispose();
+    }
+  }
+
+  dispose() {
+    this.isDisposed = true;
+
+    // 씬 정리
+    this.disposeScene();
+
+    // 이벤트 리스너 제거
+    this.removeEventListeners();
+
+    // 오디오 리소스 해제
+    this.disposeAudio();
+
+    // 렌더러와 PMREM 생성기 정리
+    if (this.renderer) {
+      this.renderer.dispose();
+    }
+    if (this.pmremGenerator) {
+      this.pmremGenerator.dispose();
+    }
+
+    // DOM 요소 제거
+    if (this.renderer.domElement.parentNode) {
+      this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+    }
+    if (this.stats && this.stats.dom.parentNode) {
+      this.stats.dom.parentNode.removeChild(this.stats.dom);
+    }
+
+    console.log('Resources have been released.');
   }
 }
