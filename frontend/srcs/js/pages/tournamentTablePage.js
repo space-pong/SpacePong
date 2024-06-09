@@ -8,9 +8,9 @@ export const tournamentTablePage = {
     var final = "";
     if (globalState.step == 5) {
       groupA = "next";
-    } else if (globalState.step == 6) {
-      groupB = "next";
     } else if (globalState.step == 7) {
+      groupB = "next";
+    } else if (globalState.step == 9) {
       final = "next";
     }
     return `
@@ -31,8 +31,8 @@ export const tournamentTablePage = {
     <div class="round">
         <div class="matchup ${final}">
           <div class="matchup__type">Final</div>
-          <div class="player">${globalState.tournament.finalAway}</div>
           <div class="player">${globalState.tournament.finalHome}</div>
+          <div class="player">${globalState.tournament.finalAway}</div>
         </div>
     </div>
     <div class="control-bar__confirm">

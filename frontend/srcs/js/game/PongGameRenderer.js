@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
-import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/17/Stats.js'
+
 
 export class PongGameRenderer {
   constructor() {
@@ -218,7 +218,7 @@ export class PongGameRenderer {
         if (child.isMesh) {
           if (child.material) {
             child.material.metalness = 1.0;
-            child.material.roughness = 0.0;
+            child.material.roughness = 0.1;
             child.material.needsUpdate = true;
           }
         }
@@ -462,17 +462,12 @@ export class PongGameRenderer {
     } else {
       return ;
     }
-    this.stats.begin();
     this.animateEnvironments();
     this.animateGame();
     this.renderer.render(this.scene, this.camera);
-    this.stats.end();
   }
 
   async loop() {
-    this.stats = new Stats();
-    this.stats.showPanel(0); // 0: fps, 1: ms/frame, 2: memory
-    document.body.appendChild(this.stats.dom);
 
     this.animate();
   }
@@ -541,9 +536,6 @@ export class PongGameRenderer {
     // DOM 요소 제거
     if (this.renderer.domElement.parentNode) {
       this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
-    }
-    if (this.stats && this.stats.dom.parentNode) {
-      this.stats.dom.parentNode.removeChild(this.stats.dom);
     }
 
     console.log('Resources have been released.');

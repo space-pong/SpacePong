@@ -57,7 +57,6 @@ export class Router {
     
     let match = this.findMatch();
     if (!match) {
-      console.log(match);
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
     }

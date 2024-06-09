@@ -11,11 +11,13 @@ export class PongGameLogic {
     this.player1 = {
       position: { x: 0, y: 0, z: 80 },
       score: 0,
+      scoreQuery: null,
       controller: controller1
     };
     this.player2 = {
       position: { x: 0, y: 0, z: -80 },
       score: 0,
+      scoreQuery: null,
       controller: controller2
     };
     this.ball = {
@@ -27,7 +29,7 @@ export class PongGameLogic {
     this.isWallStrike = false;
     this.update = this.#update.bind(this);
     this.loop = this.loop.bind(this);
-    this.targetScore = 1;
+    this.targetScore = 2;
     this.pauseDuration = 90;
     this.isHost = false;
     this.isGuest = false;
@@ -36,7 +38,10 @@ export class PongGameLogic {
     this.winner = null;
   }
 
-  
+  setScoreID(player1ScoreID, player2ScoreID) {
+    this.player1.scoreQuery = document.querySelector(player1ScoreID);
+    this.player2.scoreQuery = document.querySelector(player2ScoreID);
+  }
 
   setHost(channel) {
     if (this.isHost || this.isGuest) {
@@ -84,7 +89,6 @@ export class PongGameLogic {
     } else {
       await this.#update();
     }
-
     if (this.player1.score == this.targetScore || this.player2.score == this.targetScore) {
       this.isEnd = true;
       if (this.player1.score == this.targetScore) {
@@ -165,6 +169,9 @@ export class PongGameLogic {
           this.isPlayer1Strike = true;
       } else { // 실점 판정
         this.player2.score++;
+        if (this.player1.scoreQuery) {
+          this.player2.scoreQuery.innerHTML = this.player2.score;
+        }
         this.ball.velocity.z = -this.speedZ;
         this.ball.velocity.x = 0;
         this.ball.position.x = 0;
@@ -187,6 +194,9 @@ export class PongGameLogic {
           this.isPlayer2Strike = true;
       } else { // 실점 판정
         this.player1.score++;
+        if (this.player1.scoreQuery) {
+          this.player1.scoreQuery.innerHTML = this.player1.score;
+        }
         this.ball.velocity.z = this.speedZ;
         this.ball.velocity.x = 0;
         this.ball.position.x = 0;

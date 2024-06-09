@@ -8,6 +8,7 @@ body, html {
   all: initial;
 
 }
+
 .control-bar {
   display: block;
   position: absolute;
@@ -16,7 +17,8 @@ body, html {
   width: 100%;
   height: 100%;
 }
-#art  {
+
+.game-view  {
   display: block;
   position: absolute;
   top: 0;
@@ -24,3 +26,40 @@ body, html {
   width: 100%;
   height: 100%;
 }
+
+
+.scoreboard {
+  font-family: 'nicomoji', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  z-index: 10001;
+}
+.player1, .player2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10001;
+  backdrop-filter: blur(20px);
+  margin: 2vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  border-radius: 1vw;
+  width: 20%;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  background-color: rgba(102, 145, 198, 0.1);
+}
+
+.player1-name, .player2-name {
+  font-size: 1.5vw;
+  font-weight: bold;
+  color: #ececec;
+  z-index: 10001;
+}
+
+.player1-score, .player2-score {
+  font-size: 4vw;
+  color: #ececec;
+  z-index: 10001;
+}
+
