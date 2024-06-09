@@ -28,7 +28,6 @@ export class Router {
     ];
     window.addEventListener('popstate', () => this.route());
 
-
     this.route();
 
     document.body.addEventListener('click', (e) => {
@@ -58,16 +57,13 @@ export class Router {
     
     let match = this.findMatch();
     if (!match) {
-      console.log(match);
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
     }
-    console.log('match: ', match);
     await this.render(match);
   }
 
   findMatch() {
-    console.log(location.pathname);
     return this.routes.map((route) => ({
       route,
       isMatch: location.pathname === route.path
@@ -80,7 +76,7 @@ export class Router {
   }
 
   navigateTo(url) {
-    history.pushState(null, null, url);
+    history.pushState(globalState, null, url);
     this.route();
   }
 }

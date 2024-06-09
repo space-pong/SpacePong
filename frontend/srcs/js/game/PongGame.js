@@ -9,7 +9,7 @@ export class PongGame {
   constructor() {
   }
 
-  async init (controller1, controller2, skin1, skin2, canvasId) {
+  async init (controller1, controller2, skin1, skin2, divId) {
     if (controller1 instanceof AIController) { // controller1에 AI 설정 불가
       return false;
     }
@@ -25,7 +25,7 @@ export class PongGame {
       controller2.linkGameLogic(this.logic);
     }
     this.renderer = new PongGameRenderer();
-    await this.renderer.init(canvasId, this.logic, skin1, skin2);
+    await this.renderer.init(divId, this.logic, skin1, skin2);
   }
 
   setHost(channel) {
@@ -43,6 +43,22 @@ export class PongGame {
       this.controller2.start();
     }
 
-    await this.logic.loop();
+    this.logic.loop();
   }
+
+  async isEnd() {
+    // Promise를 반환
+    return new Promise((resolve) => {
+      const checkInterval = 100; // 체크 주기(ms)
+
+      // 인터벌로 this.logic.isEnd를 체크
+      const intervalId = setInterval(() => {
+        if (this.logic.isEnd === true) {
+          clearInterval(intervalId); // 인터벌 중지
+          resolve(true); // Promise를 해결
+        }
+      }, checkInterval);
+    });
+  }
+
 }
