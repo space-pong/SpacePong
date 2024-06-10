@@ -34,3 +34,27 @@ msgstr "SPACE PONG(fr)"
 
 msgid "ft_transcendence"
 msgstr "ft_transcendence(fr)"
+
+msgid "Unit"
+msgstr "Unite"
+
+msgid "Default"
+msgstr "Defaut"
+
+msgid "Zerg"
+msgstr "Zerg"
+
+msgid "Remote Play"
+msgstr "Jeu a distance"
+
+msgid "Tournament"
+msgstr "Tournoi"
+
+msgid "Select"
+msgstr "Selectionner"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Guest"
+msgstr "Invite"

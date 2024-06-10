@@ -34,3 +34,27 @@ msgstr ""
 
 msgid "ft_transcendence"
 msgstr ""
+
+msgid “Unit”
+Msgstr ””
+
+msgid "Default"
+msgstr ""
+
+msgid "Zerg"
+msgstr ""
+
+msgid "Remote Play"
+msgstr "”
+
+msgid "Tournament"
+msgstr ""
+
+msgid “Select”
+msgstr “”
+
+msgid “Cancel”
+msgstr “”
+
+msgid “Guest”
+msgstr “”
