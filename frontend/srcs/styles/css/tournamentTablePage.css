@@ -107,9 +107,22 @@
     font-size: calc(3 * 0.7vh);
   }
 
-  .control-bar__icon img {
-    width: calc(3 * 3vh);
+  .matchup {
+    border-radius: calc(3 * 0.3vh);  
+    margin-left:  calc(3 * 0.4vh);
+    margin-right: calc(3 * 0.4vh);
+    padding: calc(3 * 0.35vh);
   }
+
+  .matchup__type {
+    padding-bottom: calc(3 * 0.3vh);
+    font-size: calc(3 * 0.7vh);
+  }
+
+  .player {
+    font-size: calc(3 * 0.5vh);
+  }
+
 
   .control-bar__confirm {
     padding-left: calc(3 * 1vh);
