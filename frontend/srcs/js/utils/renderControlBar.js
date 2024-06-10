@@ -75,15 +75,16 @@ async function renderControlBarTournament(page) {
     const key2 = new KeyboardController(65, 68, 87, 83, 70);
     const game = new PongGame();
     await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
+    game.renderer.setTopView();
     game.logic.setScoreID('.player1-score', '.player2-score');
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();
       ++globalState.step;
       if (game.logic.winner == "1") {
-        globalState.tournament.finalHome = globalState.alias.player1;
+        globalState.tournament.finalHome = 1;
       } else {
-        globalState.tournament.finalHome = globalState.alias.player2;
+        globalState.tournament.finalHome = 2;
       }
       renderControlBar(tournamentTablePage);
     });
@@ -102,15 +103,16 @@ async function renderControlBarTournament(page) {
     const key2 = new KeyboardController(65, 68, 87, 83, 70);
     const game = new PongGame();
     await game.init(key1, key2, globalState.unit.player3, globalState.unit.player4, "art");
+    game.renderer.setTopView();
     game.logic.setScoreID('.player1-score', '.player2-score');
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();
       ++globalState.step;
       if (game.logic.winner == "1") {
-        globalState.tournament.finalAway = globalState.alias.player3;
+        globalState.tournament.finalAway = 3;
       } else {
-        globalState.tournament.finalAway = globalState.alias.player4;
+        globalState.tournament.finalAway = 4;
       }
       renderControlBar(tournamentTablePage);
     });
@@ -120,24 +122,25 @@ async function renderControlBarTournament(page) {
     nextButton.addEventListener('click', nextHandler);
     function nextHandler() {
       ++globalState.step;
-      globalState.currentAlias = globalState.tournament.finalHome;
-      globalState.oppsiteAlias = globalState.tournament.finalAway;
+      globalState.currentAlias = globalState.alias[`player${globalState.tournament.finalHome}`];
+      globalState.oppsiteAlias = globalState.alias[`player${globalState.tournament.finalAway}`];
       nextButton.removeEventListener('click', nextButton);
     }
   } else if (globalState.step == 10) {
     const key1 = new KeyboardController(37, 39, 38, 40, 32);
     const key2 = new KeyboardController(65, 68, 87, 83, 70);
     const game = new PongGame();
-    await game.init(key1, key2, globalState.unit.player3, globalState.unit.player4, "art");
+    await game.init(key1, key2, globalState.unit[`player${globalState.tournament.finalHome}`], globalState.unit[`player${globalState.tournament.finalAway}`], "art");
+    game.renderer.setTopView();
     game.logic.setScoreID('.player1-score', '.player2-score');
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();
       ++globalState.step;
       if (game.logic.winner == "1") {
-        globalState.winner = globalState.tournament.finalHome;
+        globalState.winner = globalState.alias[`player${globalState.tournament.finalHome}`];
       } else {
-        globalState.winner = globalState.tournament.finalAway;
+        globalState.winner = globalState.alias[`player${globalState.tournament.finalAway}`];
       }
       renderControlBar(gameResultPage);
     });

@@ -244,12 +244,12 @@ export class PongGameRenderer {
         if (child.isMesh) {
           if (child.material) {
             child.material.metalness = 1.0;
-            child.material.roughness = 0.0;
+            child.material.roughness = 0.1;
             child.material.needsUpdate = true;
           }
         }
       });
-      this.player1UnitMixer = null;
+      this.player2UnitMixer = null;
       const thrustLight = new THREE.PointLight(0xff0000, 10000, 100);
       thrustLight.position.set(0, 6, -2); // 부모 객체의 로컬 좌표계 기준으로 위치 설정
       this.player2Unit.add(thrustLight);
@@ -314,24 +314,6 @@ export class PongGameRenderer {
     } catch (error) {
       console.error('Error loading model:', error);
     }
-  }
-
-
-
-  setPlayer1UnitTerran() {
-
-  }
-
-  setPlayer2UnitTerran() {
-
-  }
-
-  setPlayer1UnitProtoss() {
-
-  }
-
-  setPlayer2UnitProtoss() {
-
   }
 
   setTopView() {

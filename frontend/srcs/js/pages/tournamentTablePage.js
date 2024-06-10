@@ -13,6 +13,18 @@ export const tournamentTablePage = {
     } else if (globalState.step == 9) {
       final = "next";
     }
+    var finalHome = "";
+    if (globalState.tournament.finalHome == null) {
+      finalHome = "n/a";
+    } else {
+      finalHome = globalState.alias[`player${globalState.tournament.finalHome}`];
+    }
+    var finalAway = "";
+    if (globalState.tournament.finalAway == null) {
+      finalAway = "n/a";
+    } else {
+      finalAway = globalState.alias[`player${globalState.tournament.finalAway}`];
+    }
     return `
     <div class="control-bar__title">Tournament</div>
     <div class="control-bar__type">match plan</div>
@@ -31,8 +43,8 @@ export const tournamentTablePage = {
     <div class="round">
         <div class="matchup ${final}">
           <div class="matchup__type">Final</div>
-          <div class="player">${globalState.tournament.finalHome}</div>
-          <div class="player">${globalState.tournament.finalAway}</div>
+          <div class="player">${finalHome}</div>
+          <div class="player">${finalAway}</div>
         </div>
     </div>
     <div class="control-bar__confirm">

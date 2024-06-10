@@ -22,8 +22,8 @@ const globalState = {
     groupAAway: null,
     groupBHome: null,
     groupBAway: null,
-    finalHome: "n/a",
-    finalAway: "n/a"
+    finalHome: null,
+    finalAway: null
   },
   winner: null,
 };
