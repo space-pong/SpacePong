@@ -1,4 +1,4 @@
-import { renderControlBar} from './utils/renderControlBar.js';
+import { renderControlBar, resetGlobalState } from './utils/renderControlBar.js';
 import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
 import { unitSelectPage } from './pages/unitSelectPage.js'
@@ -27,6 +27,13 @@ export class Router {
       {path: "/tournamentFill", view: tournamentFillAliasPage},
     ];
     window.addEventListener('popstate', () => this.route());
+
+    window.addEventListener('load', function() {
+      if (window.location.pathname !== '/') {
+        resetGlobalState();
+        window.location.pathname = '/';
+      }
+    });
 
     this.route();
 
@@ -76,7 +83,7 @@ export class Router {
   }
 
   navigateTo(url) {
-    history.pushState(globalState, null, url);
+    history.pushState(null, null, url);
     this.route();
   }
 }

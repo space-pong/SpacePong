@@ -343,7 +343,8 @@ async function renderControlBarAI(page) {
 }
 
 
-function resetGlobalState() {
+export function resetGlobalState() {
+  console.log('reset');
   globalState.gameMode = null;
   globalState.step = 0;
   globalState.currentAlias = null;
