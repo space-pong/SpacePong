@@ -9,8 +9,6 @@ import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
 
 export async function renderControlBar(page) {
-  console.log('page: ', page);
-  console.log(globalState);
   const target = document.querySelector('.control-bar');
   target.classList.remove('fade-in');
   target.classList.add('fade-out');
@@ -22,10 +20,107 @@ export async function renderControlBar(page) {
       renderControlBarAI(page);
     } else if (globalState.gameMode == "tournament") {
       renderControlBarTournament(page);
+    } else if (globalState.gameMode == "pvp") {
+      renderControlBarPvp(page);
     }
     target.classList.add('fade-in');
     target.removeEventListener('animationend', handleAnimationEnd);
   });
+}
+
+async function renderControlBarPvp(page) {
+  if (globalState.step == 0) {
+    const playButton = document.querySelector('.control-bar__confirm__btn--play');
+    playButton.setAttribute('href', "/unitSelect");
+    playButton.addEventListener('click', playHandler);
+    function playHandler() {
+      for (let i = 1; i <= 2; ++i) {
+        let aliasInput = document.getElementById(`alias${i}`);
+        if (aliasInput.value !== "") {
+          globalState.alias[`player${i}`] = aliasInput.value;
+        }
+      }
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player1;
+      playButton.removeEventListener('click', playHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler)
+    function cancelHandler() {
+      resetGlobalState();
+      playButton.removeEventListener('click', playHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 1) {
+    const selectButton = document.querySelector('.control-bar__confirm__btn--select');
+    selectButton.setAttribute('href', './unitSelect');
+    selectButton.addEventListener('click', selectHandler);
+    function selectHandler() {
+      const selectedUnit = document.querySelector('input[name="unit"]:checked');
+      globalState.unit.player1 = selectedUnit.value;
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player2;
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "mainPage");
+    function cancelHandler() {
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 2) {
+    const selectButton = document.querySelector('.control-bar__confirm__btn--select');
+    selectButton.setAttribute('href', './game');
+    selectButton.addEventListener('click', selectHandler);
+    function selectHandler() {
+      const selectedUnit = document.querySelector('input[name="unit"]:checked');
+      globalState.unit.player2 = selectedUnit.value;
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player1;
+      globalState.oppsiteAlias = globalState.alias.player2;
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "mainPage");
+    function cancelHandler() {
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 3) {
+    const key1 = new KeyboardController(37, 39, 38, 40, 32);
+    const key2 = new KeyboardController(65, 68, 87, 83, 70);
+    const game = new PongGame();
+    await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
+    game.renderer.setTopView();
+    game.logic.setScoreID('.player1-score', '.player2-score');
+    game.start();
+    game.isEnd().then(() => {
+      game.renderer.dispose();
+      ++globalState.step;
+      if (game.logic.winner == "1") {
+        globalState.winner = globalState.alias.player1;
+      } else {
+        globalState.winner = globalState.alias.player2;
+      }
+      renderControlBar(gameResultPage);
+    });
+  } else if (globalState.step == 4) {
+    const nextButton = document.querySelector('.control-bar__confirm__btn--next');
+    nextButton.addEventListener('click', nextHandler);
+    nextButton.setAttribute('href', "/");
+    function nextHandler() {
+      resetGlobalState();
+      nextButton.removeEventListener('click', nextHandler);
+    }
+  }
 }
 
 async function renderControlBarTournament(page) {
@@ -225,10 +320,8 @@ async function renderControlBarAI(page) {
     const game = new PongGame();
     await game.init(key1, aiController, globalState.unit.player1, "Zerg", "art");
     game.logic.setScoreID('.player1-score', '.player2-score');
-    
     game.start();
     game.isEnd().then(() => {
-      console.log("hello");
       game.renderer.dispose(); 
       ++globalState.step;
       if (game.logic.winner == "1") {

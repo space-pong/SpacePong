@@ -7,7 +7,6 @@ import { Router } from './router.js';
 
 async function init() {
   const router = new Router();
-  console.log("init");
 }
 
 
