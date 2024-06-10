@@ -3,7 +3,7 @@ import { loginPage } from './pages/loginPage.js'
 import { mainPage } from './pages/mainPage.js'
 import { unitSelectPage } from './pages/unitSelectPage.js'
 import { localAIPage } from './pages/localAIPage.js'
-import { localOneToOnePage } from './pages/localOneToOnePage.js'
+import { pvpFillAliasPage } from './pages/pvpFillAliasPage.js'
 import { remoteMatchPage }  from './pages/remoteMatchPage.js'
 import { gamePage } from './pages/gamePage.js';
 import { gameResultPage } from './pages/gameResultPage.js'
@@ -19,7 +19,7 @@ export class Router {
       {path: "/login", view: loginPage},
       {path: "/unitSelect", view: unitSelectPage},
       {path: "/localAI", view: localAIPage},
-      {path: "/localOneToOne", view: localOneToOnePage},
+      {path: "/pvpFill", view: pvpFillAliasPage},
       {path: "/remoteMatch", view: remoteMatchPage},
       {path: "/game", view: gamePage},
       {path: "/gameResult", view: gameResultPage},
