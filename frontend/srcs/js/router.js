@@ -26,9 +26,15 @@ export class Router {
       {path: "/tournamentTable", view: tournamentTablePage},
       {path: "/tournamentFill", view: tournamentFillAliasPage},
     ];
-    window.addEventListener('popstate', () => this.route());
+    this.route = this.route.bind(this);
+    window.addEventListener('popstate', () => {
+      if (window.location.pathname !== '/') {
+        resetGlobalState();
+        window.location.pathname = '/';
+      }
+    });
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', () => {
       if (window.location.pathname !== '/') {
         resetGlobalState();
         window.location.pathname = '/';
@@ -53,15 +59,6 @@ export class Router {
 
 
   async route() {
-
-    // await fetchTokens();
-    // if (!localStorage.getItem('accessToken'))
-    // {
-    //   console.log("accessToken issue");
-    //   renderControlBar(login);
-    //   return ;
-    // }
-    
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
