@@ -11,6 +11,7 @@ import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
+import { renderLogin } from './utils/renderLogin.js';
 
 export class Router {
   constructor() {
@@ -30,6 +31,7 @@ export class Router {
 
     this.route();
 
+
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
         e.preventDefault();
@@ -38,6 +40,7 @@ export class Router {
         if (gameMode) {
           globalState.gameMode = e.target.getAttribute('game-mode');
         }
+        console.log("path: ", path);
         this.navigateTo(path);
       }
     });
@@ -47,14 +50,15 @@ export class Router {
 
   async route() {
 
-    // await fetchTokens();
-    // if (!localStorage.getItem('accessToken'))
+    // let checkAccess = checkaccess();
+
+    // console.log("checkAccess: ", checkAccess);
+    // if (checkAccess.Promise.PromiseResult == false && location.pathname != "/login")
     // {
-    //   console.log("accessToken issue");
-    //   renderControlBar(login);
+    //   this.navigateTo("/login");
+    //   renderLogin();
     //   return ;
     // }
-    
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
@@ -75,7 +79,7 @@ export class Router {
     await renderControlBar(view);
   }
 
-  navigateTo(url) {
+  async navigateTo(url) {
     history.pushState(globalState, null, url);
     this.route();
   }

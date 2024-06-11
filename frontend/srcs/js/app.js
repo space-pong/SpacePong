@@ -1,12 +1,27 @@
 //import './utils/renderPage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
-
+import { renderLogin } from './utils/renderLogin.js';
 
 import { Router } from './router.js';
 
 async function init() {
+  // let checkAccess = await checkaccess();
+  // if (!checkAccess)
+  // {
+  //   console.log("!");
+  //   await renderLogin();
+  //   return ;
+  // }
+
   const router = new Router();
+
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken)
+  {
+    console.log("checkAccess false");
+    await router.navigateTo("/login");
+  }
 }
 
 
