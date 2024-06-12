@@ -1,16 +1,40 @@
 //import './utils/renderPage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
-
+import { renderLogin } from './utils/renderLogin.js';
 
 import { Router } from './router.js';
 
-async function init() {
-  const router = new Router();
+async function handleLogin(router) {
+  let isLoggedIn = await checkaccess();
+  if (isLoggedIn) {
+    router.navigateTo("/");
+  } else {
+    await fetchTokens();
+    isLoggedIn = await checkaccess();
+    if (!isLoggedIn)
+    {
+      await router.navigateTo("/login");
+    }
+  }
 }
 
+async function init() {
 
-/*const routes = {
+  let isLoggedIn = await checkaccess();
+  const router = new Router();
+
+  router.route();
+  if (isLoggedIn == false)
+  {
+    await handleLogin(router);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', init);
+
+/* 이전 코드들
+const routes = {
   loginPage: loginPage,
   mainPage: mainPage,
   unitSelectPage: unitSelectPage,
@@ -58,6 +82,4 @@ async function init() {
 //  renderControlBar(routes[page]);
 //});
 
-
-window.addEventListener('DOMContentLoaded', init);
 

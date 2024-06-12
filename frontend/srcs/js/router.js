@@ -11,6 +11,7 @@ import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState from './globalState.js';
+import { renderLogin } from './utils/renderLogin.js';
 
 export class Router {
   constructor() {
@@ -28,16 +29,22 @@ export class Router {
     ];
     window.addEventListener('popstate', () => this.route());
 
-    this.route();
+    // this.route(); app.js init함수에서 불러오는게 맞을 것 같아서 주석처리하겠습니다. 
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
         e.preventDefault();
         const path = e.target.getAttribute('href');
         const gameMode = e.target.getAttribute('game-mode');
+        const data = e.target.getAttribute('data-link');
         if (gameMode) {
           globalState.gameMode = e.target.getAttribute('game-mode');
         }
+        if (data && data == "auth42") {
+          window.location.href = "auth42/login/";
+          return ;
+        }
+        console.log("path: ", path);
         this.navigateTo(path);
       }
     });
@@ -47,14 +54,6 @@ export class Router {
 
   async route() {
 
-    // await fetchTokens();
-    // if (!localStorage.getItem('accessToken'))
-    // {
-    //   console.log("accessToken issue");
-    //   renderControlBar(login);
-    //   return ;
-    // }
-    
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
@@ -75,7 +74,7 @@ export class Router {
     await renderControlBar(view);
   }
 
-  navigateTo(url) {
+  async navigateTo(url) {
     history.pushState(globalState, null, url);
     this.route();
   }
