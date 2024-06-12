@@ -31,14 +31,18 @@ export class Router {
 
     this.route();
 
-
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
         e.preventDefault();
         const path = e.target.getAttribute('href');
         const gameMode = e.target.getAttribute('game-mode');
+        const data = e.target.getAttribute('data-link');
         if (gameMode) {
           globalState.gameMode = e.target.getAttribute('game-mode');
+        }
+        if (data && data == "auth42") {
+          window.location.href = "auth42/login/";
+          return ;
         }
         console.log("path: ", path);
         this.navigateTo(path);
