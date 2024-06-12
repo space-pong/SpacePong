@@ -29,7 +29,7 @@ export class Router {
     ];
     window.addEventListener('popstate', () => this.route());
 
-    this.route();
+    // this.route(); app.js init함수에서 불러오는게 맞을 것 같아서 주석처리하겠습니다. 
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
@@ -54,15 +54,6 @@ export class Router {
 
   async route() {
 
-    // let checkAccess = checkaccess();
-
-    // console.log("checkAccess: ", checkAccess);
-    // if (checkAccess.Promise.PromiseResult == false && location.pathname != "/login")
-    // {
-    //   this.navigateTo("/login");
-    //   renderLogin();
-    //   return ;
-    // }
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
