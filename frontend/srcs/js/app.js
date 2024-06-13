@@ -21,10 +21,10 @@ async function handleLogin(router) {
 
 async function init() {
 
-  let isLoggedIn = await checkaccess();
   const router = new Router();
-
-  router.route();
+  
+  await router.route();
+  let isLoggedIn = await checkaccess();
   if (isLoggedIn == false)
   {
     await handleLogin(router);

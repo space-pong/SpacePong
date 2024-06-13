@@ -39,9 +39,10 @@ export async function checkaccess() {
     method: 'GET'
     });
     if (!accessresponse.ok) {
-    const errorData = await response.json();
+    const errorData = await accessresponse.json();
+    console.log("errorData: ", errorData);
     console.error('Error verifying access token:', errorData.error);
-    return;
+    return false;
     }
     const responseData = await accessresponse.json();
    if (!responseData.message) {
