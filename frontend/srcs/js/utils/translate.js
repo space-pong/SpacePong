@@ -1,5 +1,5 @@
     
-async function loadTranslation(key) {
+export async function loadTranslation(key) {
     const response = await fetch(`translation/?key=${key}`,{
       method: 'GET',
     });
