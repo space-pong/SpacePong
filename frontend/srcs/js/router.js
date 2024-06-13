@@ -29,7 +29,8 @@ export class Router {
     ];
     window.addEventListener('popstate', () => this.route());
 
-    // this.route(); app.js init함수에서 불러오는게 맞을 것 같아서 주석처리하겠습니다. 
+    // this.route(); 
+    // app.js init함수에서 불러오는게 맞을 것 같아서 주석처리하겠습니다. 
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
