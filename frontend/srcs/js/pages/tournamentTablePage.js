@@ -14,13 +14,13 @@ export const tournamentTablePage = {
       final = "next";
     }
     var finalHome = "";
-    if (globalState.tournament.finalHome == null) {
+    if (globalState.tournament.finalHome == "n/a") {
       finalHome = "n/a";
     } else {
       finalHome = globalState.alias[`player${globalState.tournament.finalHome}`];
     }
     var finalAway = "";
-    if (globalState.tournament.finalAway == null) {
+    if (globalState.tournament.finalAway == "n/a") {
       finalAway = "n/a";
     } else {
       finalAway = globalState.alias[`player${globalState.tournament.finalAway}`];

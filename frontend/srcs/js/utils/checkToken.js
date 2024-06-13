@@ -24,6 +24,7 @@ export async function fetchTokens() {
 
     // 로컬 스토리지에 토큰 저장
     localStorage.setItem('accessToken', data.access_token);
+    localStorage.setItem('spacePongIntraID', data.intra_id);
     globalState.intraID = data.intra_id;
     // 모드 선택 페이지 렌더링
   } catch (error) {
