@@ -10,7 +10,7 @@ import { gameResultPage } from './pages/gameResultPage.js'
 import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
-import globalState from './globalState.js';
+import globalState, { resetGlobalState } from './globalState.js';
 import { renderLogin } from './utils/renderLogin.js';
 
 export class Router {
@@ -44,7 +44,6 @@ export class Router {
           window.location.href = "auth42/login/";
           return ;
         }
-        console.log("path: ", path);
         this.navigateTo(path);
       }
     });
@@ -53,11 +52,12 @@ export class Router {
 
 
   async route() {
-
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
+    } else if (match == '/') {
+      resetGlobalState();
     }
     await this.render(match);
   }

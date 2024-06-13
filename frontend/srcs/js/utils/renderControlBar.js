@@ -3,18 +3,18 @@ import { loadCSS } from './loadCss.js';
 import { KeyboardController } from '../game/Controller/KeyboardController.js'
 import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
-
-import globalState from '../globalState.js';
+import globalState, { resetGlobalState } from '../globalState.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
 
 export async function renderControlBar(page) {
   const target = document.querySelector('.control-bar');
+  const renderedHTML = await page.getHtml();
   target.classList.remove('fade-in');
   target.classList.add('fade-out');
   target.addEventListener('animationend', function handleAnimationEnd() {
     target.classList.remove('fade-out');
-    target.innerHTML = page.getHtml();
+    target.innerHTML = renderedHTML;
     loadCSS(page.css);
     if (globalState.gameMode == "ai") {
       renderControlBarAI(page);
@@ -340,29 +340,6 @@ async function renderControlBarAI(page) {
       nextButton.removeEventListener('click', nextHandler);
     }
   }
-}
-
-
-function resetGlobalState() {
-  globalState.gameMode = null;
-  globalState.step = 0;
-  globalState.currentAlias = null;
-  globalState.oppsiteAlias = null;
-  globalState.alias.player1 = globalState.intraID;
-  globalState.alias.player2 = "guest1";
-  globalState.alias.player3 = "guest2";
-  globalState.alias.player4 = "guest3";
-  globalState.unit.player1 = null;
-  globalState.unit.player2 = null;
-  globalState.unit.player3 = null;
-  globalState.unit.player4 = null;
-  globalState.tournament.groupAHome = null;
-  globalState.tournament.groupAAway = null;
-  globalState.tournament.groupBHome = null;
-  globalState.tournament.groupBHome = null;
-  globalState.tournament.finalHome = "n/a";
-  globalState.tournament.finalAway = "n/a";
-  globalState.winner = null;
 }
 
 

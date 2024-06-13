@@ -4,7 +4,6 @@ export async function loadTranslation(key) {
       method: 'GET',
     });
     const translations = await response.json();
-    console.log(translations.key);
     return translations.key;
 }
 

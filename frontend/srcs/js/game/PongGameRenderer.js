@@ -519,7 +519,5 @@ export class PongGameRenderer {
     if (this.renderer.domElement.parentNode) {
       this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
     }
-
-    console.log('Resources have been released.');
   }
 }
