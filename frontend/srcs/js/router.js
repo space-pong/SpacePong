@@ -79,6 +79,6 @@ export class Router {
 
   async navigateTo(url) {
     history.pushState(globalState, null, url);
-    this.route();
+    await this.route();
   }
 }
