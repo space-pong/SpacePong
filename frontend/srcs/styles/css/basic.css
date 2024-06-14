@@ -67,6 +67,12 @@ body {
   align-self: center;
 }
 
+.decoration {
+  position: absolute;
+  z-index: 10;
+  /* border: 1px solid #ffffff; */
+}
+
 /* 화면의 비율이 3:2보다 작을 때 (세로가 더길때) */
 @media (max-aspect-ratio: 3/2) {
   .main-box {
@@ -87,6 +93,13 @@ body {
 
   .control-bar {
     border-radius: calc(2 * 0.75vw);
+    height: calc(2 * 15vw);
+  }
+
+  .decoration {
+    top: calc(50vh - 15vw);
+    left: calc(50vw + 15vw);
+    width: calc(2 * 15vw);
     height: calc(2 * 15vw);
   }
 }
@@ -111,6 +124,13 @@ body {
   
   .control-bar {
     border-radius: calc(3 * 0.75vh);
+    height: calc(3 * 15vh);
+  }
+
+  .decoration {
+    top: calc(50vh - 22.5vh);
+    left: calc(50vw + 22.5vh);
+    width: calc(3 * 15vh);
     height: calc(3 * 15vh);
   }
 }
