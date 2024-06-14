@@ -5,7 +5,8 @@
 }
 
 .control-bar__type {
-  color: white;
+  color: rgb(186, 128, 62);
+  text-shadow: 0px 0px 12px rgba(162, 38, 38, 0.5);
 }
 
 .control-bar__icon img {
