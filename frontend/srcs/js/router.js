@@ -12,12 +12,14 @@ import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js';
 import { renderLogin } from './utils/renderLogin.js';
+import { otpPage } from './pages/otpPage.js';
 
 export class Router {
   constructor() {
     this.routes = [
       {path: "/", view: mainPage},
       {path: "/login", view: loginPage},
+      {path: "/otp", view: otpPage},
       {path: "/unitSelect", view: unitSelectPage},
       {path: "/localAI", view: localAIPage},
       {path: "/pvpFill", view: pvpFillAliasPage},

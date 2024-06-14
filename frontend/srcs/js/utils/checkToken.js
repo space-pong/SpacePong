@@ -1,5 +1,7 @@
 import globalState from "../globalState.js";
-export async function fetchTokens() {
+import { Router } from "../router.js";
+
+export async function fetchTokens(router) {
   try {
     // 현재 URL에서 코드 가져오기
 
@@ -26,6 +28,8 @@ export async function fetchTokens() {
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('spacePongIntraID', data.intra_id);
     globalState.intraID = data.intra_id;
+
+    await router.navigateTo("/otp");
     // 모드 선택 페이지 렌더링
   } catch (error) {
     console.error('Error fetching tokens:', error);
@@ -43,7 +47,7 @@ export async function checkaccess() {
     const errorData = await accessresponse.json();
     console.log("errorData: ", errorData);
     console.error('Error verifying access token:', errorData.error);
-    return ;
+    return false;
     }
     const responseData = await accessresponse.json();
    if (!responseData.message) {

@@ -11,7 +11,7 @@ async function handleLogin(router) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
     router.navigateTo("/");
   } else {
-    await fetchTokens();
+    await fetchTokens(router);
     isLoggedIn = await checkaccess();
     if (!isLoggedIn)
     {
