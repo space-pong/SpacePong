@@ -17,6 +17,13 @@ export async function renderControlBar(page) {
     target.classList.remove('fade-out');
     target.innerHTML = renderedHTML;
     loadCSS(page.css);
+
+    // if (page.script) {
+    //   const script = document.createElement('script');
+    //   script.src = page.script;
+    //   document.body.appendChild(script);
+    // }
+
     if (globalState.gameMode == "ai") {
       renderControlBarAI(page);
     } else if (globalState.gameMode == "tournament") {

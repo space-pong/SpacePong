@@ -22,9 +22,11 @@ async function handleLogin(router) {
 
 async function init() {
   const router = new Router();
+
   await handleLogin(router);
   resetGlobalState();
   router.route();
+
 }
 
 window.addEventListener('DOMContentLoaded', init);
