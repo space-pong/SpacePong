@@ -22,6 +22,8 @@ export async function renderControlBar(page) {
       renderControlBarTournament(page);
     } else if (globalState.gameMode == "pvp") {
       renderControlBarPvp(page);
+    } else if (globalState.gameMode == "remote") {
+      renderControlBarRemote(page);
     }
     target.classList.add('fade-in');
     target.removeEventListener('animationend', handleAnimationEnd);
@@ -342,4 +344,46 @@ async function renderControlBarAI(page) {
   }
 }
 
-
+async function renderControlBarRemote(page) {
+  if (globalState.step == 0) {
+    /*-- unitSelectPage --*/
+    const selectButton = document.querySelector('.control-bar__confirm__btn--select');
+    selectButton.setAttribute('href', '/remoteMatch');
+    selectButton.addEventListener('click', selectHandler);
+    function selectHandler() {
+      const selectedUnit = document.querySelector('input[name="unit"]:checked');
+      globalState.unit.player1 = selectedUnit.value;
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player1;
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "mainPage");
+    function cancelHandler() {
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 1) {
+    /*-- remoteMatchPage --*/
+    /*-- 
+    Todo: Backend와 매치메이킹 관련 통신 로직 추가
+    - Backend로 매치메이킹 요청. (비동기)
+    - 매치가 잡힌 경우, Backend로 부터 응답 받기.(비동기)
+    - 
+    --*/
+    console.log("Communication with Backend");
+    /*-- 
+    Todo: 매치메이킹의 cancel 버튼 누르면 이전 unitSelectPage로 돌아가기
+    --*/
+    const cancelButton = document.querySelector('.control-bar__remoteMatch__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "unitSelectPage");
+    function cancelHandler() {
+      --globalState.step;
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  }
+}
