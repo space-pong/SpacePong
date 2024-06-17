@@ -5,6 +5,9 @@ const globalState = {
   step: 0,
   currentAlias: null,
   oppsiteAlias: null,
+  roomNumber: null,
+  hostName: null,
+  guestName: null,
   alias: {
     player1: null,
     player2: "guest1",

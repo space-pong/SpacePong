@@ -1,6 +1,7 @@
 import { AIController } from "./Controller/AIController.js";
 import { Controller } from "./Controller/Controller.js";
 import { DualSenseController } from "./Controller/DualSenseController.js";
+import globalState from '../globalState.js';
 
 export class PongGameLogic {
   constructor(controller1, controller2) {
@@ -49,7 +50,7 @@ export class PongGameLogic {
     }
     this.isHost = true;
     this.channel = channel;
-    this.socket = new WebSocket("ws://" + window.location.host + '/ws/pong/');
+    this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
   }
 
   setGuest(channel) {
@@ -58,17 +59,33 @@ export class PongGameLogic {
     }
     this.isGuest = true;
     this.channel = channel;
+    this.speedZ = 0;
+    this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
   }
 
 
   #send() {
     this.socket.send(JSON.stringify({
-      'position' : this.player1.position
+      'usr_pos' : this.player1.position.x,
+      'username' : globalState.currentAlias
     }));
+    if (this.isHost){
+      this.socket.send(JSON.stringify({
+        'ball_pos' : this.ball.position
+      }));
+    }
   }
 
   #recv() {
-    
+    this.socket.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      if (data.username != globalState.currentAlias) { 
+        this.player2.position.x = data.usr_pos;
+      }
+      if (this.isGuest && this.ball.position.x !== null){
+        this.ball.position = data.ball_pos;
+      }
+    };
   }
 
   async loop() {
@@ -109,6 +126,8 @@ export class PongGameLogic {
   }
 
   async #update() {
+    this.#recv();
+    this.#send();
     // 컨트롤러값으로 기체 움직임 적용
     let player1Moved = false;
     if (this.player1.controller.left == true) {

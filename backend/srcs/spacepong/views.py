@@ -31,8 +31,8 @@ class DataAPI(APIView):
                 RoomNumber=request.user.username,
                 myName='',
                 oppositeName=request.user.username,
-                hostName='',
-                guestName=request.user.username,
+                hostName=request.user.username,
+                guestName='',
                 mySkin='',
                 oppositeSkin=request.data.get('mySkin')
         )
@@ -43,10 +43,10 @@ class DataAPI(APIView):
                 opposite.guestName = request.user.username
                 opposite.oppositeSkin = request.data.get('mySkin')
                 opposite.save()
-            myself = GameData.objects.filter(myName='',hostName='',mySkin='').first()
+            myself = GameData.objects.filter(myName='',guestName='',mySkin='').first()
             if myself:
                 myself.myName = request.user.username
-                myself.hostName = request.user.username
+                myself.guestName = request.user.username
                 myself.mySkin = request.data.get('mySkin')
                 myself.save()
         return Response("OK")
