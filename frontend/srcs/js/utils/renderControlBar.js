@@ -4,8 +4,13 @@ import { KeyboardController } from '../game/Controller/KeyboardController.js'
 import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
 import globalState, { resetGlobalState } from '../globalState.js';
+import { mainPage } from '../pages/mainPage.js';
+import { gamePage } from '../pages/gamePage.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
+import { remoteMatchPage } from '../pages/remoteMatchPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
+import { checkaccess } from './checkToken.js'
+import { Router } from '../router.js';
 
 export async function renderControlBar(page) {
   const target = document.querySelector('.control-bar');
@@ -346,7 +351,7 @@ async function renderControlBarAI(page) {
 
 async function renderControlBarRemote(page) {
   if (globalState.step == 0) {
-    /*-- unitSelectPage --*/
+    /* unitSelectPage */
     const selectButton = document.querySelector('.control-bar__confirm__btn--select');
     selectButton.setAttribute('href', '/remoteMatch');
     selectButton.addEventListener('click', selectHandler);
@@ -367,23 +372,118 @@ async function renderControlBarRemote(page) {
       cancelButton.removeEventListener('click', cancelHandler);
     }
   } else if (globalState.step == 1) {
-    /*-- remoteMatchPage --*/
-    /*-- 
-    Todo: Backend와 매치메이킹 관련 통신 로직 추가
-    - Backend로 매치메이킹 요청. (비동기)
-    - 매치가 잡힌 경우, Backend로 부터 응답 받기.(비동기)
-    - 
-    --*/
-    console.log("Communication with Backend");
-    /*-- 
-    Todo: 매치메이킹의 cancel 버튼 누르면 이전 unitSelectPage로 돌아가기
-    --*/
+    /* remoteMatchPage */
     const cancelButton = document.querySelector('.control-bar__remoteMatch__confirm__btn--cancel');
-    cancelButton.addEventListener('click', cancelHandler);
-    cancelButton.setAttribute('data-link', "unitSelectPage");
+    if (cancelButton){
+      cancelButton.addEventListener('click', cancelHandler);
+      cancelButton.setAttribute('href', "/unitSelect");
+      cancelButton.setAttribute('data-link', "unitSelectPage");
+    }
     function cancelHandler() {
+      cancelClicked = true;
+      deleteData();
       --globalState.step;
       cancelButton.removeEventListener('click', cancelHandler);
     }
+
+    // 매치메이킹 요청
+    let skin = {
+      "mySkin": globalState.unit.player1
+    };
+    await postData(skin);
+    // 매치메이킹 응답 받기 (polling)
+    let cancelClicked = false;
+    let data = await getData();
+    while (data[0].oppositeName.length === 0 && !cancelClicked){
+      data = await getData();
+    }
+    // 매치 상대와 게임 시작 (현재 임시로 AI 게임으로 해둠(step2에서 게임 로직 시작))
+    if (!cancelClicked)
+    {
+      await deleteData();
+      ++globalState.step;
+      globalState.oppsiteAlias = data[0].oppositeName;
+      renderControlBar(gamePage);
+    }
+  } else if (globalState.step == 2) {
+    // Todo: remote player와의 게임 로직으로 수정
+    var key1 = new KeyboardController(37, 39, 38, 40, 32);
+    const aiController = new AIController();
+    const game = new PongGame();
+    await game.init(key1, aiController, globalState.unit.player1, "Zerg", "art");
+    game.logic.setScoreID('.player1-score', '.player2-score');
+    game.start();
+    game.isEnd().then(() => {
+      game.renderer.dispose();
+      ++globalState.step;
+      if (game.logic.winner == "1") {
+        globalState.winner = globalState.alias.player1;
+      } else {
+        globalState.winner = "AI";
+      }
+      renderControlBar(gameResultPage);
+    });
+  } else if (globalState.step == 3) {
+    const nextButton = document.querySelector('.control-bar__confirm__btn--next');
+    nextButton.addEventListener('click', nextHandler);
+    nextButton.setAttribute('href', "/");
+    function nextHandler() {
+      renderControlBar(mainPage);
+      resetGlobalState();
+      nextButton.removeEventListener('click', nextHandler);
+    }
   }
+}
+
+async function getData() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('spacepong/data/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',// 이거 안쓰면 못읽음
+      'Authorization': 'Bearer ' + token,
+    },
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Error fetching data:', errorData);
+    return;
+  }
+  const data = await response.json();
+  return data;
+}
+
+async function postData(data = {}) {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('spacepong/data/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    console.error('Error fetching data:');
+    return;
+  }
+  return response.json();
+}
+
+async function deleteData() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('spacepong/data/', {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer ' + token
+    },
+  });
+  if (!response.ok) {
+    console.error('Error fetching data:');
+    return;
+  }
+  return response.json();
 }

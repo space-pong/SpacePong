@@ -10,8 +10,8 @@ from .serializers import DataSerializer
 class DataAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        # Data = GameData.objects.filter(myName=request.user)
-        Data = GameData.objects.all()
+        Data = GameData.objects.filter(myName=request.user)
+        # Data = GameData.objects.all()
         serializer = DataSerializer(Data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
@@ -53,4 +53,5 @@ class DataAPI(APIView):
 
     def delete(self, request):
         GameData.objects.filter(myName=request.user).delete()
+        GameData.objects.filter(oppositeName=request.user).delete()
         return Response("OK")
