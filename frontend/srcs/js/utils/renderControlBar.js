@@ -7,10 +7,8 @@ import globalState, { resetGlobalState } from '../globalState.js';
 import { mainPage } from '../pages/mainPage.js';
 import { gamePage } from '../pages/gamePage.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
-import { remoteMatchPage } from '../pages/remoteMatchPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
-import { checkaccess } from './checkToken.js'
-import { Router } from '../router.js';
+import { getData, postData, deleteData } from './api.js'
 
 export async function renderControlBar(page) {
   const target = document.querySelector('.control-bar');
@@ -433,57 +431,4 @@ async function renderControlBarRemote(page) {
       nextButton.removeEventListener('click', nextHandler);
     }
   }
-}
-
-async function getData() {
-  await checkaccess()
-  const token = localStorage.getItem('accessToken');
-  const response = await fetch('spacepong/data/', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',// 이거 안쓰면 못읽음
-      'Authorization': 'Bearer ' + token,
-    },
-  });
-  if (!response.ok) {
-    const errorData = await response.json();
-    console.error('Error fetching data:', errorData);
-    return;
-  }
-  const data = await response.json();
-  return data;
-}
-
-async function postData(data = {}) {
-  await checkaccess()
-  const token = localStorage.getItem('accessToken');
-  const response = await fetch('spacepong/data/', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      'Authorization': 'Bearer ' + token
-    },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    console.error('Error fetching data:');
-    return;
-  }
-  return response.json();
-}
-
-async function deleteData() {
-  await checkaccess()
-  const token = localStorage.getItem('accessToken');
-  const response = await fetch('spacepong/data/', {
-    method: 'DELETE',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    },
-  });
-  if (!response.ok) {
-    console.error('Error fetching data:');
-    return;
-  }
-  return response.json();
 }
