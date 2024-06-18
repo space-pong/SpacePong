@@ -9,7 +9,8 @@ export async function fetchTokens(router) {
     const code = urlParams.get('code');
     
     if (!code) {
-      throw new Error('No authorization code provided');
+      return ("code error in fetchToken function");
+      // throw new Error('No authorization code provided');
     }
     
     // 액세스 토큰 요청을 위한 fetch 요청

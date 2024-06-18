@@ -1,6 +1,7 @@
 import globalState from '../globalState.js';
+import { Router } from '../router.js';
 
-export function otpUtil() {
+export function otpUtil(router) {
     document.querySelector('#otpInput').focus();
     document.querySelector('#otpInput').onkeyup = function(e) {
 
@@ -28,11 +29,11 @@ export function otpUtil() {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
                 const data = await response.json();
-                console.log("data: " , data);
-                console.log("data.message: ", data.message);
                 if (data === "OTP OK") {
-                    globalState.otp == true;
-                    window.location.pathname = '/index.html';
+                    globalState.otp = true;
+                    console.log("otp ok : ", globalState.otp);
+                    await router.navigateTo("/");
+                    // window.location.pathname = "/";
                 } else {
                     alert("OTP authentication failed");
                 }

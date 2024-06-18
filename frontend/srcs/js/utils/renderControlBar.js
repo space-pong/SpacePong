@@ -6,11 +6,11 @@ import { PongGame } from '../game/PongGame.js'
 import globalState, { resetGlobalState } from '../globalState.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
-import { checkaccess } from './checkToken.js';
+import { checkaccess, fetchTokens } from './checkToken.js';
 import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
 
-export async function renderControlBar(page) {
+export async function renderControlBar(page, router) {
   const target = document.querySelector('.control-bar');
   const renderedHTML = await page.getHtml();
   target.classList.remove('fade-in');
@@ -21,7 +21,7 @@ export async function renderControlBar(page) {
     loadCSS(page.css);
 
     if (page  == otpPage) {
-      otpUtil();
+      otpUtil(router);
     }
     if (globalState.gameMode == "ai") {
       renderControlBarAI(page);
