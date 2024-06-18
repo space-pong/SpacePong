@@ -22,29 +22,49 @@ class GameConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        username = text_data_json.get("username")
-        usr_pos = text_data_json.get("usr_pos")
-        ball = text_data_json.get("ball")
+        user_name = text_data_json.get("user_name")
+        user_position = text_data_json.get("user_position")
+        ball_object = text_data_json.get("ball_object")
+        left_press = text_data_json.get("left_press")
+        right_press = text_data_json.get("right_press")
+        player1_score = text_data_json.get("player1_score")
+        player2_score = text_data_json.get("player2_score")
+        pause_duration = text_data_json.get("pause_duration")
 
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name, {
                 "type": "game_info", 
-                "username": username,
-                "usr_pos": usr_pos, 
-                "ball": ball,
+                "user_name": user_name,
+                "user_position": user_position, 
+                "ball_object": ball_object,
+                "left_press": left_press,
+                "right_press": right_press,
+                "player1_score": player1_score,
+                "player2_score": player2_score,
+                "pause_duration": pause_duration,
             }
         )
 
     # Receive message from room group
     async def game_info(self, event):
-        usr_pos = event["usr_pos"]
-        username = event["username"]
-        ball = event["ball"]
+        user_name = event["user_name"]
+        user_position = event["user_position"]
+        ball_object = event["ball_object"]
+        left_press = event["left_press"]
+        right_press = event["right_press"]
+        player1_score = event["player1_score"]
+        player2_score = event["player2_score"]
+        pause_duration = event["pause_duration"]
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
-            "username": username,
-            "usr_pos": usr_pos,
-            "ball": ball,
+            "user_name": user_name,
+            "user_position": user_position,
+            "ball_object": ball_object,
+            "left_press": left_press,
+            "right_press": right_press,
+            "player1_score": player1_score,
+            "player2_score": player2_score,
+            "pause_duration": pause_duration,
         }))

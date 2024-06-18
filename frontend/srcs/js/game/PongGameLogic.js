@@ -31,7 +31,9 @@ export class PongGameLogic {
     this.update = this.#update.bind(this);
     this.loop = this.loop.bind(this);
     this.targetScore = 5;
-    this.pauseDuration = 90;
+    this.pauseDuration = 1500;
+    this.startTime = null;
+    this.endTime = null;
     this.isHost = false;
     this.isGuest = false;
     this.channel = null;
@@ -64,21 +66,27 @@ export class PongGameLogic {
     this.isGuest = true;
     this.channel = channel;
     this.speedZ *= -1;
+    this.ball.velocity.z = this.speedZ;
     this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
     // WebSocket 메시지 수신 이벤트 리스너 등록
     this.socket.onmessage = this.#recv.bind(this);
+    this.updateGuestScore();
   }
   
   #send() {
     // 메시지에 player의 위치와 이름을 포함
     const message = {
-      usr_pos: this.player1.position.x,
-      username: globalState.currentAlias
+      user_name: globalState.currentAlias,
+      user_position: this.player1.position.x,
+      left_press: this.player1.controller.left,
+      right_press: this.player1.controller.right
     };
     // host일 경우 메시지에 공의 위치도 포함
-    // Todo: 게임 종료 및 승자 데이터도 보내줘야 할듯
     if (this.isHost) {
-        message.ball = this.ball;
+      message.ball_object = this.ball;
+      message.player1_score = this.player1.score;
+      message.player2_score = this.player2.score;
+      message.pause_duration = this.pauseDuration;
     }
     // 메시지 전송
     this.socket.send(JSON.stringify(message));
@@ -87,33 +95,42 @@ export class PongGameLogic {
   #recv(event) {
     const data = JSON.parse(event.data);
     console.log(data);
-    // Todo: 게임 종료 데이터가 있는 경우, 승자 설정 후 게임 종료 필요. 
     // 상대방이 보낸 데이터인 경우 상대방 위치 업데이트
-    if (data.username !== globalState.currentAlias) {
-      this.player2.position.x = data.usr_pos;
+    if (data.user_name !== globalState.currentAlias) {
+      this.player2.position.x = data.user_position;
       this.player2.position.x *= -1;
+      this.player2.controller.left = data.right_press;
+      this.player2.controller.right = data.left_press;
     }
     // guest인 경우, ball position 업데이트
-    if (this.isGuest && data.ball){
-      this.ball = data.ball;
+    if (this.isGuest && data.ball_object){
+      this.ball = data.ball_object;
       this.ball.position.x *= -1;  // X 축 위치를 반전시킴
       this.ball.position.z *= -1;  // Z 축 위치를 반전시킴
       this.ball.velocity.x *= -1;  // X 축 위치를 반전시킴
       this.ball.velocity.z *= -1;  // Z 축 위치를 반전시킴
+      this.player1.score = data.player2_score;
+      this.player2.score = data.player1_score;
+      this.pauseDuration = data.pause_duration;
+      if (data.pause_duration) {
+        this.player1.position.x = 0;
+      }
     }
   }
 
   async loop() {
     this.startTime = performance.now();
-    this.delta = this.startTime - this.endTime;
+    if (this.endTime != null) {
+      this.delta = this.startTime - this.endTime;
+    }
     // 로직 처리
     if (this.pauseDuration) {
-      this.pauseDuration--;
+      this.pauseDuration = Math.max(this.pauseDuration - this.delta, 0);
     } else {
       this.#update(this.delta / (1000.0 / 60.0));
       // 리모트인 경우
       if ((this.isHost || this.isGuest) && this.socket.readyState === WebSocket.OPEN) {
-        if (this.sendCount % 2 == 0) { // 30
+        if (this.sendCount % 4 == 0) { // 30
           this.#send();
         }
         this.sendCount++;
@@ -126,6 +143,7 @@ export class PongGameLogic {
       } else {
         this.winner = "2";
       }
+      this.#send();
       return;
     }
     this.endTime = performance.now();
@@ -136,6 +154,12 @@ export class PongGameLogic {
       setTimeout(this.loop, 0);
     }
     
+  }
+
+  updateGuestScore() {
+    this.player1.scoreQuery.innerHTML = this.player1.score;
+    this.player2.scoreQuery.innerHTML = this.player2.score;
+    setTimeout(this.updateGuestScore.bind(this), 1000);
   }
 
   async #update(delta) {
@@ -200,7 +224,9 @@ export class PongGameLogic {
       } else { // 실점 판정
         this.player2.score++;
         if (this.player1.scoreQuery) {
-          this.player2.scoreQuery.innerHTML = this.player2.score;
+          if (this.isGuest == false) {
+            this.player2.scoreQuery.innerHTML = this.player2.score;
+          }
         }
         this.ball.velocity.z = -this.speedZ;
         this.ball.velocity.x = 0;
@@ -208,7 +234,7 @@ export class PongGameLogic {
         this.ball.position.z = 0;
         this.player1.position.x = 0;
         this.player2.position.x = 0;
-        this.pauseDuration = 90;
+        this.pauseDuration = 1500;
       }
     } else if (this.ball.position.z <= -this.fieldDepth / 2) { // 라인을 넘었을 경우 : 2p
       if (this.player2.position.x - (this.paddleWidth / 2) <= this.ball.position.x && // 공 반사
@@ -225,7 +251,9 @@ export class PongGameLogic {
       } else { // 실점 판정
         this.player1.score++;
         if (this.player1.scoreQuery) {
-          this.player1.scoreQuery.innerHTML = this.player1.score;
+          if (this.isGuest == false) {
+            this.player1.scoreQuery.innerHTML = this.player1.score;
+          }
         }
         this.ball.velocity.z = this.speedZ;
         this.ball.velocity.x = 0;
@@ -233,7 +261,7 @@ export class PongGameLogic {
         this.ball.position.z = 0;
         this.player1.position.x = 0;
         this.player2.position.x = 0;
-        this.pauseDuration = 90;
+        this.pauseDuration = 1500;
       }
     }
 
