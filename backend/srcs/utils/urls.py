@@ -1,6 +1,6 @@
 from django.urls import path, include
-from . import views
+from .views import AliasAPIView
 
 urlpatterns = [
-    path('aliases/', views.AliasAPIView.as_view(), name='alias-api'),
+    path('', AliasAPIView.as_view(),),
 ]
