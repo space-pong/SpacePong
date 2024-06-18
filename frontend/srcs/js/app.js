@@ -1,7 +1,6 @@
 //import './utils/renderPage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
-import globalState, { resetGlobalState } from './globalState.js';
-import { renderLogin } from './utils/renderLogin.js';
+import globalState, { resetGlobalState } from './globalState.js'; 
 
 import { Router } from './router.js';
 
