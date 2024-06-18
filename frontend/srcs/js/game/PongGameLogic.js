@@ -30,7 +30,7 @@ export class PongGameLogic {
     this.isWallStrike = false;
     this.update = this.#update.bind(this);
     this.loop = this.loop.bind(this);
-    this.targetScore = 2;
+    this.targetScore = 10;
     this.pauseDuration = 90;
     this.isHost = false;
     this.isGuest = false;
@@ -61,7 +61,7 @@ export class PongGameLogic {
     }
     this.isGuest = true;
     this.channel = channel;
-    this.speedZ = 0;
+    this.speedZ *= -1;
     this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
     // WebSocket 메시지 수신 이벤트 리스너 등록
     this.socket.onmessage = this.#recv.bind(this);
@@ -74,8 +74,9 @@ export class PongGameLogic {
       username: globalState.currentAlias
     };
     // host일 경우 메시지에 공의 위치도 포함
+    // Todo: 게임 종료 및 승자 데이터도 보내줘야 할듯
     if (this.isHost) {
-        message.ball_pos = this.ball.position;
+        message.ball = this.ball;
     }
     // 메시지 전송
     this.socket.send(JSON.stringify(message));
@@ -83,15 +84,20 @@ export class PongGameLogic {
 
   #recv(event) {
     const data = JSON.parse(event.data);
-    if (data.username !== globalState.currentAlias) { 
+    console.log(data);
+    // Todo: 게임 종료 데이터가 있는 경우, 승자 설정 후 게임 종료 필요. 
+    // 상대방이 보낸 데이터인 경우 상대방 위치 업데이트
+    if (data.username !== globalState.currentAlias) {
       this.player2.position.x = data.usr_pos;
+      this.player2.position.x *= -1;
     }
     // guest인 경우, ball position 업데이트
-    if (this.isGuest && data.ball_pos){
-      this.ball.position = data.ball_pos;
-      this.ball.position.x = -data.ball_pos.x;  // X 축 위치를 반전시킴
-      this.ball.position.y = -data.ball_pos.y;  // Y 축 위치를 반전시킴
-      this.ball.position.z = -data.ball_pos.z;  // Z 축 위치를 반전시킴
+    if (this.isGuest && data.ball){
+      this.ball = data.ball;
+      this.ball.position.x *= -1;  // X 축 위치를 반전시킴
+      this.ball.position.z *= -1;  // Z 축 위치를 반전시킴
+      this.ball.velocity.x *= -1;  // X 축 위치를 반전시킴
+      this.ball.velocity.z *= -1;  // Z 축 위치를 반전시킴
     }
   }
 
@@ -100,14 +106,15 @@ export class PongGameLogic {
 
     // 리모트인 경우 
     if ((this.isHost || this.isGuest) && this.socket.readyState === WebSocket.OPEN) {
-        this.#send();
+      this.#send();
+      
     }
 
     // 로직 처리(로컬)
     if (this.pauseDuration) {
       this.pauseDuration--;
     } else {
-      await this.#update();
+      this.#update();
     }
     if (this.player1.score == this.targetScore || this.player2.score == this.targetScore) {
       this.isEnd = true;
