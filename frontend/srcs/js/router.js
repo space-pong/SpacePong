@@ -12,12 +12,14 @@ import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js';
 import { renderLogin } from './utils/renderLogin.js';
+import { otpPage } from './pages/otpPage.js';
 
 export class Router {
   constructor() {
     this.routes = [
       {path: "/", view: mainPage},
       {path: "/login", view: loginPage},
+      {path: "/otp", view: otpPage},
       {path: "/unitSelect", view: unitSelectPage},
       {path: "/localAI", view: localAIPage},
       {path: "/pvpFill", view: pvpFillAliasPage},
@@ -52,7 +54,7 @@ export class Router {
   }
 
 
-  async route() {
+  async route(router) {
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
@@ -60,7 +62,7 @@ export class Router {
     } else if (match == '/') {
       resetGlobalState();
     }
-    await this.render(match);
+    await this.render(match, this);
   }
 
   findMatch() {
@@ -70,13 +72,13 @@ export class Router {
     })).find((potentialMatch) => potentialMatch.isMatch);
   }
 
-  async render (match) {
+  async render (match, router) {
     const view = match.route.view;
-    await renderControlBar(view);
+    await renderControlBar(view, router);
   }
 
   async navigateTo(url) {
     history.pushState(globalState, null, url);
-    this.route();
+    await this.route();
   }
 }

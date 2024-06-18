@@ -1,17 +1,17 @@
 //import './utils/renderPage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
-import globalState, { resetGlobalState } from './globalState.js';
-import { renderLogin } from './utils/renderLogin.js';
+import globalState, { resetGlobalState } from './globalState.js'; 
 
 import { Router } from './router.js';
 
 async function handleLogin(router) {
   let isLoggedIn = await checkaccess();
-  if (isLoggedIn) {
+  if (isLoggedIn && globalState.otp == true) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
+    console.log("handlelogin!");
     router.navigateTo("/");
   } else {
-    await fetchTokens();
+    await fetchTokens(router);
     isLoggedIn = await checkaccess();
     if (!isLoggedIn)
     {
@@ -22,9 +22,10 @@ async function handleLogin(router) {
 
 async function init() {
   const router = new Router();
+
   await handleLogin(router);
   resetGlobalState();
-  router.route();
+  router.route(router);
 }
 
 window.addEventListener('DOMContentLoaded', init);
