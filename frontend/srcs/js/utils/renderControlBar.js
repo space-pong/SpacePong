@@ -18,14 +18,8 @@ export async function renderControlBar(page) {
   target.addEventListener('animationend', function handleAnimationEnd() {
     target.classList.remove('fade-out');
     target.innerHTML = renderedHTML;
-    // console.log(renderedHTML);
     loadCSS(page.css);
 
-    // if (page.script) {
-    //   const script = document.createElement('script');
-    //   script.src = page.script;
-    //   document.body.appendChild(script);
-    // }
     if (page  == otpPage) {
       otpUtil();
     }

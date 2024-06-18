@@ -1,3 +1,5 @@
+import globalState from '../globalState.js';
+
 export function otpUtil() {
     document.querySelector('#otpInput').focus();
     document.querySelector('#otpInput').onkeyup = function(e) {
@@ -22,8 +24,10 @@ export function otpUtil() {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             const data = await response.json();
-            console.log(data);
-            if (data.message === "OK") {
+            console.log("data: " , data);
+            console.log("data.message: ", data.message);
+            if (data === "OTP OK") {
+                globalState.otp == true;
                 window.location.pathname = '/index.html';
             } else {
                 alert("Fail: " + data.message);
