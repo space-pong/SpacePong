@@ -8,6 +8,7 @@ import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
 import { checkaccess } from './checkToken.js';
 import { otpPage } from '../pages/otpPage.js';
+import { otpUtil } from './otpUtil.js';
 
 export async function renderControlBar(page) {
   const target = document.querySelector('.control-bar');
@@ -17,7 +18,7 @@ export async function renderControlBar(page) {
   target.addEventListener('animationend', function handleAnimationEnd() {
     target.classList.remove('fade-out');
     target.innerHTML = renderedHTML;
-    console.log(renderedHTML);
+    // console.log(renderedHTML);
     loadCSS(page.css);
 
     // if (page.script) {
@@ -26,7 +27,6 @@ export async function renderControlBar(page) {
     //   document.body.appendChild(script);
     // }
     if (page  == otpPage) {
-      console.log("wedasds");
       otpUtil();
     }
     if (globalState.gameMode == "ai") {
