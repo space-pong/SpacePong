@@ -398,18 +398,30 @@ async function renderControlBarRemote(page) {
     // 매치 상대와 게임 시작 (현재 임시로 AI 게임으로 해둠(step2에서 게임 로직 시작))
     if (!cancelClicked)
     {
-      await deleteData();
       ++globalState.step;
       globalState.oppsiteAlias = data[0].oppositeName;
+      globalState.unit.player2 = data[0].oppositeSkin;
+      globalState.roomNumber = data[0].RoomNumber;
+      globalState.hostName = data[0].hostName;
+      globalState.guestName = data[0].guestName;
+      await deleteData();
       renderControlBar(gamePage);
     }
   } else if (globalState.step == 2) {
     // Todo: remote player와의 게임 로직으로 수정
-    var key1 = new KeyboardController(37, 39, 38, 40, 32);
-    const aiController = new AIController();
+    const key1 = new KeyboardController(37, 39, 38, 40, 32);
+    const key2 = new KeyboardController(65, 68, 87, 83, 70);
     const game = new PongGame();
-    await game.init(key1, aiController, globalState.unit.player1, "Zerg", "art");
+    await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
     game.logic.setScoreID('.player1-score', '.player2-score');
+    console.log(globalState.currentAlias);
+    console.log(globalState.hostName);
+    if (globalState.hostName === globalState.currentAlias){
+      game.logic.setHost(globalState.roomNumber);
+    }
+    else {
+      game.logic.setGuest(globalState.roomNumber);
+    }
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();
@@ -417,7 +429,7 @@ async function renderControlBarRemote(page) {
       if (game.logic.winner == "1") {
         globalState.winner = globalState.alias.player1;
       } else {
-        globalState.winner = "AI";
+        globalState.winner = globalState.alias.player2;
       }
       renderControlBar(gameResultPage);
     });
