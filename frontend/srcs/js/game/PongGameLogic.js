@@ -51,6 +51,8 @@ export class PongGameLogic {
     this.isHost = true;
     this.channel = channel;
     this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
+    // WebSocket 메시지 수신 이벤트 리스너 등록
+    this.socket.onmessage = this.#recv.bind(this);
   }
 
   setGuest(channel) {
@@ -61,43 +63,41 @@ export class PongGameLogic {
     this.channel = channel;
     this.speedZ = 0;
     this.socket = new WebSocket("wss://" + window.location.host + '/ws/channel/' + channel + '/');
+    // WebSocket 메시지 수신 이벤트 리스너 등록
+    this.socket.onmessage = this.#recv.bind(this);
   }
-
-
+  
   #send() {
-    this.socket.send(JSON.stringify({
-      'usr_pos' : this.player1.position.x,
-      'username' : globalState.currentAlias
-    }));
-    if (this.isHost){
-      this.socket.send(JSON.stringify({
-        'ball_pos' : this.ball.position
-      }));
+    // 메시지에 player의 위치와 이름을 포함
+    const message = {
+      usr_pos: this.player1.position.x,
+      username: globalState.currentAlias
+    };
+    // host일 경우 메시지에 공의 위치도 포함
+    if (this.isHost) {
+        message.ball_pos = this.ball.position;
     }
+    // 메시지 전송
+    this.socket.send(JSON.stringify(message));
   }
 
-  #recv() {
-    this.socket.onmessage = (e) => {
-      const data = JSON.parse(e.data);
-      if (data.username != globalState.currentAlias) { 
-        this.player2.position.x = data.usr_pos;
-      }
-      if (this.isGuest && this.ball.position.x !== null){
-        this.ball.position = data.ball_pos;
-      }
-    };
+  #recv(event) {
+    const data = JSON.parse(event.data);
+    if (data.username !== globalState.currentAlias) { 
+      this.player2.position.x = data.usr_pos;
+    }
+    // guest인 경우, ball position 업데이트
+    if (this.isGuest && data.ball_pos){
+      this.ball.position = data.ball_pos;
+    }
   }
 
   async loop() {
     this.startTime = performance.now();
 
     // 리모트인 경우 
-    if (this.isHost) {
-      // 호스트 <- 게스트 : 컨트롤러 입력값
-      // 호스트 -> 게스트 : 게임 상태
-    } else if (this.isGuest) {
-      // 게스트 <- 호스트 : 게임상태
-      // 게스트 -> 호스트 : 컨트롤러 입력값
+    if ((this.isHost || this.isGuest) && this.socket.readyState === WebSocket.OPEN) {
+        this.#send();
     }
 
     // 로직 처리(로컬)
@@ -126,8 +126,6 @@ export class PongGameLogic {
   }
 
   async #update() {
-    this.#recv();
-    this.#send();
     // 컨트롤러값으로 기체 움직임 적용
     let player1Moved = false;
     if (this.player1.controller.left == true) {

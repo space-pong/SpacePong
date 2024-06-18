@@ -414,8 +414,6 @@ async function renderControlBarRemote(page) {
     const game = new PongGame();
     await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
     game.logic.setScoreID('.player1-score', '.player2-score');
-    console.log(globalState.currentAlias);
-    console.log(globalState.hostName);
     if (globalState.hostName === globalState.currentAlias){
       game.logic.setHost(globalState.roomNumber);
     }
