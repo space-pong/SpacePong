@@ -30,13 +30,15 @@ export class PongGameLogic {
     this.isWallStrike = false;
     this.update = this.#update.bind(this);
     this.loop = this.loop.bind(this);
-    this.targetScore = 10;
+    this.targetScore = 5;
     this.pauseDuration = 90;
     this.isHost = false;
     this.isGuest = false;
     this.channel = null;
     this.isEnd = false;
     this.winner = null;
+    this.sendCount = 0;
+    this.delta = 1000.0 / 60.0;
   }
 
   setScoreID(player1ScoreID, player2ScoreID) {
@@ -103,18 +105,19 @@ export class PongGameLogic {
 
   async loop() {
     this.startTime = performance.now();
-
-    // 리모트인 경우 
-    if ((this.isHost || this.isGuest) && this.socket.readyState === WebSocket.OPEN) {
-      this.#send();
-      
-    }
-
-    // 로직 처리(로컬)
+    this.delta = this.startTime - this.endTime;
+    // 로직 처리
     if (this.pauseDuration) {
       this.pauseDuration--;
     } else {
-      this.#update();
+      this.#update(this.delta / (1000.0 / 60.0));
+      // 리모트인 경우
+      if ((this.isHost || this.isGuest) && this.socket.readyState === WebSocket.OPEN) {
+        if (this.sendCount % 2 == 0) { // 30
+          this.#send();
+        }
+        this.sendCount++;
+      }
     }
     if (this.player1.score == this.targetScore || this.player2.score == this.targetScore) {
       this.isEnd = true;
@@ -125,35 +128,35 @@ export class PongGameLogic {
       }
       return;
     }
-    let endTime = performance.now();
-    let gapTime = this.startTime - endTime;
-    if (gapTime < (1000 / 60)) {
-      setTimeout(this.loop, (1000 / 60) - gapTime);
+    this.endTime = performance.now();
+    let gapTime = this.startTime - this.endTime;
+    if (gapTime < (1000.0 / 60.0)) {
+      setTimeout(this.loop, (1000.0 / 60.0) - gapTime);
     } else {
       setTimeout(this.loop, 0);
     }
     
   }
 
-  async #update() {
+  async #update(delta) {
     // 컨트롤러값으로 기체 움직임 적용
     let player1Moved = false;
     if (this.player1.controller.left == true) {
-      this.player1.position.x -= 1.5;
+      this.player1.position.x -= 1.5 * delta;
       player1Moved = true;
     }
     if (this.player1.controller.right == true) {
-      this.player1.position.x += 1.5;
+      this.player1.position.x += 1.5 * delta;
       player1Moved = true;
     }
     if (this.player2.controller.left == true) {
-      this.player2.position.x -= 1.5;
+      this.player2.position.x -= 1.5 * delta;
     }
     if (this.player2.controller.right == true) {
-      this.player2.position.x += 1.5;
+      this.player2.position.x += 1.5 * delta;
     }
     if (Math.abs(this.player1.controller.stick.x) > 0.05 && player1Moved == false) {
-      this.player1.position.x += 1.5 * this.player1.controller.stick.x;
+      this.player1.position.x += 1.5 * this.player1.controller.stick.x * delta;
     }
     
     // 기체 움직임 범위 제한
@@ -167,8 +170,8 @@ export class PongGameLogic {
     );
 
     // 공 움직임
-    this.ball.position.x += this.ball.velocity.x;
-    this.ball.position.z += this.ball.velocity.z;
+    this.ball.position.x += this.ball.velocity.x * delta;
+    this.ball.position.z += this.ball.velocity.z * delta;
 
     // 공이 벽에 충돌했을 경우
     if (this.ball.position.x >= this.fieldWidth / 2) {
@@ -236,9 +239,9 @@ export class PongGameLogic {
 
     // 공 속도 점점 빠르게
     if (this.ball.velocity.z > 0) {
-      this.ball.velocity.z += 0.001;
+      this.ball.velocity.z += 0.001 * delta;
     } else if (this.ball.velocity.z < 0) {
-      this.ball.velocity.z -= 0.001;
+      this.ball.velocity.z -= 0.001 * delta;
     }
 
   }
