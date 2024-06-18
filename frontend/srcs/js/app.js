@@ -6,7 +6,7 @@ import { Router } from './router.js';
 
 async function handleLogin(router) {
   let isLoggedIn = await checkaccess();
-  if (isLoggedIn) {
+  if (isLoggedIn && globalState.otp == true) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
     router.navigateTo("/");
   } else {
