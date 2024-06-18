@@ -89,6 +89,9 @@ export class PongGameLogic {
     // guest인 경우, ball position 업데이트
     if (this.isGuest && data.ball_pos){
       this.ball.position = data.ball_pos;
+      this.ball.position.x = -data.ball_pos.x;  // X 축 위치를 반전시킴
+      this.ball.position.y = -data.ball_pos.y;  // Y 축 위치를 반전시킴
+      this.ball.position.z = -data.ball_pos.z;  // Z 축 위치를 반전시킴
     }
   }
 

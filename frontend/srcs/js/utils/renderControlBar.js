@@ -425,9 +425,9 @@ async function renderControlBarRemote(page) {
       game.renderer.dispose();
       ++globalState.step;
       if (game.logic.winner == "1") {
-        globalState.winner = globalState.alias.player1;
+        globalState.winner = globalState.currentAlias;
       } else {
-        globalState.winner = globalState.alias.player2;
+        globalState.winner = globalState.oppsiteAlias;
       }
       renderControlBar(gameResultPage);
     });
