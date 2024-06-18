@@ -1,5 +1,4 @@
 const globalState = {
-
   intraID: null,
   gameMode: null,
   step: 0,

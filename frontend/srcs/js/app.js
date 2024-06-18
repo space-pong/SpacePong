@@ -8,6 +8,7 @@ async function handleLogin(router) {
   let isLoggedIn = await checkaccess();
   if (isLoggedIn && globalState.otp == true) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
+    console.log("handlelogin!");
     router.navigateTo("/");
   } else {
     await fetchTokens(router);
@@ -24,8 +25,7 @@ async function init() {
 
   await handleLogin(router);
   resetGlobalState();
-  router.route();
-
+  router.route(router);
 }
 
 window.addEventListener('DOMContentLoaded', init);

@@ -54,7 +54,7 @@ export class Router {
   }
 
 
-  async route() {
+  async route(router) {
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
@@ -62,7 +62,7 @@ export class Router {
     } else if (match == '/') {
       resetGlobalState();
     }
-    await this.render(match);
+    await this.render(match, this);
   }
 
   findMatch() {
@@ -72,9 +72,9 @@ export class Router {
     })).find((potentialMatch) => potentialMatch.isMatch);
   }
 
-  async render (match) {
+  async render (match, router) {
     const view = match.route.view;
-    await renderControlBar(view);
+    await renderControlBar(view, router);
   }
 
   async navigateTo(url) {
