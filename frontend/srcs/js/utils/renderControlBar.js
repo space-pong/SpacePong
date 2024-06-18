@@ -6,6 +6,9 @@ import { PongGame } from '../game/PongGame.js'
 import globalState, { resetGlobalState } from '../globalState.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
+import { checkaccess } from './checkToken.js';
+import { otpPage } from '../pages/otpPage.js';
+import { otpUtil } from './otpUtil.js';
 
 export async function renderControlBar(page) {
   const target = document.querySelector('.control-bar');
@@ -16,6 +19,10 @@ export async function renderControlBar(page) {
     target.classList.remove('fade-out');
     target.innerHTML = renderedHTML;
     loadCSS(page.css);
+
+    if (page  == otpPage) {
+      otpUtil();
+    }
     if (globalState.gameMode == "ai") {
       renderControlBarAI(page);
     } else if (globalState.gameMode == "tournament") {
@@ -27,6 +34,7 @@ export async function renderControlBar(page) {
     target.removeEventListener('animationend', handleAnimationEnd);
   });
 }
+
 
 async function renderControlBarPvp(page) {
   if (globalState.step == 0) {
@@ -282,6 +290,8 @@ async function renderControlBarTournament(page) {
 
 
 async function renderControlBarAI(page) {
+  // let isLoggedIn = await checkaccess();
+  // console.log("isLoggedIn: ", isLoggedIn);
   if (globalState.step == 0) {
     globalState.oppsiteAlias = "AI";
     const selectButton = document.querySelector('.control-bar__confirm__btn--select');
