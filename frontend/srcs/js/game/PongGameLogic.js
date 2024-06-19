@@ -95,6 +95,13 @@ export class PongGameLogic {
   #recv(event) {
     const data = JSON.parse(event.data);
     console.log(data);
+    // 상대방 연결이 끊긴 경우
+    if (data.disconnect === "true"){
+      this.winner = "1";
+      this.isEnd = true;
+      this.socket.close();
+      return;
+    }
     // 상대방이 보낸 데이터인 경우 상대방 위치 업데이트
     if (data.user_name !== globalState.currentAlias) {
       this.player2.position.x = data.user_position;
@@ -222,19 +229,21 @@ export class PongGameLogic {
           }
           this.isPlayer1Strike = true;
       } else { // 실점 판정
-        this.player2.score++;
-        if (this.player1.scoreQuery) {
-          if (this.isGuest == false) {
-            this.player2.scoreQuery.innerHTML = this.player2.score;
+        if (!this.isGuest){
+          this.player2.score++;
+          if (this.player1.scoreQuery) {
+            if (this.isGuest == false) {
+              this.player2.scoreQuery.innerHTML = this.player2.score;
+            }
           }
+          this.ball.velocity.z = -this.speedZ;
+          this.ball.velocity.x = 0;
+          this.ball.position.x = 0;
+          this.ball.position.z = 0;
+          this.player1.position.x = 0;
+          this.player2.position.x = 0;
+          this.pauseDuration = 1500;
         }
-        this.ball.velocity.z = -this.speedZ;
-        this.ball.velocity.x = 0;
-        this.ball.position.x = 0;
-        this.ball.position.z = 0;
-        this.player1.position.x = 0;
-        this.player2.position.x = 0;
-        this.pauseDuration = 1500;
       }
     } else if (this.ball.position.z <= -this.fieldDepth / 2) { // 라인을 넘었을 경우 : 2p
       if (this.player2.position.x - (this.paddleWidth / 2) <= this.ball.position.x && // 공 반사
@@ -249,19 +258,21 @@ export class PongGameLogic {
           }
           this.isPlayer2Strike = true;
       } else { // 실점 판정
-        this.player1.score++;
-        if (this.player1.scoreQuery) {
-          if (this.isGuest == false) {
-            this.player1.scoreQuery.innerHTML = this.player1.score;
+        if (!this.isGuest){
+          this.player1.score++;
+          if (this.player1.scoreQuery) {
+            if (this.isGuest == false) {
+              this.player1.scoreQuery.innerHTML = this.player1.score;
+            }
           }
+          this.ball.velocity.z = this.speedZ;
+          this.ball.velocity.x = 0;
+          this.ball.position.x = 0;
+          this.ball.position.z = 0;
+          this.player1.position.x = 0;
+          this.player2.position.x = 0;
+          this.pauseDuration = 1500;
         }
-        this.ball.velocity.z = this.speedZ;
-        this.ball.velocity.x = 0;
-        this.ball.position.x = 0;
-        this.ball.position.z = 0;
-        this.player1.position.x = 0;
-        this.player2.position.x = 0;
-        this.pauseDuration = 1500;
       }
     }
 

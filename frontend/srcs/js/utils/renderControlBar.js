@@ -395,7 +395,7 @@ async function renderControlBarRemote(page) {
     while (data[0].oppositeName.length === 0 && !cancelClicked){
       data = await getData();
     }
-    // 매치 상대와 게임 시작 (현재 임시로 AI 게임으로 해둠(step2에서 게임 로직 시작))
+    // 매치 상대와 게임 시작
     if (!cancelClicked)
     {
       ++globalState.step;
@@ -408,6 +408,7 @@ async function renderControlBarRemote(page) {
       renderControlBar(gamePage);
     }
   } else if (globalState.step == 2) {
+    
     // Todo: remote player와의 게임 로직으로 수정
     const key1 = new KeyboardController(37, 39, 38, 40, 32);
     const key2 = new KeyboardController(65, 68, 87, 83, 70);
@@ -420,6 +421,15 @@ async function renderControlBarRemote(page) {
     else {
       game.logic.setGuest(globalState.roomNumber);
     }
+    // 새로고침시 
+    window.addEventListener('beforeunload', function(event) {
+      if (game.logic.isHost || game.logic.isGuest){
+        game.logic.socket.close();
+        game.renderer.dispose();
+        renderControlBar(mainPage);
+        resetGlobalState();
+      }
+    });
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();

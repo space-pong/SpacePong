@@ -15,8 +15,21 @@ class GameConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # Leave room group
+        await self.channel_layer.group_send(
+            self.room_group_name, {
+                "type": "game_info",
+                "user_name": "user_name",
+                "user_position": "user_position", 
+                "ball_object": "ball_object",
+                "left_press": "left_press",
+                "right_press": "right_press",
+                "player1_score": "player1_score",
+                "player2_score": "player2_score",
+                "pause_duration": "pause_duration",
+                "disconnect": "true"
+            }
+        )
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
-        
         
 
     # Receive message from WebSocket
@@ -30,6 +43,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         player1_score = text_data_json.get("player1_score")
         player2_score = text_data_json.get("player2_score")
         pause_duration = text_data_json.get("pause_duration")
+        disconnect = text_data_json.get("disconnect")
 
         # Send message to room group
         await self.channel_layer.group_send(
@@ -43,6 +57,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 "player1_score": player1_score,
                 "player2_score": player2_score,
                 "pause_duration": pause_duration,
+                "disconnect": disconnect,
             }
         )
 
@@ -56,6 +71,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         player1_score = event["player1_score"]
         player2_score = event["player2_score"]
         pause_duration = event["pause_duration"]
+        disconnect = event["disconnect"]
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
@@ -67,4 +83,5 @@ class GameConsumer(AsyncWebsocketConsumer):
             "player1_score": player1_score,
             "player2_score": player2_score,
             "pause_duration": pause_duration,
+            "disconnect": disconnect,
         }))
