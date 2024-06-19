@@ -52,6 +52,10 @@ class DataAPI(APIView):
         return Response("OK")
 
     def delete(self, request):
-        GameData.objects.filter(myName=request.user).delete()
-        GameData.objects.filter(oppositeName=request.user).delete()
+        delete_field = request.data.get('delete_field')
+        if delete_field == 'myName':
+            GameData.objects.filter(myName=request.user).delete()
+        elif delete_field == 'all':
+            GameData.objects.filter(myName=request.user).delete()
+            GameData.objects.filter(oppositeName=request.user).delete()
         return Response("OK")

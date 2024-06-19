@@ -372,6 +372,7 @@ async function renderControlBarRemote(page) {
   } else if (globalState.step == 1) {
     /* remoteMatchPage */
     const cancelButton = document.querySelector('.control-bar__remoteMatch__confirm__btn--cancel');
+    let cancelClicked = false;
     if (cancelButton){
       cancelButton.addEventListener('click', cancelHandler);
       cancelButton.setAttribute('href', "/unitSelect");
@@ -379,18 +380,22 @@ async function renderControlBarRemote(page) {
     }
     function cancelHandler() {
       cancelClicked = true;
-      deleteData();
+      deleteData("all");
       --globalState.step;
       cancelButton.removeEventListener('click', cancelHandler);
     }
-
+    // 새로고침시
+    window.addEventListener('beforeunload', function(event) {
+      deleteData("all");
+      renderControlBar(mainPage);
+      resetGlobalState();
+    });
     // 매치메이킹 요청
     let skin = {
       "mySkin": globalState.unit.player1
     };
     await postData(skin);
     // 매치메이킹 응답 받기 (polling)
-    let cancelClicked = false;
     let data = await getData();
     while (data[0].oppositeName.length === 0 && !cancelClicked){
       data = await getData();
@@ -404,12 +409,10 @@ async function renderControlBarRemote(page) {
       globalState.roomNumber = data[0].RoomNumber;
       globalState.hostName = data[0].hostName;
       globalState.guestName = data[0].guestName;
-      await deleteData();
+      await deleteData("myName");
       renderControlBar(gamePage);
     }
   } else if (globalState.step == 2) {
-    
-    // Todo: remote player와의 게임 로직으로 수정
     const key1 = new KeyboardController(37, 39, 38, 40, 32);
     const key2 = new KeyboardController(65, 68, 87, 83, 70);
     const game = new PongGame();

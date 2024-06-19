@@ -37,14 +37,19 @@ export async function postData(data = {}) {
   return response.json();
 }
 
-export async function deleteData() {
+export async function deleteData(type) {
   await checkaccess()
+  let data = {
+    "delete_field": type
+  };
   const token = localStorage.getItem('accessToken');
   const response = await fetch('spacepong/data/', {
     method: 'DELETE',
     headers: {
+      "Content-Type": "application/json",
       'Authorization': 'Bearer ' + token
     },
+    body: JSON.stringify(data),
   });
   if (!response.ok) {
     console.error('Error fetching data:');
