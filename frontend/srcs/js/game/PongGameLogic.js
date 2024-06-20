@@ -150,7 +150,9 @@ export class PongGameLogic {
       } else {
         this.winner = "2";
       }
-      this.#send();
+      if (this.isHost && this.socket.readyState === WebSocket.OPEN){
+        this.#send();
+      }
       return;
     }
     this.endTime = performance.now();
