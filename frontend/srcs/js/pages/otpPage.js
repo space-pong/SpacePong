@@ -16,13 +16,21 @@ export const otpPage = {
         timerId = setInterval(updateTimer, 1000);
         return `
         <header class="control-bar__otp__header">
-            give me OTP number
+            Enter OTP number
         </header>
+
+        <div class="control-bar__otp__guide">
+          <p class="otpGuide">1. Click "Send" button.</p>
+          <p class="otpGuide">2. Enter OTP number.</p>
+        </div>
+
         <div class="control-bar__otp__input">
-            <input id="otpInput" type="text" class="textbox" maxlength="4">
+          <div id="otpTimer">00</div>
+          <input id="otpInput" type="text" class="textbox" maxlength="4">
+          <div id="otpButton">
+            <input id="otpSend" data-link="otpSend" type="button" value="Send">
             <input id="otpSubmit" data-link="otpSubmit" type="button" value="Enter">
-            <input id="otpSend" data-link="otpSend" type="button" value="send">
-            <div id="otpTimer">00</div>
+          </div>
         </div>
         `;
     },

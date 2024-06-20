@@ -1,24 +1,134 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-.btn {
-    margin-bottom: 10px; /* 버튼 사이 여유 공간 조정 */
-}
-.textbox {
-    width: 5em;
-    height:  2em; /* 4글자에 맞추어 적절한 너비 설정 (예: 1em = 폰트 크기의 너비) */
-    font-size: 30px; 
-text-align: center
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .control-bar {
-    text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-#timer {
-    font-size: 2em;
-    color: #333;
+
+.control-bar__otp__guide {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-bar__otp__input {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#otpInput {
+  width: 5em;
+  height:  2em; /* 4글자에 맞추어 적절한 너비 설정 (예: 1em = 폰트 크기의 너비) */
+  font-size: 1em; 
+  color: rgba(255, 225, 0, 0.818);
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  background-color: gray;
+  outline: none;
+}
+
+#otpButton {
+  width: 70%;
+  height: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+}
+
+/* otpButton의 자식 요소들 */
+#otpButton * {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
+  border-radius: 10px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7em;
+}
+
+#otpSend:hover {
+  background-color: rgba(255, 174, 0, 0.625);
+  box-shadow: 0px 0px 12px rgba(255, 128, 0, 0.76);
+  border: 0.5px solid rgba(255, 128, 0, 0.76);
+  color: rgb(255, 255, 255);
+}
+
+#otpSubmit:hover {
+  background-color: rgba(73, 161, 86, 0.331);
+  box-shadow: 0px 0px 12px rgba(38, 162, 75, 0.5);
+  border: 0.5px solid rgba(143, 255, 156, 0.678);
+  color: rgb(255, 255, 255);
+}
+
+@media (max-aspect-ratio: 3/2) {
+  .control-bar {
+    padding-top: calc(2 * 1.1vw);
+    padding-bottom: calc(2 * 1.6vw);
+  }
+
+  .control-bar__otp__header {
+    font-size: calc(2 * 0.8vw);
+  }
+  
+  .control-bar__otp__guide {
+    font-size: calc(2 * 0.6vw);
+  }
+
+  .control-bar__otp__input {
+    font-size: calc(2 * 0.8vw);
+  }
+
+  #otpSend {
+    margin-right: calc(2 * 0.2vh);
+  }
+
+  #otpSubmit {
+    margin-left: calc(2 * 0.2vh);
+  }
+}
+
+@media (min-aspect-ratio: 3/2) {
+  .control-bar {
+    padding-top: calc(3 * 1.1vh);
+    padding-bottom: calc(3 * 1.6vh);
+  }
+  
+  .control-bar__otp__header {
+    font-size: calc(3 * 0.8vh);
+  }
+  
+  .control-bar__otp__guide {
+    font-size: calc(3 * 0.6vh);
+  }
+
+  .control-bar__otp__input {
+    font-size: calc(3 * 0.8vh);
+  }
+
+  #otpSend {
+    margin-right: calc(3 * 0.2vh);
+  }
+
+  #otpSubmit {
+    margin-left: calc(3 * 0.2vh);
+  }
 }
