@@ -34,7 +34,7 @@ body {
   width: 5em;
   height:  2em; /* 4글자에 맞추어 적절한 너비 설정 (예: 1em = 폰트 크기의 너비) */
   font-size: 1em; 
-  color: whitesmoke;
+  color: rgba(255, 225, 0, 0.818);
   text-align: center;
   border: none;
   border-radius: 10px;
