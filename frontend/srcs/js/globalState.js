@@ -1,5 +1,4 @@
 const globalState = {
-
   intraID: null,
   gameMode: null,
   step: 0,
@@ -8,6 +7,7 @@ const globalState = {
   roomNumber: null,
   hostName: null,
   guestName: null,
+  otp: false,
   alias: {
     player1: null,
     player2: "guest1",

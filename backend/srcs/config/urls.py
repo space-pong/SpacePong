@@ -23,4 +23,5 @@ urlpatterns = [
     path('spacepong/', include('spacepong.urls')),
     path('translation/', include('translation.urls')),
     path('twofactor/', include('twofactor.urls')),
+    path('aliases/', include('utils.urls')),
 ]

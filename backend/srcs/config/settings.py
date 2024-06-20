@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'auth42',
     'spacepong',
     'translation',
+    'utils',
     'twofactor',
 ]
 
@@ -187,10 +188,9 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-API42_UID = 'u-s4t2ud-ebb28060de441f3c4e7d8542633d89be104a434afa2945cb284b7911d8c9350e'
-API42_SECRET = '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'
-API42_REDIRECT_URI = 'https://10.32.3.5' # Need to change
-
+API42_UID = 'u-s4t2ud-879db4e7443b9a563f1c477134b70f126aff4afc1844d3d71495ac67c9295d82'
+API42_SECRET = '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'
+API42_REDIRECT_URI = 'https://localhost/'
 
 
 LOCALE_PATHS = [ 
