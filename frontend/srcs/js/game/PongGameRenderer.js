@@ -359,7 +359,7 @@ export class PongGameRenderer {
   }
 
   animateEnvironments() {
-    const rotationSpeed = (Math.abs(this.pongGameInstance.ball.velocity.z) / 1.8) / 100;
+    const rotationSpeed = (Math.abs(this.pongGameInstance.ball.velocity.z) / 1.8) / 85;
     this.scene.environmentRotation.z += rotationSpeed;
     this.scene.backgroundRotation.z += rotationSpeed;
     this.spaceStation.rotation.y += 0.01;

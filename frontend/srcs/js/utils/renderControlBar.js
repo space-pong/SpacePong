@@ -4,8 +4,11 @@ import { KeyboardController } from '../game/Controller/KeyboardController.js'
 import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
 import globalState, { resetGlobalState } from '../globalState.js';
+import { mainPage } from '../pages/mainPage.js';
+import { gamePage } from '../pages/gamePage.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
+import { getData, postData, deleteData } from './api.js'
 import { checkaccess, fetchTokens } from './checkToken.js';
 import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
@@ -29,6 +32,8 @@ export async function renderControlBar(page, router) {
       renderControlBarTournament(page);
     } else if (globalState.gameMode == "pvp") {
       renderControlBarPvp(page);
+    } else if (globalState.gameMode == "remote") {
+      renderControlBarRemote(page);
     }
     target.classList.add('fade-in');
     target.removeEventListener('animationend', handleAnimationEnd);
@@ -352,4 +357,111 @@ async function renderControlBarAI(page) {
   }
 }
 
-
+async function renderControlBarRemote(page) {
+  if (globalState.step == 0) {
+    /* unitSelectPage */
+    const selectButton = document.querySelector('.control-bar__confirm__btn--select');
+    selectButton.setAttribute('href', '/remoteMatch');
+    selectButton.addEventListener('click', selectHandler);
+    function selectHandler() {
+      const selectedUnit = document.querySelector('input[name="unit"]:checked');
+      globalState.unit.player1 = selectedUnit.value;
+      ++globalState.step;
+      globalState.currentAlias = globalState.alias.player1;
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
+    cancelButton.addEventListener('click', cancelHandler);
+    cancelButton.setAttribute('data-link', "mainPage");
+    function cancelHandler() {
+      resetGlobalState();
+      selectButton.removeEventListener('click', selectHandler);
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+  } else if (globalState.step == 1) {
+    /* remoteMatchPage */
+    const cancelButton = document.querySelector('.control-bar__remoteMatch__confirm__btn--cancel');
+    let cancelClicked = false;
+    if (cancelButton){
+      cancelButton.addEventListener('click', cancelHandler);
+      cancelButton.setAttribute('href', "/unitSelect");
+      cancelButton.setAttribute('data-link', "unitSelectPage");
+    }
+    function cancelHandler() {
+      cancelClicked = true;
+      deleteData("all");
+      --globalState.step;
+      cancelButton.removeEventListener('click', cancelHandler);
+    }
+    // 새로고침시
+    window.addEventListener('beforeunload', function(event) {
+      deleteData("all");
+      renderControlBar(mainPage);
+      resetGlobalState();
+    });
+    // 매치메이킹 요청
+    let skin = {
+      "mySkin": globalState.unit.player1
+    };
+    await postData(skin);
+    // 매치메이킹 응답 받기 (polling)
+    let data = await getData();
+    while (data[0].oppositeName.length === 0 && !cancelClicked){
+      data = await getData();
+    }
+    // 매치 상대와 게임 시작
+    if (!cancelClicked)
+    {
+      ++globalState.step;
+      globalState.oppsiteAlias = data[0].oppositeName;
+      globalState.unit.player2 = data[0].oppositeSkin;
+      globalState.roomNumber = data[0].RoomNumber;
+      globalState.hostName = data[0].hostName;
+      globalState.guestName = data[0].guestName;
+      await deleteData("myName");
+      renderControlBar(gamePage);
+    }
+  } else if (globalState.step == 2) {
+    const key1 = new KeyboardController(37, 39, 38, 40, 32);
+    const key2 = new KeyboardController(65, 68, 87, 83, 70);
+    const game = new PongGame();
+    await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
+    game.logic.setScoreID('.player1-score', '.player2-score');
+    if (globalState.hostName === globalState.currentAlias){
+      game.logic.setHost(globalState.roomNumber);
+    }
+    else {
+      game.logic.setGuest(globalState.roomNumber);
+    }
+    // 새로고침시 
+    window.addEventListener('beforeunload', function(event) {
+      if (game.logic.isHost || game.logic.isGuest){
+        game.logic.socket.close();
+        game.renderer.dispose();
+        renderControlBar(mainPage);
+        resetGlobalState();
+      }
+    });
+    game.start();
+    game.isEnd().then(() => {
+      game.renderer.dispose();
+      ++globalState.step;
+      if (game.logic.winner == "1") {
+        globalState.winner = globalState.currentAlias;
+      } else {
+        globalState.winner = globalState.oppsiteAlias;
+      }
+      renderControlBar(gameResultPage);
+    });
+  } else if (globalState.step == 3) {
+    const nextButton = document.querySelector('.control-bar__confirm__btn--next');
+    nextButton.addEventListener('click', nextHandler);
+    nextButton.setAttribute('href', "/");
+    function nextHandler() {
+      renderControlBar(mainPage);
+      resetGlobalState();
+      nextButton.removeEventListener('click', nextHandler);
+    }
+  }
+}

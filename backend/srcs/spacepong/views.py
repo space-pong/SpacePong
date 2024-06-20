@@ -10,8 +10,8 @@ from .serializers import DataSerializer
 class DataAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        # Data = GameData.objects.filter(myName=request.user)
-        Data = GameData.objects.all()
+        Data = GameData.objects.filter(myName=request.user)
+        # Data = GameData.objects.all()
         serializer = DataSerializer(Data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
@@ -31,8 +31,8 @@ class DataAPI(APIView):
                 RoomNumber=request.user.username,
                 myName='',
                 oppositeName=request.user.username,
-                hostName='',
-                guestName=request.user.username,
+                hostName=request.user.username,
+                guestName='',
                 mySkin='',
                 oppositeSkin=request.data.get('mySkin')
         )
@@ -43,14 +43,19 @@ class DataAPI(APIView):
                 opposite.guestName = request.user.username
                 opposite.oppositeSkin = request.data.get('mySkin')
                 opposite.save()
-            myself = GameData.objects.filter(myName='',hostName='',mySkin='').first()
+            myself = GameData.objects.filter(myName='',guestName='',mySkin='').first()
             if myself:
                 myself.myName = request.user.username
-                myself.hostName = request.user.username
+                myself.guestName = request.user.username
                 myself.mySkin = request.data.get('mySkin')
                 myself.save()
         return Response("OK")
 
     def delete(self, request):
-        GameData.objects.filter(myName=request.user).delete()
+        delete_field = request.data.get('delete_field')
+        if delete_field == 'myName':
+            GameData.objects.filter(myName=request.user).delete()
+        elif delete_field == 'all':
+            GameData.objects.filter(myName=request.user).delete()
+            GameData.objects.filter(oppositeName=request.user).delete()
         return Response("OK")
