@@ -29,10 +29,35 @@ export class Router {
       {path: "/tournamentTable", view: tournamentTablePage},
       {path: "/tournamentFill", view: tournamentFillAliasPage},
     ];
-    window.addEventListener('popstate', () => this.route());
+    //window.addEventListener('popstate', () => this.route());
+    this.route = this.route.bind(this);
+    window.addEventListener('popstate', (e) => {
+      Object.assign(globalState, e.state.save);
+      this.route();
+    });
 
-    // this.route(); 
-    // app.js init함수에서 불러오는게 맞을 것 같아서 주석처리하겠습니다. 
+    window.addEventListener('beforeunload', () => {
+      history.replaceState({ save: globalState }, null, window.location.pathname);
+    });
+
+    window.addEventListener('load', (e) => {
+      /* if (window.location.pathname === '/game') {
+        //window.location.href = '/';
+        this.navigateTo('/game');
+      } */
+      const state = window.history.state;
+      if (state && state.save) {
+        Object.assign(globalState, state.save);
+      }
+    });
+
+   /*  window.addEventListener('load', (event) => {
+      // game 중 새로고침 되었을 때 동작
+      if (window.location.pathname === '/game') {
+        window.location.href = '/';
+      }
+    }); */
+
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
@@ -50,16 +75,21 @@ export class Router {
         this.navigateTo(path);
       }
     });
-
   }
 
-
   async route(router) {
+    if (window.location.pathname !== '/login' && 
+        window.location.pathname !== '/otp' &&
+        window.location.pathname !== '/' &&
+        globalState.intraID === null) {
+      resetGlobalState();
+      window.location.pathname = '/login';
+    }
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
-    } else if (match == '/') {
+    } else if (match.route.path === '/') {
       resetGlobalState();
     }
     await this.render(match, this);
@@ -78,7 +108,9 @@ export class Router {
   }
 
   async navigateTo(url) {
-    history.pushState(globalState, null, url);
+
+    history.pushState({ save: globalState }, null, url);
+
     await this.route();
   }
 }

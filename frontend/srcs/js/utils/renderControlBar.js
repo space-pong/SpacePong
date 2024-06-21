@@ -14,6 +14,7 @@ import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
 
 export async function renderControlBar(page, router) {
+  console.log(globalState);
   const target = document.querySelector('.control-bar');
   const renderedHTML = await page.getHtml();
   target.classList.remove('fade-in');
@@ -373,7 +374,6 @@ async function renderControlBarRemote(page) {
     }
     const cancelButton = document.querySelector('.control-bar__confirm__btn--cancel');
     cancelButton.addEventListener('click', cancelHandler);
-    cancelButton.setAttribute('data-link', "mainPage");
     function cancelHandler() {
       resetGlobalState();
       selectButton.removeEventListener('click', selectHandler);
@@ -386,7 +386,6 @@ async function renderControlBarRemote(page) {
     if (cancelButton){
       cancelButton.addEventListener('click', cancelHandler);
       cancelButton.setAttribute('href', "/unitSelect");
-      cancelButton.setAttribute('data-link', "unitSelectPage");
     }
     function cancelHandler() {
       cancelClicked = true;

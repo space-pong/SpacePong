@@ -1,4 +1,4 @@
-const globalState = {
+var globalState = {
   intraID: null,
   gameMode: null,
   step: 0,
