@@ -67,7 +67,6 @@ export async function checkaccess() {
     return true;
   }
   else {
-    console.error("checkaccess error");
     return false;
   }
 }

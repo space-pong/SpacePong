@@ -14,7 +14,6 @@ import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
 
 export async function renderControlBar(page, router) {
-  console.log(globalState);
   const target = document.querySelector('.control-bar');
   const renderedHTML = await page.getHtml();
   target.classList.remove('fade-in');
@@ -393,21 +392,19 @@ async function renderControlBarRemote(page) {
       --globalState.step;
       cancelButton.removeEventListener('click', cancelHandler);
     }
-    // 새로고침시
-    window.addEventListener('beforeunload', function(event) {
-      deleteData("all");
-      renderControlBar(mainPage);
-      resetGlobalState();
-    });
     // 매치메이킹 요청
-    let skin = {
-      "mySkin": globalState.unit.player1
-    };
-    await postData(skin);
+    await postData(globalState.unit.player1);
     // 매치메이킹 응답 받기 (polling)
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
     let data = await getData();
     while (data[0].oppositeName.length === 0 && !cancelClicked){
       data = await getData();
+      if (data.length === 0) {
+        return;
+      }
+      await sleep(1000); // 1초 마다 polling
     }
     // 매치 상대와 게임 시작
     if (!cancelClicked)
@@ -433,15 +430,6 @@ async function renderControlBarRemote(page) {
     else {
       game.logic.setGuest(globalState.roomNumber);
     }
-    // 새로고침시 
-    window.addEventListener('beforeunload', function(event) {
-      if (game.logic.isHost || game.logic.isGuest){
-        game.logic.socket.close();
-        game.renderer.dispose();
-        renderControlBar(mainPage);
-        resetGlobalState();
-      }
-    });
     game.start();
     game.isEnd().then(() => {
       game.renderer.dispose();
