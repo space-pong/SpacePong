@@ -17,44 +17,4 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: config/settings.py:201
-msgid "English"
-msgstr "English"
 
-#: config/settings.py:202
-msgid "French"
-msgstr ""
-
-#: config/settings.py:203
-msgid "Spanish"
-msgstr ""
-
-msgid "SAPCE PONG"
-msgstr ""
-
-msgid "ft_transcendence"
-msgstr ""
-
-msgid “Unit”
-Msgstr ””
-
-msgid "Default"
-msgstr ""
-
-msgid "Zerg"
-msgstr ""
-
-msgid "Remote Play"
-msgstr "”
-
-msgid "Tournament"
-msgstr ""
-
-msgid “Select”
-msgstr “”
-
-msgid “Cancel”
-msgstr “”
-
-msgid “Guest”
-msgstr “”

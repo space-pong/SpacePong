@@ -8,6 +8,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
 import os
+from .models import OTPData
+from django.utils import timezone
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -42,8 +44,8 @@ class faAPI(APIView):
 
         print ("post test!")
     # 네이버 메일 계정 정보
-        email_address = 'kongzzoo29@naver.com'
-        email_password = 'space123' #각자 자기 이메일 비밀번호 넣기
+        email_address = os.environ['otp_email_addr']
+        email_password = os.environ['otp_email_pwd'] #각자 자기 이메일 비밀번호 넣기
         #네이버메일 - 환경설정 - POP3/SMTP 사용함으로 설정
 
     # 이메일 내용 설정
@@ -70,4 +72,26 @@ class faAPI(APIView):
             server.quit()
             print ("post fail!")
             return Response(e)
-            
+
+
+class authAPI(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        data = OTPData.objects.filter(myName=request.user).first()
+        if data:
+            time_difference = timezone.now() - data.created_at
+            if time_difference.total_seconds() <= 3600:
+                return Response("success")        
+        return Response("fail")
+    def post(self, request):
+        data = OTPData.objects.filter(myName=request.user).first()
+        if data:
+            data.created_at = timezone.now()
+            data.save()
+        else:
+            OTPData.objects.create(
+                myName=request.user.username,
+                created_at=timezone.now()
+            )
+        return Response("success")
+
