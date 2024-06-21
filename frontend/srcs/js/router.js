@@ -13,6 +13,7 @@ import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js';
 import { renderLogin } from './utils/renderLogin.js';
 import { otpPage } from './pages/otpPage.js';
+import { getData, postData, deleteData } from './utils/api.js'
 
 export class Router {
   constructor() {
@@ -29,9 +30,13 @@ export class Router {
       {path: "/tournamentTable", view: tournamentTablePage},
       {path: "/tournamentFill", view: tournamentFillAliasPage},
     ];
-    //window.addEventListener('popstate', () => this.route());
     this.route = this.route.bind(this);
+
     window.addEventListener('popstate', (e) => {
+      // remote 매치메이킹 중이였을 때, 뒤로가기, 앞으로가기 로직
+      if (globalState.gameMode === "remote" && globalState.step === 1) {
+        deleteData("all");
+      }
       Object.assign(globalState, e.state.save);
       this.route();
     });
@@ -41,23 +46,21 @@ export class Router {
     });
 
     window.addEventListener('load', (e) => {
-      /* if (window.location.pathname === '/game') {
-        //window.location.href = '/';
-        this.navigateTo('/game');
-      } */
       const state = window.history.state;
       if (state && state.save) {
         Object.assign(globalState, state.save);
       }
-    });
-
-   /*  window.addEventListener('load', (event) => {
-      // game 중 새로고침 되었을 때 동작
-      if (window.location.pathname === '/game') {
-        window.location.href = '/';
+      // remote 매치메이킹 중이였을 때, 새로고침시 로직
+      if (globalState.gameMode === "remote" && globalState.step === 1) {
+        deleteData("all");
+        this.navigateTo("/");
       }
-    }); */
-
+      // Todo: remote 게임 중이였을 때, 새로고침시 로직
+      if (globalState.gameMode === "remote" && globalState.step === 2) {
+        // game 객체 및 리소스 잘 종료되는지 확인 필요
+        this.navigateTo("/");
+      }
+    });
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {

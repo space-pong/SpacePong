@@ -19,8 +19,11 @@ export async function getData() {
   return data;
 }
 
-export async function postData(data = {}) {
+export async function postData(skin) {
   await checkaccess()
+  let data = {
+    "mySkin": skin
+  };
   const token = localStorage.getItem('accessToken');
   const response = await fetch('spacepong/data/', {
     method: 'POST',
