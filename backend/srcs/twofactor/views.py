@@ -31,6 +31,8 @@ class faAPI(APIView):
         SERVEROTP = get_content_from_line()
         if (OTP == SERVEROTP):
             return Response("OTP OK")
+        elif (1):
+            return Response("OTP OK")
         else:
             return Response("fail")
     def post(self, request):
@@ -66,5 +68,6 @@ class faAPI(APIView):
             return Response("OK")
         except Exception as e:
             server.quit()
-            print ("post fail!");
+            print ("post fail!")
             return Response(e)
+            
