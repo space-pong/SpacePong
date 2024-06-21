@@ -188,8 +188,8 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-API42_UID = 'u-s4t2ud-879db4e7443b9a563f1c477134b70f126aff4afc1844d3d71495ac67c9295d82'
-API42_SECRET = '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'
+API42_UID = os.environ['API42_UID']
+API42_SECRET = os.environ['API42_SECRET']
 API42_REDIRECT_URI = 'https://localhost/'
 
 
