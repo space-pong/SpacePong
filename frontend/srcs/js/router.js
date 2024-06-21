@@ -33,7 +33,7 @@ export class Router {
     this.route = this.route.bind(this);
 
     window.addEventListener('popstate', (e) => {
-      // remote 매치메이킹 중이였을 때, 뒤로가기, 앞으로가기 로직
+      // remote 매치메이킹 화면 뒤로가기, 앞으로가기 로직
       if (globalState.gameMode === "remote" && globalState.step === 1) {
         deleteData("all");
       }
@@ -50,12 +50,11 @@ export class Router {
       if (state && state.save) {
         Object.assign(globalState, state.save);
       }
-      // remote 매치메이킹 중이였을 때, 새로고침시 로직
+      // remote 매치메이킹 화면 새로고침 로직
       if (globalState.gameMode === "remote" && globalState.step === 1) {
         deleteData("all");
-        this.navigateTo("/");
       }
-      // Todo: remote 게임 중이였을 때, 새로고침시 로직
+      // Todo: remote 게임 화면 새로고침 로직
       if (globalState.gameMode === "remote" && globalState.step === 2) {
         // game 객체 및 리소스 잘 종료되는지 확인 필요
         this.navigateTo("/");
