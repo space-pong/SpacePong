@@ -8,6 +8,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
 import os
+from .models import OTPData
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -68,3 +69,25 @@ class faAPI(APIView):
             server.quit()
             print ("post fail!");
             return Response(e)
+
+
+class authAPI(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        Data = GameData.objects.filter(myName=request.user)
+        if Data:
+            time_difference = timezone.now() - Data.created_at
+            if time_difference.total_seconds() <= 3600:
+                return Response("success")        
+        return Response("fail")
+    def post(self, request):
+        Data = GameData.objects.filter(myName=request.user)
+        if Data:
+            Data.created_at = timezone.now()
+            opposite.save()
+        else:
+            OTPData.objects.create(
+                myName=request.user.username,
+                created_at=timezone.now()
+            )
+        return Response("success")
