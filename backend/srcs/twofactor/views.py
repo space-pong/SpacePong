@@ -40,8 +40,8 @@ class faAPI(APIView):
 
         print ("post test!")
     # 네이버 메일 계정 정보
-        email_address = 'kongzzoo29@naver.com'
-        email_password = 'space123' #각자 자기 이메일 비밀번호 넣기
+        email_address = os.environ['otp_email_addr']
+        email_password = os.environ['otp_email_pwd'] #각자 자기 이메일 비밀번호 넣기
         #네이버메일 - 환경설정 - POP3/SMTP 사용함으로 설정
 
     # 이메일 내용 설정

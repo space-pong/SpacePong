@@ -58,3 +58,18 @@ msgstr "Cancelar"
 
 msgid "Guest"
 msgstr "Invitado"
+
+msgid "Enter OTP number"
+msgstr "Ingresar un codigo de solo uso"
+
+msgid "Click \"Send\" botton"
+msgstr "Clic \"Enviar\" boton"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Enter"
+msgstr "Ingresar"
+
+msgid "Login"
+msgstr "Acceso"
