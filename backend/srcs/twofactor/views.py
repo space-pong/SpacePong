@@ -71,17 +71,17 @@ class faAPI(APIView):
 class authAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        Data = GameData.objects.filter(myName=request.user)
-        if Data:
-            time_difference = timezone.now() - Data.created_at
-            if time_difference.total_seconds() <= 3600:
+        data = OTPData.objects.filter(myName=request.user).first()
+        if data:
+            time_difference = timezone.now() - data.created_at
+            if time_difference.total_seconds() <= 1:
                 return Response("success")        
         return Response("fail")
     def post(self, request):
-        Data = GameData.objects.filter(myName=request.user)
-        if Data:
-            Data.created_at = timezone.now()
-            opposite.save()
+        data = OTPData.objects.filter(myName=request.user).first()
+        if data:
+            data.created_at = timezone.now()
+            data.save()
         else:
             OTPData.objects.create(
                 myName=request.user.username,
