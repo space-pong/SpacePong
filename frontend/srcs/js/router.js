@@ -90,6 +90,7 @@ export class Router {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
       return ;
     } else if (match.route.path === '/') {
+      globalState.intraID = localStorage.getItem('spacePongIntraID');
       resetGlobalState();
     }
     await this.render(match, this);
