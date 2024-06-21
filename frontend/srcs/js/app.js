@@ -8,8 +8,6 @@ async function handleLogin(router) {
   let isLoggedIn = await checkaccess();
   if (isLoggedIn && globalState.otp == true) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
-    console.log("handlelogin!");
-    //router.navigateTo("/"); // 새로고침시 메인 화면으로 가지는 코드
   } else {
     await fetchTokens(router);
     isLoggedIn = await checkaccess();
@@ -23,7 +21,6 @@ async function handleLogin(router) {
 async function init() {
   const router = new Router();
   await handleLogin(router);
-  console.log(globalState);
   router.route(router);
 }
 
