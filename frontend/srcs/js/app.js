@@ -1,19 +1,23 @@
 //import './utils/renderPage.js';
 import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js'; 
-
 import { Router } from './router.js';
+import { checkOTP } from './utils/api.js'
 
 async function handleLogin(router) {
   let isLoggedIn = await checkaccess();
-  if (isLoggedIn && globalState.otp == true) {
+  let hasOTP = await checkOTP();
+  if (isLoggedIn && hasOTP === true) {
     globalState.intraID = localStorage.getItem('spacePongIntraID');
   } else {
     await fetchTokens(router);
     isLoggedIn = await checkaccess();
-    if (!isLoggedIn)
-    {
+    if (!isLoggedIn) {
       await router.navigateTo("/login");
+    }
+    hasOTP = await checkOTP();
+    if (isLoggedIn && !hasOTP) {
+      await router.navigateTo("/otp");
     }
   }
 }

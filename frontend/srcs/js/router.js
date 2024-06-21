@@ -13,7 +13,7 @@ import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js';
 import { renderLogin } from './utils/renderLogin.js';
 import { otpPage } from './pages/otpPage.js';
-import { getData, postData, deleteData } from './utils/api.js'
+import { getData, postData, deleteData, checkOTP } from './utils/api.js'
 
 export class Router {
   constructor() {
@@ -84,6 +84,12 @@ export class Router {
         window.location.pathname !== '/otp' &&
         window.location.pathname !== '/' &&
         globalState.intraID === null) {
+      resetGlobalState();
+      window.location.pathname = '/login';
+    }
+    const hasOTP = await checkOTP();
+    if (globalState.intraID !== null &&
+      hasOTP === false) {
       resetGlobalState();
       window.location.pathname = '/login';
     }
