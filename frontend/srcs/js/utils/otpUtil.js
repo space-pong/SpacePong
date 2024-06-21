@@ -1,5 +1,6 @@
 import globalState from '../globalState.js';
 import { Router } from '../router.js';
+import { registerOTP } from '../utils/api.js'
 
 export function otpUtil(router) {
     document.querySelector('#otpInput').focus();
@@ -14,7 +15,6 @@ export function otpUtil(router) {
         const OTP_num = document.querySelector('#otpInput').value.trim();
         if (OTP_num)
         {
-            // console.log("I have otp num!");
             const token = localStorage.getItem('accessToken');
             try {
                 const response = await fetch(`twofactor/mail/?OTP=${OTP_num}`, {
@@ -30,10 +30,8 @@ export function otpUtil(router) {
                 }
                 const data = await response.json();
                 if (data === "OTP OK") {
-                    globalState.otp = true;
-                    // console.log("otp ok : ", globalState.otp);
+                    registerOTP();
                     await router.navigateTo("/");
-                    // window.location.pathname = "/";
                 } else {
                     alert("OTP authentication failed");
                 }

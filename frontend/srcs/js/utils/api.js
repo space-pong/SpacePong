@@ -34,7 +34,7 @@ export async function postData(skin) {
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    console.error('Error fetching data:');
+    console.error('Error post data:');
     return;
   }
   return response.json();
@@ -55,8 +55,45 @@ export async function deleteData(type) {
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    console.error('Error fetching data:');
+    console.error('Error delete data:');
     return;
   }
   return response.json();
+}
+
+export async function checkOTP() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('twofactor/auth/', {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    },
+  });
+  if (!response.ok) {
+    console.error('Error check OTP data:');
+    return;
+  }
+  const data = await response.json();
+  if (data === "success") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export async function registerOTP() {
+  await checkaccess()
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch('twofactor/auth/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    }
+  });
+  if (!response.ok) {
+    console.error('Error post OTP data:');
+  }
 }
