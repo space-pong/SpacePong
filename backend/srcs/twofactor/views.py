@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 import datetime
 import os
 from .models import OTPData
+from django.utils import timezone
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -77,7 +78,7 @@ class authAPI(APIView):
         data = OTPData.objects.filter(myName=request.user).first()
         if data:
             time_difference = timezone.now() - data.created_at
-            if time_difference.total_seconds() <= 1:
+            if time_difference.total_seconds() <= 3600:
                 return Response("success")        
         return Response("fail")
     def post(self, request):
