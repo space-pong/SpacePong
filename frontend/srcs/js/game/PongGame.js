@@ -56,10 +56,13 @@ export class PongGame {
 
       // 인터벌로 this.logic.isEnd를 체크
       const intervalId = setInterval(() => {
-        if (!this.logic.isEnd) {
+        if (this.logic === null) {
+          // 뒤로가기 누른 경우
           clearInterval(intervalId); // 인터벌 중지
+          return;
         }
         if (this.logic.isEnd === true) {
+          // 게임이 끝난 경우
           clearInterval(intervalId); // 인터벌 중지
           resolve(true); // Promise를 해결
         }
