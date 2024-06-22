@@ -55,7 +55,6 @@ export async function checkaccess() {
     });
     if (!accessresponse.ok) {
     const errorData = await accessresponse.json();
-    console.log("errorData: ", errorData);
     console.error('Error verifying access token:', errorData.error);
     return false;
     }

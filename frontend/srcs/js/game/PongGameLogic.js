@@ -94,7 +94,6 @@ export class PongGameLogic {
 
   #recv(event) {
     const data = JSON.parse(event.data);
-    console.log(data);
     // 상대방 연결이 끊긴 경우
     if (data.disconnect === "true"){
       this.winner = "1";
@@ -157,12 +156,14 @@ export class PongGameLogic {
     }
     this.endTime = performance.now();
     let gapTime = this.startTime - this.endTime;
+    if (this.isEnd) {
+      return;
+    }
     if (gapTime < (1000.0 / 60.0)) {
       setTimeout(this.loop, (1000.0 / 60.0) - gapTime);
     } else {
       setTimeout(this.loop, 0);
     }
-    
   }
 
   updateGuestScore() {
