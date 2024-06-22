@@ -8,6 +8,8 @@ var globalState = {
   hostName: null,
   guestName: null,
   otp: false,
+  lastClickTime: 0,
+  clickDelay: 1000, // 1초
   alias: {
     player1: null,
     player2: "guest1",

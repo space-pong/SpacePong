@@ -37,7 +37,7 @@ export class Router {
       if (globalState.gameMode === "remote" && globalState.step === 1) {
         deleteData("all");
       }
-      
+
       Object.assign(globalState, e.state.save);
       this.route();
     });
@@ -64,6 +64,13 @@ export class Router {
 
     document.body.addEventListener('click', (e) => {
       if (e.target.matches('[data-link]')) {
+        const currentTime = Date.now();
+        if (currentTime - globalState.lastClickTime < globalState.clickDelay) {
+          // 1초 이내에 클릭이 발생했으므로 이벤트 처리를 하지 않음
+          return;
+        }
+        globalState.lastClickTime = currentTime;
+
         e.preventDefault();
         const path = e.target.getAttribute('href');
         const gameMode = e.target.getAttribute('game-mode');
