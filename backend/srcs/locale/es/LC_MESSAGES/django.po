@@ -23,11 +23,11 @@ msgstr "Ingles"
 
 #: config/settings.py:202
 msgid "French"
-msgstr "Frances"
+msgstr "Francés"
 
 #: config/settings.py:203
 msgid "Spanish"
-msgstr "Espanol"
+msgstr "Español"
 
 msgid "SPACE PONG"
 msgstr "SPACE PONG(es)"
@@ -47,11 +47,14 @@ msgstr "Zerg"
 msgid "Remote Play"
 msgstr "Jugega Remotamente"
 
+msgid "Play"
+msgstr "Jugar"
+
 msgid "Tournament"
 msgstr "Torneo"
 
 msgid "Select"
-msgstr "Selecciónar"
+msgstr "Seleccionar"
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -59,11 +62,24 @@ msgstr "Cancelar"
 msgid "Guest"
 msgstr "Invitado"
 
-msgid "Enter OTP number"
-msgstr "Ingresar un codigo de solo uso"
+msgid "guest1"
+msgstr "invitado1"
 
-msgid "Click \"Send\" botton"
-msgstr "Clic \"Enviar\" boton"
+msgid "guest2"
+msgstr "invitado2"
+
+msgid "guest3"
+msgstr "invitado3"
+
+msgid "guest4"
+msgstr "invitado4"
+
+
+msgid "Enter OTP number"
+msgstr "Ingresar el código OTP"
+
+msgid "Click \"Send\" button"
+msgstr "Clic \"Enviar\" botón"
 
 msgid "Send"
 msgstr "Enviar"
@@ -73,3 +89,27 @@ msgstr "Ingresar"
 
 msgid "Login"
 msgstr "Acceso"
+
+msgid "vs"
+msgstr "contra"
+
+msgid "Winner"
+msgstr "Ganador"
+
+msgid "Next"
+msgstr "Próximo"
+
+msgid "Finding match"
+msgstr "Buscar partida"
+
+msgid "Loading"
+msgstr "Carga"
+
+msgid "Group"
+msgstr "Grupo"
+
+msgid "Final"
+msgstr "Final"
+
+msgid "match plan"
+msgstr "plan de partido"
