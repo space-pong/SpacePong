@@ -7,6 +7,9 @@ import { PongGameRenderer } from "./PongGameRenderer.js";
 
 export class PongGame {
   constructor() {
+    window.addEventListener('popstate', (e) => {
+      this.destroy();
+    });
   }
 
   async init (controller1, controller2, skin1, skin2, divId) {
@@ -53,6 +56,9 @@ export class PongGame {
 
       // 인터벌로 this.logic.isEnd를 체크
       const intervalId = setInterval(() => {
+        if (!this.logic.isEnd) {
+          clearInterval(intervalId); // 인터벌 중지
+        }
         if (this.logic.isEnd === true) {
           clearInterval(intervalId); // 인터벌 중지
           resolve(true); // Promise를 해결
@@ -61,4 +67,16 @@ export class PongGame {
     });
   }
 
+  destroy() {
+    if (this.logic !== null) {
+      this.logic.isEnd = true;
+    }
+    if (this.renderer !== null) {
+      this.renderer.dispose();
+    }
+    this.controller1 = null;
+    this.controller2 = null;
+    this.logic = null;
+    this.renderer = null;
+  }
 }

@@ -295,8 +295,6 @@ async function renderControlBarTournament(page) {
 
 
 async function renderControlBarAI(page) {
-  // let isLoggedIn = await checkaccess();
-  // console.log("isLoggedIn: ", isLoggedIn);
   if (globalState.step == 0) {
     globalState.oppsiteAlias = "AI";
     const selectButton = document.querySelector('.control-bar__confirm__btn--select');

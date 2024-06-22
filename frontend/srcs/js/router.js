@@ -37,6 +37,7 @@ export class Router {
       if (globalState.gameMode === "remote" && globalState.step === 1) {
         deleteData("all");
       }
+      
       Object.assign(globalState, e.state.save);
       this.route();
     });

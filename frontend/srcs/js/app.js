@@ -15,10 +15,10 @@ async function handleLogin(router) {
     if (!isLoggedIn) {
       await router.navigateTo("/login");
     }
-    hasOTP = await checkOTP();
-    if (isLoggedIn && !hasOTP) {
-      await router.navigateTo("/otp");
-    }
+  }
+  hasOTP = await checkOTP();
+  if (isLoggedIn && !hasOTP) {
+    await router.navigateTo("/otp");
   }
 }
 
