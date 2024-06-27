@@ -12,6 +12,7 @@ import { getData, postData, deleteData } from './api.js'
 import { checkaccess, fetchTokens } from './checkToken.js';
 import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
+import { evalAliases } from "./evalAliases.js";
 
 export async function renderControlBar(page, router) {
   const target = document.querySelector('.control-bar');
@@ -46,12 +47,21 @@ async function renderControlBarPvp(page) {
     const playButton = document.querySelector('.control-bar__confirm__btn--play');
     playButton.setAttribute('href', "/unitSelect");
     playButton.addEventListener('click', playHandler);
-    function playHandler() {
+    let modified_aliases = [];
+    async function playHandler() {
       for (let i = 1; i <= 2; ++i) {
         let aliasInput = document.getElementById(`alias${i}`);
         if (aliasInput.value !== "") {
           globalState.alias[`player${i}`] = aliasInput.value;
         }
+      }
+      for (let i = 1; i <= 2; ++i) {
+        modified_aliases.push(globalState.alias[`player${i}`])
+      }
+      const response = await evalAliases(modified_aliases); 
+      modified_aliases = response.modified_aliases;
+      for (let i = 0; i <= 1; ++i) {
+        globalState.alias[`player${i + 1}`] = modified_aliases[i];
       }
       ++globalState.step;
       globalState.currentAlias = globalState.alias.player1;
@@ -141,12 +151,21 @@ async function renderControlBarTournament(page) {
     const playButton = document.querySelector('.control-bar__confirm__btn--play');
     playButton.setAttribute('href', "/unitSelect");
     playButton.addEventListener('click', playHandler);
-    function playHandler() {
+    let modified_aliases = []; 
+    async function playHandler() {
       for (let i = 1; i <= 4; ++i) {
         let aliasInput = document.getElementById(`alias${i}`);
         if (aliasInput.value !== "") {
           globalState.alias[`player${i}`] = aliasInput.value;
         }
+      }
+      for (let i = 1; i <= 4; ++i) {
+        modified_aliases.push(globalState.alias[`player${i}`])
+      }
+      const response = await evalAliases(modified_aliases); 
+      modified_aliases = response.modified_aliases;
+      for (let i = 0; i <= 3; ++i) {
+        globalState.alias[`player${i + 1}`] = modified_aliases[i];
       }
       ++globalState.step;
       globalState.currentAlias = globalState.alias.player1;

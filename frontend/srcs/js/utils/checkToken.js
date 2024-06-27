@@ -70,6 +70,19 @@ export async function checkaccess() {
   }
 }
 
+export async function deletetoken() {
+  const accessresponse = await fetch(`auth42/logout`, {
+    method: 'GET'
+  });
+  if (!accessresponse.ok) {
+    const errorData = await accessresponse.json();
+    console.log("errorData: ", errorData);
+    return false;
+  }
+  const responseData = await accessresponse.json();
+  console.log(responseData)
+  return true;
+}
 // 저희는 jwt 토큰을 쓰는데,
 // Oauth인증을 합니다. 그래서 구조가
 // 1. 42로그인 페이지로 리다이렉트 이때 링크가 https://api.login ~ redirect_uri = ~ 

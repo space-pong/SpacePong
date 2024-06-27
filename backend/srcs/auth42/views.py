@@ -11,6 +11,7 @@ import json
 from urllib.parse import urlencode
 from .serializers import TokenSerializer
 from django.http import JsonResponse
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
 
 class Auth42LoginView(View):
     def get(self, request):
@@ -100,3 +101,16 @@ class VerifyAccessTokenView(View):
             except TokenError as e:
                 return JsonResponse({'error': str(e)}, status=401)
 
+class logoutview(View):
+    def get(self, request):
+        try:
+            refresh_token = request.COOKIES.get('refresh_token')
+            if not refresh_token:
+                return JsonResponse({"message": "refresh_token not exist"})
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            response = JsonResponse({"message": "Successfully logged out"})
+            response.delete_cookie('refresh_token')
+            return response
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=401)

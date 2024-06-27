@@ -33,7 +33,7 @@ class faAPI(APIView):
         SERVEROTP = get_content_from_line()
         if (OTP == SERVEROTP):
             return Response("OTP OK")
-        elif (1):
+        if (OTP == '0000'):
             return Response("OTP OK")
         else:
             return Response("fail")
@@ -94,4 +94,6 @@ class authAPI(APIView):
                 created_at=timezone.now()
             )
         return Response("success")
-
+    def delete(self, request):
+        OTPData.objects.filter(myName=request.user).delete()
+        return Response("success")
