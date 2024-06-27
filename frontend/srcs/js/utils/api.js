@@ -95,3 +95,20 @@ export async function registerOTP() {
     console.error('Error post OTP data:');
   }
 }
+
+export async function deleteOTP() {
+  const token = localStorage.getItem('accessToken');
+  if (!token) {
+    return;
+  }
+  const response = await fetch('twofactor/auth/', {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
+    },
+  });
+  if (!response.ok) {
+    console.error('Error delete OTP data:');
+  }
+}
