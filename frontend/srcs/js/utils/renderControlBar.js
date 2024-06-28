@@ -1,6 +1,7 @@
 // js/utils/renderControlBar.js
 import { loadCSS } from './loadCss.js';
 import { KeyboardController } from '../game/Controller/KeyboardController.js'
+import { Controller } from '../game/Controller/Controller.js'
 import { AIController } from '../game/Controller/AIController.js'
 import { PongGame } from '../game/PongGame.js'
 import globalState, { resetGlobalState } from '../globalState.js';
@@ -437,7 +438,7 @@ async function renderControlBarRemote(page) {
     }
   } else if (globalState.step == 2) {
     const key1 = new KeyboardController(37, 39, 38, 40, 32);
-    const key2 = new KeyboardController(65, 68, 87, 83, 70);
+    const key2 = new Controller();
     const game = new PongGame();
     await game.init(key1, key2, globalState.unit.player1, globalState.unit.player2, "art");
     game.logic.setScoreID('.player1-score', '.player2-score');
