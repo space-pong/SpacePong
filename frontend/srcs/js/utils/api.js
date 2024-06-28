@@ -1,6 +1,7 @@
 import { checkaccess } from './checkToken.js'
 
 export async function getData() {
+  await checkaccess();
   const token = localStorage.getItem('accessToken');
   const response = await fetch('spacepong/data/', {
     method: 'GET',
@@ -19,6 +20,7 @@ export async function getData() {
 }
 
 export async function postData(skin) {
+  await checkaccess();
   let data = {
     "mySkin": skin
   };
@@ -39,6 +41,7 @@ export async function postData(skin) {
 }
 
 export async function deleteData(type) {
+  await checkaccess();
   let data = {
     "delete_field": type
   };
@@ -59,6 +62,7 @@ export async function deleteData(type) {
 }
 
 export async function checkOTP() {
+  await checkaccess();
   const token = localStorage.getItem('accessToken');
   if (!token) {
     return;
@@ -83,6 +87,7 @@ export async function checkOTP() {
 }
 
 export async function registerOTP() {
+  await checkaccess();
   const token = localStorage.getItem('accessToken');
   const response = await fetch('twofactor/auth/', {
     method: 'POST',
@@ -97,6 +102,7 @@ export async function registerOTP() {
 }
 
 export async function deleteOTP() {
+  await checkaccess();
   const token = localStorage.getItem('accessToken');
   if (!token) {
     return;
