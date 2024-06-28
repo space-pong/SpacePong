@@ -101,6 +101,14 @@ export class Router {
       resetGlobalState();
       window.location.pathname = '/login';
     }
+
+    if (window.location.pathname !== '/login' && 
+        window.location.pathname !== '/otp' &&
+        window.location.pathname !== '/' &&
+        globalState.gameMode == null) {
+      resetGlobalState();
+      window.location.pathname = '/';
+    }
     let match = this.findMatch();
     if (!match) {
       document.querySelector('#app').innerHTML = `<h1>404</h1>`;
