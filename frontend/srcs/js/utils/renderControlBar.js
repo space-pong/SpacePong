@@ -421,7 +421,7 @@ async function renderControlBarRemote(page) {
       if (data.length === 0) {
         return;
       }
-      await sleep(1000); // 1초 마다 polling
+      await sleep(1000.0 / 60.0); // 16.666ms 마다 polling
     }
     // 매치 상대와 게임 시작
     if (!cancelClicked)
