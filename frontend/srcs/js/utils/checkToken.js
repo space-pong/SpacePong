@@ -50,7 +50,7 @@ export async function fetchTokens(router) {
 export async function checkaccess() {
   let token = localStorage.getItem('accessToken');
   if (token) {
-    const accessresponse = await fetch(`auth42/access?access_token=${token}}`, {
+    const accessresponse = await fetch(`auth42/access?access_token=${token}`, {
     method: 'GET'
     });
     if (!accessresponse.ok) {
