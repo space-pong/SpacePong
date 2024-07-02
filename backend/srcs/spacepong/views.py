@@ -11,10 +11,11 @@ class DataAPI(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         Data = GameData.objects.filter(myName=request.user)
-        # Data = GameData.objects.all()
         serializer = DataSerializer(Data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
+        if (GameData.objects.filter(myName=request.user.username).count() != 0):
+            return Response("OK")
         if (GameData.objects.filter(myName='').count() == 0):
             GameData.objects.create(
                 IsMatched=False,
