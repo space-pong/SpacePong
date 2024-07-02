@@ -3,6 +3,7 @@ import { Controller } from "./Controller/Controller.js";
 import { DualSenseController } from "./Controller/DualSenseController.js";
 import { PongGameLogic } from "./PongGameLogic.js";
 import { PongGameRenderer } from "./PongGameRenderer.js";
+import globalState from "../globalState.js";
 
 
 export class PongGame {
@@ -72,6 +73,9 @@ export class PongGame {
 
   destroy() {
     if (this.logic !== null) {
+      if (globalState.gameMode === "remote") {
+        this.logic.socket.close();
+      }
       this.logic.isEnd = true;
     }
     if (this.renderer !== null) {

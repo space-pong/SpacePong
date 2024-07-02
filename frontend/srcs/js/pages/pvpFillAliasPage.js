@@ -6,8 +6,8 @@ export const pvpFillAliasPage = {
     return `
     <div class="control-bar__title">1 ${await loadTranslation("vs")} 1</div>
     <div class="control-bar__alias-set">
-      <input type="text" name="alias" id="alias1" required placeholder="${await loadTranslation(globalState.alias.player1)}" onfocus="this.placeholder=''" onblur="this.placeholder='${await loadTranslation(globalState.alias.player1)}'" autocomplete="off">
-      <input type="text" name="alias" id="alias2" required placeholder="${await loadTranslation(globalState.alias.player2)}" onfocus="this.placeholder=''" onblur="this.placeholder='${await loadTranslation(globalState.alias.player2)}'" autocomplete="off">
+      <input type="text" name="alias" id="alias1" required placeholder="${globalState.alias.player1}" onfocus="this.placeholder=''" onblur="this.placeholder="${globalState.alias.player1}" autocomplete="off">
+      <input type="text" name="alias" id="alias2" required placeholder="${globalState.alias.player2}" onfocus="this.placeholder=''" onblur="this.placeholder="${globalState.alias.player2}" autocomplete="off">
     </div>
     <div class="control-bar__confirm">
       <button class="control-bar__confirm__btn--play" data-link>${await loadTranslation("Play")}</button>
