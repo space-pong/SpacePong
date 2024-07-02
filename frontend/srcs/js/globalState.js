@@ -1,3 +1,5 @@
+import { loadTranslation } from "./utils/translate.js";
+
 var globalState = {
   intraID: null,
   gameMode: null,
@@ -35,15 +37,15 @@ var globalState = {
 
 export default globalState;
 
-export function resetGlobalState() {
+export async function resetGlobalState() {
   globalState.gameMode = null;
   globalState.step = 0;
   globalState.currentAlias = globalState.intraID;
   globalState.oppsiteAlias = null;
   globalState.alias.player1 = globalState.intraID;
-  globalState.alias.player2 = "guest1";
-  globalState.alias.player3 = "guest2";
-  globalState.alias.player4 = "guest3";
+  globalState.alias.player2 = await loadTranslation("guest1");
+  globalState.alias.player3 = await loadTranslation("guest2");
+  globalState.alias.player4 = await loadTranslation("guest3");
   globalState.unit.player1 = null;
   globalState.unit.player2 = null;
   globalState.unit.player3 = null;
