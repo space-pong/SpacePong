@@ -76,8 +76,6 @@ class Auth42CallbackView(View):
 class VerifyAccessTokenView(View):
     def get(self, request):
         access_token = request.GET.get('access_token')
-        print('@@@@@@@@@@@@@@@@@')
-        print(access_token)
         if not access_token:
             return JsonResponse({'error': 'No authorization access_token provided.'}, status=400)
 

@@ -33,8 +33,6 @@ class faAPI(APIView):
         SERVEROTP = get_content_from_line()
         if (OTP == SERVEROTP):
             return Response("OTP OK")
-        if (OTP == '0000'):
-            return Response("OTP OK")
         else:
             return Response("fail")
     def post(self, request):
@@ -42,7 +40,6 @@ class faAPI(APIView):
         smtp_server = 'smtp.naver.com'
         smtp_port = 587
 
-        print ("post test!")
     # 네이버 메일 계정 정보
         email_address = os.environ['otp_email_addr']
         email_password = os.environ['otp_email_pwd'] #각자 자기 이메일 비밀번호 넣기
