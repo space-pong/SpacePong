@@ -1,4 +1,3 @@
-// js/utils/renderControlBar.js
 import { loadCSS } from './loadCss.js';
 import { KeyboardController } from '../game/Controller/KeyboardController.js'
 import { Controller } from '../game/Controller/Controller.js'
@@ -10,7 +9,6 @@ import { gamePage } from '../pages/gamePage.js';
 import { gameResultPage } from '../pages/gameResultPage.js';
 import { tournamentTablePage } from '../pages/tournamentTablePage.js'
 import { getData, postData, deleteData } from './api.js'
-import { checkaccess, fetchTokens } from './checkToken.js';
 import { otpPage } from '../pages/otpPage.js';
 import { otpUtil } from './otpUtil.js';
 import { evalAliases } from "./evalAliases.js";

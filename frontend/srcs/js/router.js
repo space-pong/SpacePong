@@ -9,11 +9,9 @@ import { gamePage } from './pages/gamePage.js';
 import { gameResultPage } from './pages/gameResultPage.js'
 import { tournamentTablePage } from './pages/tournamentTablePage.js';
 import { tournamentFillAliasPage }  from './pages/tournamentFillAliasPage.js'
-import {fetchTokens, checkaccess} from './utils/checkToken.js'
 import globalState, { resetGlobalState } from './globalState.js';
-import { renderLogin } from './utils/renderLogin.js';
 import { otpPage } from './pages/otpPage.js';
-import { getData, postData, deleteData, checkOTP } from './utils/api.js'
+import { deleteData, checkOTP } from './utils/api.js'
 
 export class Router {
   constructor() {

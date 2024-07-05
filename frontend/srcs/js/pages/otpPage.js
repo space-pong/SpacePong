@@ -1,5 +1,6 @@
 import { loadTranslation } from "../utils/translate.js";
 import { deleteOTP } from "../utils/api.js"
+
 export const otpPage = {
     async getHtml() {
       await deleteOTP();
@@ -39,21 +40,4 @@ export const otpPage = {
     },
     
     css: 'styles/css/otpPage.css', 
-
-    // init() {
-    //     let timerId;
-    //     async function updateTimer() {
-    //         const now = new Date();
-    //         const seconds = now.getSeconds();
-    //         const secondsRemaining = 60 - seconds;
-    //         const otpTimerElement = document.getElementById('otpTimer');
-    //         if (otpTimerElement) {
-    //             otpTimerElement.textContent = secondsRemaining;
-    //         }
-    //         if (secondsRemaining === 0) {
-    //             clearInterval(timerId);
-    //         }
-    //     }
-    //     timerId = setInterval(updateTimer, 1000);
-    // }
 };
