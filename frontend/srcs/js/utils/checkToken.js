@@ -10,7 +10,6 @@ export async function fetchTokens(router) {
     
     if (!code) {
       return ("code error in fetchToken function");
-      // throw new Error('No authorization code provided');
     }
     
     // 액세스 토큰 요청을 위한 fetch 요청
@@ -20,7 +19,6 @@ export async function fetchTokens(router) {
     
     if (!response.ok) {
       return ;
-      throw new Error('Failed to fetch tokens');
     }
     // JSON 형식의 응답 데이터 파싱
     const data = await response.json();
@@ -30,17 +28,6 @@ export async function fetchTokens(router) {
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('spacePongIntraID', data.intra_id);
     globalState.intraID = data.intra_id;
-    // if (globalState.otp == true)
-    // {
-    //   // 로컬 스토리지에 토큰 저장
-    //   localStorage.setItem('accessToken', data.access_token);
-    //   localStorage.setItem('spacePongIntraID', data.intra_id);
-    //   globalState.intraID = data.intra_id;
-    // }
-    // else {
-    //   console.error("otp error!");
-    // }
-    // 모드 선택 페이지 렌더링
   } catch (error) {
     console.error('Error fetching tokens:', error);
     return null;
@@ -75,9 +62,7 @@ export async function deletetoken() {
     method: 'GET'
   });
   if (!accessresponse.ok) {
-    const errorData = await accessresponse.json();
     return false;
   }
-  const responseData = await accessresponse.json();
   return true;
 }

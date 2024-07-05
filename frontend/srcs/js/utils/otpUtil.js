@@ -1,5 +1,3 @@
-import globalState from '../globalState.js';
-import { Router } from '../router.js';
 import { registerOTP } from '../utils/api.js'
 
 export function otpUtil(router) {
