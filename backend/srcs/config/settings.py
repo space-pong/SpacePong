@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from datetime import datetime, timedelta
+from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d0q1&lachfvi3a1*1sc&5x%7=j1ldz3s^!j(as=156c6z=upo&'
+SECRET_KEY = os.environ['DJANGO_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,8 +90,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-import os
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -145,9 +147,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static',
-# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -182,7 +181,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-from datetime import datetime, timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
@@ -193,14 +191,13 @@ SIMPLE_JWT = {
 
 API42_UID = os.environ['API42_UID']
 API42_SECRET = os.environ['API42_SECRET']
-API42_REDIRECT_URI = 'https://localhost/'
+API42_REDIRECT_URI = os.environ['HOST_SRV']
 
 
 LOCALE_PATHS = [ 
       BASE_DIR / 'locale/', 
     ]   # 언어별 단어사전 file, 소위 message file들을 저장하기 위한 locale directory path. locale directory는 일반적으로 django project base directory 바로 아래 생성
 
-from django.utils.translation import gettext_lazy as _
 
 LANGUAGES = (
     ('en', _('English')),

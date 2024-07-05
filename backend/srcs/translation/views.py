@@ -6,7 +6,6 @@ from django.http import JsonResponse
 class TranslationView(View):
     def get(self, request, format=None):
         word = request.GET.get('key', '')
-        print(_(word))
         translations = {'key': _(word)}
 
         return JsonResponse(translations)
